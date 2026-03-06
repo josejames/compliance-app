@@ -1,6 +1,8 @@
 "use client"
 
 import * as React from "react"
+import { usePage } from '@inertiajs/react'
+import { Data } from '@generated/data'
 
 import { NavMain } from "~/components/nav-main"
 import { NavProjects } from "~/components/nav-projects"
@@ -176,6 +178,13 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { user } = usePage<Data.SharedProps>().props
+  const sidebarUser = {
+    name: user?.fullName ?? '',
+    email: user?.email ?? '',
+    avatar: '',
+  }
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -186,7 +195,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={sidebarUser} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

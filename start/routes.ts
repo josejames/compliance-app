@@ -11,7 +11,11 @@ import { middleware } from '#start/kernel'
 import { controllers } from '#generated/controllers'
 import router from '@adonisjs/core/services/router'
 
-router.on('/').renderInertia('dashboard/home', {}).as('home')
+router
+  .group(() => {
+    router.on('/').renderInertia('dashboard/home', {}).as('home')
+  })
+  .use(middleware.auth())
 
 router
   .group(() => {
