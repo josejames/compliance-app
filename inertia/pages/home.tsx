@@ -1,3 +1,5 @@
+import { Button } from "~/components/ui/button";
+
 export default function Home() {
   return (
     <>
@@ -10,6 +12,11 @@ export default function Home() {
         <h2 className="text-3xl font-bold underline">
           Hello world!
         </h2>
+        <div>
+          <Button variant="outline" className="mt-4">
+            Get Started
+          </Button>
+        </div>
       </div>
 
       <div className="grid grid-cols-3 px-12 border-t border-gray-200">

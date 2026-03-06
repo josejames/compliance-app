@@ -4,7 +4,6 @@
 @import "@fontsource-variable/geist";
 
 @custom-variant dark (&:is(.dark *));
-/* Add any custom styles here */
 
 :root {
     --background: oklch(1 0 0);
