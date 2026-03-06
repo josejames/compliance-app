@@ -3,6 +3,7 @@ import { ReactElement } from 'react'
 import { client } from './client'
 import Layout from '~/layouts/default'
 import AuthLayout from '~/layouts/auth'
+import DashboardLayout from '~/layouts/dashboard'
 import { Data } from '@generated/data'
 import { createRoot } from 'react-dom/client'
 import { createInertiaApp } from '@inertiajs/react'
@@ -17,8 +18,11 @@ createInertiaApp({
     return resolvePageComponent(
       `./pages/${name}.tsx`,
       import.meta.glob('./pages/**/*.tsx'),
-      (page: ReactElement<Data.SharedProps>) =>
-        name.startsWith('auth/') ? <AuthLayout children={page} /> : <Layout children={page} />
+      (page: ReactElement<Data.SharedProps>) => {
+        if (name.startsWith('auth/')) return <AuthLayout children={page} />
+        if (name.startsWith('dashboard/')) return <DashboardLayout children={page} />
+        return <Layout children={page} />
+      }
     )
   },
   setup({ el, App, props }) {
