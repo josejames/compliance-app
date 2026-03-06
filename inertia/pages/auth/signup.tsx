@@ -2,69 +2,69 @@ import { Form } from '@adonisjs/inertia/react'
 
 export default function Signup() {
   return (
-    <div className="form-container">
+    <div className="flex flex-col justify-center max-w-sm mx-auto">
       <div>
-        <h1> Signup </h1>
-        <p>Enter your details below to create your account</p>
+        <h1 className="text-3xl tracking-tight my-1"> Signup </h1>
+        <p className="text-lg mb-12 text-gray-500">Enter your details below to create your account</p>
       </div>
 
       <div>
         <Form route="new_account.store">
           {({ errors }) => (
-            <>
+            <div className="flex flex-col gap-6">
               <div>
-                <label htmlFor="fullName">Full name</label>
+                <label htmlFor="fullName" className="mb-1 block text-sm font-medium">Full name</label>
                 <input
                   type="text"
                   name="fullName"
                   id="fullName"
-                  data-invalid={errors.fullName ? 'true' : undefined}
+                  className={`w-full h-10 rounded border px-4 ${errors.fullName ? 'border-red-500' : 'border-gray-300'}`}
                 />
-                {errors.fullName && <div>{errors.fullName}</div>}
+                {errors.fullName && <div className="text-red-500 text-sm font-medium mt-0.5">{errors.fullName}</div>}
               </div>
 
               <div>
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email" className="mb-1 block text-sm font-medium">Email</label>
                 <input
                   type="email"
                   name="email"
                   id="email"
                   autoComplete="email"
-                  data-invalid={errors.email ? 'true' : undefined}
+                  className={`w-full h-10 rounded border px-4 ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
                 />
-                {errors.email && <div>{errors.email}</div>}
+                {errors.email && <div className="text-red-500 text-sm font-medium mt-0.5">{errors.email}</div>}
               </div>
 
               <div>
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password" className="mb-1 block text-sm font-medium">Password</label>
                 <input
                   type="password"
                   name="password"
                   id="password"
                   autoComplete="new-password"
-                  data-invalid={errors.password ? 'true' : undefined}
+                  className={`w-full h-10 rounded border px-4 ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
                 />
-                {errors.password && <div>{errors.password}</div>}
+                {errors.password && <div className="text-red-500 text-sm font-medium mt-0.5">{errors.password}</div>}
               </div>
 
               <div>
-                <label htmlFor="passwordConfirmation">Confirm password</label>
+                <label htmlFor="passwordConfirmation" className="mb-1 block text-sm font-medium">Confirm password</label>
                 <input
                   type="password"
                   name="passwordConfirmation"
                   id="passwordConfirmation"
                   autoComplete="new-password"
-                  data-invalid={errors.passwordConfirmation ? 'true' : undefined}
+                  className={`w-full h-10 rounded border px-4 ${errors.passwordConfirmation ? 'border-red-500' : 'border-gray-300'}`}
                 />
-                {errors.passwordConfirmation && <div>{errors.passwordConfirmation}</div>}
+                {errors.passwordConfirmation && <div className="text-red-500 text-sm font-medium mt-0.5">{errors.passwordConfirmation}</div>}
               </div>
 
               <div>
-                <button type="submit" className="button">
+                <button type="submit" className="w-full rounded bg-gray-900 text-white py-2.5 font-medium hover:bg-gray-700">
                   Sign up
                 </button>
               </div>
-            </>
+            </div>
           )}
         </Form>
       </div>
