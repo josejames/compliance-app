@@ -1,3 +1,4 @@
+import { Form } from '@adonisjs/inertia/react'
 import { Button } from "~/components/ui/button"
 import {
   Card,
@@ -8,7 +9,6 @@ import {
 } from "~/components/ui/card"
 import {
   Field,
-  FieldDescription,
   FieldGroup,
   FieldLabel,
 } from "~/components/ui/field"
@@ -24,52 +24,65 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form>
-          <FieldGroup>
-            <Field>
-              <FieldLabel htmlFor="name">Full Name</FieldLabel>
-              <Input id="name" type="text" placeholder="John Doe" required />
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="email">Email</FieldLabel>
-              <Input
-                id="email"
-                type="email"
-                placeholder="m@example.com"
-                required
-              />
-              <FieldDescription>
-                We&apos;ll use this to contact you. We will not share your email
-                with anyone else.
-              </FieldDescription>
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="password">Password</FieldLabel>
-              <Input id="password" type="password" required />
-              <FieldDescription>
-                Must be at least 8 characters long.
-              </FieldDescription>
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="confirm-password">
-                Confirm Password
-              </FieldLabel>
-              <Input id="confirm-password" type="password" required />
-              <FieldDescription>Please confirm your password.</FieldDescription>
-            </Field>
+        <Form route="new_account.store">
+          {({ errors }) => (
             <FieldGroup>
               <Field>
-                <Button type="submit">Create Account</Button>
-                <Button variant="outline" type="button">
-                  Sign up with Google
+                <FieldLabel htmlFor="fullName">Full Name</FieldLabel>
+                <Input
+                  type="text"
+                  name="fullName"
+                  id="fullName"
+                  className={`w-full h-10 rounded border px-4 ${errors.fullName ? 'border-red-500' : 'border-gray-300'}`}
+                />
+                {errors.fullName && <div className="text-red-500 text-sm font-medium mt-0.5">{errors.fullName}</div>}
+              </Field>
+
+              <Field>
+                <FieldLabel htmlFor="email" className="mb-1 block text-sm font-medium">Email</FieldLabel>
+                <Input
+                  type="email"
+                  name="email"
+                  id="email"
+                  autoComplete="email"
+                  className={`w-full h-10 rounded border px-4 ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+                />
+                {errors.email && <div className="text-red-500 text-sm font-medium mt-0.5">{errors.email}</div>}
+              </Field>
+
+              <Field>
+                <FieldLabel htmlFor="password" className="mb-1 block text-sm font-medium">Password</FieldLabel>
+                <Input
+                  type="password"
+                  name="password"
+                  id="password"
+                  autoComplete="new-password"
+                  className={`w-full h-10 rounded border px-4 ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
+                />
+                {errors.password && <div className="text-red-500 text-sm font-medium mt-0.5">{errors.password}</div>}
+              </Field>
+
+              <Field>
+                <FieldLabel htmlFor="passwordConfirmation" className="mb-1 block text-sm font-medium">Confirm password</FieldLabel>
+                <Input
+                  type="password"
+                  name="passwordConfirmation"
+                  id="passwordConfirmation"
+                  autoComplete="new-password"
+                  className={`w-full h-10 rounded border px-4 ${errors.passwordConfirmation ? 'border-red-500' : 'border-gray-300'}`}
+                />
+                {errors.passwordConfirmation && <div className="text-red-500 text-sm font-medium mt-0.5">{errors.passwordConfirmation}</div>}
+              </Field>
+
+              <Field>
+                <Button type="submit" 
+                  className="w-full rounded py-4.5">
+                  Sign up
                 </Button>
-                <FieldDescription className="px-6 text-center">
-                  Already have an account? <a href="#">Sign in</a>
-                </FieldDescription>
               </Field>
             </FieldGroup>
-          </FieldGroup>
-        </form>
+          )}
+        </Form>
       </CardContent>
     </Card>
   )
