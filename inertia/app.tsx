@@ -16,7 +16,8 @@ createInertiaApp({
     return resolvePageComponent(
       `./pages/${name}.tsx`,
       import.meta.glob('./pages/**/*.tsx'),
-      (page: ReactElement<Data.SharedProps>) => <Layout children={page} />
+      (page: ReactElement<Data.SharedProps>) =>
+        name.startsWith('auth/') ? page : <Layout children={page} />
     )
   },
   setup({ el, App, props }) {
