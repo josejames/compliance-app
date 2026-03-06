@@ -1,6 +1,7 @@
 import { client } from '~/client'
 import { ReactElement } from 'react'
 import Layout from '~/layouts/default'
+import AuthLayout from '~/layouts/auth'
 import { Data } from '@generated/data'
 import ReactDOMServer from 'react-dom/server'
 import { createInertiaApp } from '@inertiajs/react'
@@ -16,7 +17,7 @@ export default function render(page: any) {
         `./pages/${name}.tsx`,
         import.meta.glob('./pages/**/*.tsx', { eager: true }),
         (page: ReactElement<Data.SharedProps>) =>
-          name.startsWith('auth/') ? page : <Layout children={page} />
+          name.startsWith('auth/') ? <AuthLayout children={page} /> : <Layout children={page} />
       )
     },
     setup: ({ App, props }) => {
