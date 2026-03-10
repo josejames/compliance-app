@@ -14,39 +14,39 @@ declare module '@adonisjs/inertia/types' {
   export interface InertiaPages {
     'auth/login': ExtractProps<(typeof import('../../inertia/pages/auth/login.tsx'))['default']>
     'auth/signup': ExtractProps<(typeof import('../../inertia/pages/auth/signup.tsx'))['default']>
-    'dashboard/administracion': ExtractProps<(typeof import('../../inertia/pages/dashboard/administracion.tsx'))['default']>
-    'dashboard/administracion/integraciones': ExtractProps<(typeof import('../../inertia/pages/dashboard/administracion/integraciones.tsx'))['default']>
-    'dashboard/administracion/logs': ExtractProps<(typeof import('../../inertia/pages/dashboard/administracion/logs.tsx'))['default']>
-    'dashboard/administracion/organizacion': ExtractProps<(typeof import('../../inertia/pages/dashboard/administracion/organizacion.tsx'))['default']>
-    'dashboard/administracion/usuarios-roles': ExtractProps<(typeof import('../../inertia/pages/dashboard/administracion/usuarios-roles.tsx'))['default']>
-    'dashboard/alertas': ExtractProps<(typeof import('../../inertia/pages/dashboard/alertas.tsx'))['default']>
-    'dashboard/auditorias': ExtractProps<(typeof import('../../inertia/pages/dashboard/auditorias.tsx'))['default']>
-    'dashboard/auditorias/hallazgos': ExtractProps<(typeof import('../../inertia/pages/dashboard/auditorias/hallazgos.tsx'))['default']>
-    'dashboard/auditorias/plan': ExtractProps<(typeof import('../../inertia/pages/dashboard/auditorias/plan.tsx'))['default']>
-    'dashboard/auditorias/pruebas': ExtractProps<(typeof import('../../inertia/pages/dashboard/auditorias/pruebas.tsx'))['default']>
-    'dashboard/evidencias': ExtractProps<(typeof import('../../inertia/pages/dashboard/evidencias.tsx'))['default']>
-    'dashboard/evidencias/politicas': ExtractProps<(typeof import('../../inertia/pages/dashboard/evidencias/politicas.tsx'))['default']>
-    'dashboard/evidencias/repositorio': ExtractProps<(typeof import('../../inertia/pages/dashboard/evidencias/repositorio.tsx'))['default']>
-    'dashboard/evidencias/subida-masiva': ExtractProps<(typeof import('../../inertia/pages/dashboard/evidencias/subida-masiva.tsx'))['default']>
+    'dashboard/administration': ExtractProps<(typeof import('../../inertia/pages/dashboard/administration.tsx'))['default']>
+    'dashboard/administration/integrations': ExtractProps<(typeof import('../../inertia/pages/dashboard/administration/integrations.tsx'))['default']>
+    'dashboard/administration/logs': ExtractProps<(typeof import('../../inertia/pages/dashboard/administration/logs.tsx'))['default']>
+    'dashboard/administration/organization': ExtractProps<(typeof import('../../inertia/pages/dashboard/administration/organization.tsx'))['default']>
+    'dashboard/administration/users-roles': ExtractProps<(typeof import('../../inertia/pages/dashboard/administration/users-roles.tsx'))['default']>
+    'dashboard/alerts': ExtractProps<(typeof import('../../inertia/pages/dashboard/alerts.tsx'))['default']>
+    'dashboard/audits': ExtractProps<(typeof import('../../inertia/pages/dashboard/audits.tsx'))['default']>
+    'dashboard/audits/findings': ExtractProps<(typeof import('../../inertia/pages/dashboard/audits/findings.tsx'))['default']>
+    'dashboard/audits/plan': ExtractProps<(typeof import('../../inertia/pages/dashboard/audits/plan.tsx'))['default']>
+    'dashboard/audits/tests': ExtractProps<(typeof import('../../inertia/pages/dashboard/audits/tests.tsx'))['default']>
+    'dashboard/evidence': ExtractProps<(typeof import('../../inertia/pages/dashboard/evidence.tsx'))['default']>
+    'dashboard/evidence/bulk-upload': ExtractProps<(typeof import('../../inertia/pages/dashboard/evidence/bulk-upload.tsx'))['default']>
+    'dashboard/evidence/policies': ExtractProps<(typeof import('../../inertia/pages/dashboard/evidence/policies.tsx'))['default']>
+    'dashboard/evidence/repository': ExtractProps<(typeof import('../../inertia/pages/dashboard/evidence/repository.tsx'))['default']>
+    'dashboard/executive-overview': ExtractProps<(typeof import('../../inertia/pages/dashboard/executive-overview.tsx'))['default']>
     'dashboard/home': ExtractProps<(typeof import('../../inertia/pages/dashboard/home.tsx'))['default']>
-    'dashboard/informes': ExtractProps<(typeof import('../../inertia/pages/dashboard/informes.tsx'))['default']>
-    'dashboard/informes/biblioteca': ExtractProps<(typeof import('../../inertia/pages/dashboard/informes/biblioteca.tsx'))['default']>
-    'dashboard/informes/creador': ExtractProps<(typeof import('../../inertia/pages/dashboard/informes/creador.tsx'))['default']>
-    'dashboard/informes/programados': ExtractProps<(typeof import('../../inertia/pages/dashboard/informes/programados.tsx'))['default']>
-    'dashboard/mis-tareas': ExtractProps<(typeof import('../../inertia/pages/dashboard/mis-tareas.tsx'))['default']>
-    'dashboard/normas-controles': ExtractProps<(typeof import('../../inertia/pages/dashboard/normas-controles.tsx'))['default']>
-    'dashboard/normas-controles/biblioteca': ExtractProps<(typeof import('../../inertia/pages/dashboard/normas-controles/biblioteca.tsx'))['default']>
-    'dashboard/normas-controles/catalogo': ExtractProps<(typeof import('../../inertia/pages/dashboard/normas-controles/catalogo.tsx'))['default']>
-    'dashboard/normas-controles/mapeo': ExtractProps<(typeof import('../../inertia/pages/dashboard/normas-controles/mapeo.tsx'))['default']>
-    'dashboard/riesgos': ExtractProps<(typeof import('../../inertia/pages/dashboard/riesgos.tsx'))['default']>
-    'dashboard/riesgos/evaluacion': ExtractProps<(typeof import('../../inertia/pages/dashboard/riesgos/evaluacion.tsx'))['default']>
-    'dashboard/riesgos/mitigacion': ExtractProps<(typeof import('../../inertia/pages/dashboard/riesgos/mitigacion.tsx'))['default']>
-    'dashboard/riesgos/registro': ExtractProps<(typeof import('../../inertia/pages/dashboard/riesgos/registro.tsx'))['default']>
-    'dashboard/tareas-workflows': ExtractProps<(typeof import('../../inertia/pages/dashboard/tareas-workflows.tsx'))['default']>
-    'dashboard/tareas-workflows/diseno-flujos': ExtractProps<(typeof import('../../inertia/pages/dashboard/tareas-workflows/diseno-flujos.tsx'))['default']>
-    'dashboard/tareas-workflows/gestion-tareas': ExtractProps<(typeof import('../../inertia/pages/dashboard/tareas-workflows/gestion-tareas.tsx'))['default']>
-    'dashboard/tareas-workflows/tareas-recurrentes': ExtractProps<(typeof import('../../inertia/pages/dashboard/tareas-workflows/tareas-recurrentes.tsx'))['default']>
-    'dashboard/vista-general': ExtractProps<(typeof import('../../inertia/pages/dashboard/vista-general.tsx'))['default']>
+    'dashboard/my-tasks': ExtractProps<(typeof import('../../inertia/pages/dashboard/my-tasks.tsx'))['default']>
+    'dashboard/reports': ExtractProps<(typeof import('../../inertia/pages/dashboard/reports.tsx'))['default']>
+    'dashboard/reports/creator': ExtractProps<(typeof import('../../inertia/pages/dashboard/reports/creator.tsx'))['default']>
+    'dashboard/reports/library': ExtractProps<(typeof import('../../inertia/pages/dashboard/reports/library.tsx'))['default']>
+    'dashboard/reports/scheduled': ExtractProps<(typeof import('../../inertia/pages/dashboard/reports/scheduled.tsx'))['default']>
+    'dashboard/risks': ExtractProps<(typeof import('../../inertia/pages/dashboard/risks.tsx'))['default']>
+    'dashboard/risks/evaluation': ExtractProps<(typeof import('../../inertia/pages/dashboard/risks/evaluation.tsx'))['default']>
+    'dashboard/risks/mitigation': ExtractProps<(typeof import('../../inertia/pages/dashboard/risks/mitigation.tsx'))['default']>
+    'dashboard/risks/register': ExtractProps<(typeof import('../../inertia/pages/dashboard/risks/register.tsx'))['default']>
+    'dashboard/standards-controls': ExtractProps<(typeof import('../../inertia/pages/dashboard/standards-controls.tsx'))['default']>
+    'dashboard/standards-controls/catalog': ExtractProps<(typeof import('../../inertia/pages/dashboard/standards-controls/catalog.tsx'))['default']>
+    'dashboard/standards-controls/library': ExtractProps<(typeof import('../../inertia/pages/dashboard/standards-controls/library.tsx'))['default']>
+    'dashboard/standards-controls/mapping': ExtractProps<(typeof import('../../inertia/pages/dashboard/standards-controls/mapping.tsx'))['default']>
+    'dashboard/tasks-workflows': ExtractProps<(typeof import('../../inertia/pages/dashboard/tasks-workflows.tsx'))['default']>
+    'dashboard/tasks-workflows/recurring-tasks': ExtractProps<(typeof import('../../inertia/pages/dashboard/tasks-workflows/recurring-tasks.tsx'))['default']>
+    'dashboard/tasks-workflows/task-management': ExtractProps<(typeof import('../../inertia/pages/dashboard/tasks-workflows/task-management.tsx'))['default']>
+    'dashboard/tasks-workflows/workflow-designer': ExtractProps<(typeof import('../../inertia/pages/dashboard/tasks-workflows/workflow-designer.tsx'))['default']>
     'errors/not_found': ExtractProps<(typeof import('../../inertia/pages/errors/not_found.tsx'))['default']>
     'errors/server_error': ExtractProps<(typeof import('../../inertia/pages/errors/server_error.tsx'))['default']>
     'home': ExtractProps<(typeof import('../../inertia/pages/home.tsx'))['default']>
