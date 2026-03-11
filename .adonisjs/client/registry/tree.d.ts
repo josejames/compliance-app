@@ -3,6 +3,45 @@ import type { routes } from './index.ts'
 
 export interface ApiDefinition {
   home: typeof routes['home']
+  vistaGeneral: typeof routes['vista-general']
+  misTareas: typeof routes['mis-tareas']
+  alertas: typeof routes['alertas']
+  normasControles: typeof routes['normas-controles'] & {
+    biblioteca: typeof routes['normas-controles.biblioteca']
+    mapeo: typeof routes['normas-controles.mapeo']
+    catalogo: typeof routes['normas-controles.catalogo']
+  }
+  riesgos: typeof routes['riesgos'] & {
+    registro: typeof routes['riesgos.registro']
+    evaluacion: typeof routes['riesgos.evaluacion']
+    mitigacion: typeof routes['riesgos.mitigacion']
+  }
+  auditorias: typeof routes['auditorias'] & {
+    plan: typeof routes['auditorias.plan']
+    hallazgos: typeof routes['auditorias.hallazgos']
+    pruebas: typeof routes['auditorias.pruebas']
+  }
+  evidencias: typeof routes['evidencias'] & {
+    repositorio: typeof routes['evidencias.repositorio']
+    politicas: typeof routes['evidencias.politicas']
+    subidaMasiva: typeof routes['evidencias.subida-masiva']
+  }
+  tareasWorkflows: typeof routes['tareas-workflows'] & {
+    gestionTareas: typeof routes['tareas-workflows.gestion-tareas']
+    disenoFlujos: typeof routes['tareas-workflows.diseno-flujos']
+    tareasRecurrentes: typeof routes['tareas-workflows.tareas-recurrentes']
+  }
+  informes: typeof routes['informes'] & {
+    biblioteca: typeof routes['informes.biblioteca']
+    creador: typeof routes['informes.creador']
+    programados: typeof routes['informes.programados']
+  }
+  administracion: typeof routes['administracion'] & {
+    usuariosRoles: typeof routes['administracion.usuarios-roles']
+    organizacion: typeof routes['administracion.organizacion']
+    logs: typeof routes['administracion.logs']
+    integraciones: typeof routes['administracion.integraciones']
+  }
   newAccount: {
     create: typeof routes['new_account.create']
     store: typeof routes['new_account.store']

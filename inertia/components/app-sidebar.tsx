@@ -5,7 +5,6 @@ import { usePage } from '@inertiajs/react'
 import { Data } from '@generated/data'
 
 import { NavMain } from "~/components/nav-main"
-import { NavProjects } from "~/components/nav-projects"
 import { NavUser } from "~/components/nav-user"
 import { TeamSwitcher } from "~/components/team-switcher"
 import {
@@ -15,164 +14,108 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "~/components/ui/sidebar"
-import { GalleryVerticalEndIcon, AudioLinesIcon, TerminalIcon, TerminalSquareIcon, BotIcon, BookOpenIcon, Settings2Icon, FrameIcon, PieChartIcon, MapIcon } from "lucide-react"
+import {
+  GalleryVerticalEndIcon,
+  LayoutDashboardIcon,
+  BookOpenIcon,
+  ShieldAlertIcon,
+  ClipboardListIcon,
+  FolderOpenIcon,
+  CheckSquareIcon,
+  BarChart2Icon,
+  Settings2Icon,
+} from "lucide-react"
 
-// This is sample data.
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   teams: [
     {
-      name: "Acme Inc",
-      logo: (
-        <GalleryVerticalEndIcon
-        />
-      ),
+      name: "Mi Organización",
+      logo: <GalleryVerticalEndIcon />,
       plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: (
-        <AudioLinesIcon
-        />
-      ),
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: (
-        <TerminalIcon
-        />
-      ),
-      plan: "Free",
     },
   ],
   navMain: [
     {
-      title: "Playground",
-      url: "#",
-      icon: (
-        <TerminalSquareIcon
-        />
-      ),
+      title: "1. Panel Principal",
+      url: "/",
+      icon: <LayoutDashboardIcon />,
       isActive: true,
       items: [
-        {
-          title: "History",
-          url: "#",
-        },
-        {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
-        },
+        { title: "1.1. Vista General Ejecutiva", url: "/vista-general" },
+        { title: "1.2. Mis Tareas Pendientes", url: "/mis-tareas" },
+        { title: "1.3. Alertas y Notificaciones", url: "/alertas" },
       ],
     },
     {
-      title: "Models",
-      url: "#",
-      icon: (
-        <BotIcon
-        />
-      ),
+      title: "2. Gestión de Normas y Controles",
+      url: "/normas-controles",
+      icon: <BookOpenIcon />,
       items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
+        { title: "2.1. Biblioteca de Marcos Normativos", url: "/normas-controles/biblioteca" },
+        { title: "2.2. Mapeo de Controles", url: "/normas-controles/mapeo" },
+        { title: "2.3. Catálogo de Controles Internos", url: "/normas-controles/catalogo" },
       ],
     },
     {
-      title: "Documentation",
-      url: "#",
-      icon: (
-        <BookOpenIcon
-        />
-      ),
+      title: "3. Riesgos",
+      url: "/riesgos",
+      icon: <ShieldAlertIcon />,
       items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
+        { title: "3.1. Registro de Riesgos", url: "/riesgos/registro" },
+        { title: "3.2. Evaluación de Riesgos", url: "/riesgos/evaluacion" },
+        { title: "3.3. Plan de Mitigación", url: "/riesgos/mitigacion" },
       ],
     },
     {
-      title: "Settings",
-      url: "#",
-      icon: (
-        <Settings2Icon
-        />
-      ),
+      title: "4. Auditorías y Revisiones",
+      url: "/auditorias",
+      icon: <ClipboardListIcon />,
       items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
+        { title: "4.1. Plan de Auditorías", url: "/auditorias/plan" },
+        { title: "4.2. Gestión de Hallazgos", url: "/auditorias/hallazgos" },
+        { title: "4.3. Programas de Pruebas", url: "/auditorias/pruebas" },
       ],
     },
-  ],
-  projects: [
     {
-      name: "Design Engineering",
-      url: "#",
-      icon: (
-        <FrameIcon
-        />
-      ),
+      title: "5. Evidencias y Documentos",
+      url: "/evidencias",
+      icon: <FolderOpenIcon />,
+      items: [
+        { title: "5.1. Repositorio de Evidencias", url: "/evidencias/repositorio" },
+        { title: "5.2. Políticas y Procedimientos", url: "/evidencias/politicas" },
+        { title: "5.3. Subida Masiva", url: "/evidencias/subida-masiva" },
+      ],
     },
     {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: (
-        <PieChartIcon
-        />
-      ),
+      title: "6. Tareas y Flujos de Trabajo",
+      url: "/tareas-workflows",
+      icon: <CheckSquareIcon />,
+      items: [
+        { title: "6.1. Gestión de Tareas", url: "/tareas-workflows/gestion-tareas" },
+        { title: "6.2. Diseñador de Flujos de Aprobación", url: "/tareas-workflows/diseno-flujos" },
+        { title: "6.3. Tareas Recurrentes", url: "/tareas-workflows/tareas-recurrentes" },
+      ],
     },
     {
-      name: "Travel",
-      url: "#",
-      icon: (
-        <MapIcon
-        />
-      ),
+      title: "7. Informes",
+      url: "/informes",
+      icon: <BarChart2Icon />,
+      items: [
+        { title: "7.1. Biblioteca de Informes Predefinidos", url: "/informes/biblioteca" },
+        { title: "7.2. Creador de Informes Personalizados", url: "/informes/creador" },
+        { title: "7.3. Informes Programados", url: "/informes/programados" },
+      ],
+    },
+    {
+      title: "8. Administración",
+      url: "/administracion",
+      icon: <Settings2Icon />,
+      items: [
+        { title: "8.1. Gestión de Usuarios y Roles", url: "/administracion/usuarios-roles" },
+        { title: "8.2. Configuración de la Organización", url: "/administracion/organizacion" },
+        { title: "8.3. Registros de Actividad", url: "/administracion/logs" },
+        { title: "8.4. Integraciones", url: "/administracion/integraciones" },
+      ],
     },
   ],
 }
@@ -192,7 +135,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={sidebarUser} />
