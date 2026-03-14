@@ -1,13 +1,5 @@
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "~/components/ui/breadcrumb"
-import { Separator } from "~/components/ui/separator"
-import { SidebarTrigger } from "~/components/ui/sidebar"
+import { PageHeader } from "~/components/page-header"
+import { priorityConfig } from "~/lib/compliance_ui"
 import {
   Card,
   CardContent,
@@ -118,16 +110,6 @@ const tasks: Task[] = [
   },
 ]
 
-function getPriorityBadge(p: Task["priority"]) {
-  if (p === "high") return "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400"
-  if (p === "medium") return "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400"
-  return "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-400"
-}
-
-function getPriorityLabel(p: Task["priority"]) {
-  return p === "high" ? "Alta" : p === "medium" ? "Media" : "Baja"
-}
-
 function getStatusStyle(s: Task["status"]) {
   if (s === "overdue")
     return {
@@ -158,23 +140,7 @@ export default function Page() {
 
   return (
     <>
-      <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-        <div className="flex items-center gap-2 px-4">
-          <SidebarTrigger className="-ml-1" />
-          <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="/">Panel Principal</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator className="hidden md:block" />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Mis Tareas Pendientes</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-        </div>
-      </header>
+      <PageHeader crumbs={[{ label: "Panel Principal", href: "/" }, { label: "Mis Tareas Pendientes" }]} />
 
       <div className="flex flex-1 flex-col gap-6 p-6 pt-4">
         <div className="flex items-center justify-between">
@@ -293,9 +259,9 @@ export default function Page() {
                   {/* Badges */}
                   <div className="hidden sm:flex items-center gap-2 shrink-0">
                     <span
-                      className={`text-xs font-medium px-2 py-0.5 rounded-full ${getPriorityBadge(task.priority)}`}
+                      className={`text-xs font-medium px-2 py-0.5 rounded-full ${priorityConfig[task.priority].cls}`}
                     >
-                      {getPriorityLabel(task.priority)}
+                      {priorityConfig[task.priority].label}
                     </span>
                     <span
                       className={`text-xs font-medium px-2 py-0.5 rounded-full ${style.labelCls}`}

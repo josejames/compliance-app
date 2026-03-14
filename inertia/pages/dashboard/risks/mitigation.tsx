@@ -1,13 +1,5 @@
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "~/components/ui/breadcrumb"
-import { Separator } from "~/components/ui/separator"
-import { SidebarTrigger } from "~/components/ui/sidebar"
+import { PageHeader } from "~/components/page-header"
+import { levelConfig } from "~/lib/compliance_ui"
 import {
   Card,
   CardContent,
@@ -71,13 +63,6 @@ const statusConfig: Record<ActionStatus, { label: string; cls: string; icon: typ
   overdue: { label: "Vencida", cls: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400", icon: XCircleIcon, iconCls: "text-red-500" },
 }
 
-const levelConfig: Record<RiskLevel, { label: string; cls: string; scoreCls: string }> = {
-  critical: { label: "Crítico", cls: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400", scoreCls: "text-red-600 dark:text-red-400" },
-  high: { label: "Alto", cls: "bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-400", scoreCls: "text-orange-600 dark:text-orange-400" },
-  medium: { label: "Medio", cls: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400", scoreCls: "text-amber-600 dark:text-amber-400" },
-  low: { label: "Bajo", cls: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400", scoreCls: "text-green-600 dark:text-green-400" },
-}
-
 export default function Page() {
   const counts = {
     completed: actions.filter((a) => a.status === "completed").length,
@@ -89,23 +74,7 @@ export default function Page() {
 
   return (
     <>
-      <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-        <div className="flex items-center gap-2 px-4">
-          <SidebarTrigger className="-ml-1" />
-          <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="/riesgos">Riesgos</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator className="hidden md:block" />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Plan de Mitigación</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-        </div>
-      </header>
+      <PageHeader crumbs={[{ label: "Riesgos", href: "/riesgos" }, { label: "Plan de Mitigación" }]} />
 
       <div className="flex flex-1 flex-col gap-6 p-6 pt-4">
         <div className="flex items-center justify-between">

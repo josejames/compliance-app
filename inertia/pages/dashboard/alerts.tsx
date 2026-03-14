@@ -1,13 +1,5 @@
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "~/components/ui/breadcrumb"
-import { Separator } from "~/components/ui/separator"
-import { SidebarTrigger } from "~/components/ui/sidebar"
+import { PageHeader } from "~/components/page-header"
+import { severityConfig } from "~/lib/compliance_ui"
 import {
   Card,
   CardContent,
@@ -135,40 +127,6 @@ const readHistory: Alert[] = [
   },
 ]
 
-const severityConfig: Record<
-  Severity,
-  { bg: string; border: string; badge: string; label: string; iconCls: string }
-> = {
-  critical: {
-    bg: "bg-red-50 dark:bg-red-950/30",
-    border: "border-red-300 dark:border-red-800",
-    badge: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400",
-    label: "Crítico",
-    iconCls: "text-red-500",
-  },
-  high: {
-    bg: "bg-orange-50 dark:bg-orange-950/30",
-    border: "border-orange-300 dark:border-orange-800",
-    badge: "bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-400",
-    label: "Alto",
-    iconCls: "text-orange-500",
-  },
-  medium: {
-    bg: "bg-amber-50 dark:bg-amber-950/30",
-    border: "border-amber-200 dark:border-amber-800",
-    badge: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400",
-    label: "Medio",
-    iconCls: "text-amber-500",
-  },
-  info: {
-    bg: "bg-blue-50 dark:bg-blue-950/20",
-    border: "border-blue-200 dark:border-blue-800",
-    badge: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-400",
-    label: "Informativo",
-    iconCls: "text-blue-500",
-  },
-}
-
 function SeverityIcon({ severity, className }: { severity: Severity; className?: string }) {
   const cls = `size-5 shrink-0 ${severityConfig[severity].iconCls} ${className ?? ""}`
   if (severity === "critical") return <XCircleIcon className={cls} />
@@ -185,23 +143,7 @@ export default function Page() {
 
   return (
     <>
-      <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-        <div className="flex items-center gap-2 px-4">
-          <SidebarTrigger className="-ml-1" />
-          <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="/">Panel Principal</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator className="hidden md:block" />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Alertas y Notificaciones</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-        </div>
-      </header>
+      <PageHeader crumbs={[{ label: "Panel Principal", href: "/" }, { label: "Alertas y Notificaciones" }]} />
 
       <div className="flex flex-1 flex-col gap-6 p-6 pt-4">
         <div className="flex items-center justify-between">
@@ -304,7 +246,7 @@ export default function Page() {
                     <div className="flex items-start justify-between gap-3">
                       <p className="text-sm font-semibold leading-tight">{alert.title}</p>
                       <span
-                        className={`text-xs font-medium px-2 py-0.5 rounded-full shrink-0 ${cfg.badge}`}
+                        className={`text-xs font-medium px-2 py-0.5 rounded-full shrink-0 ${cfg.cls}`}
                       >
                         {cfg.label}
                       </span>

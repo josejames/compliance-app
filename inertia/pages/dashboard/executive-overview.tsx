@@ -1,13 +1,6 @@
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "~/components/ui/breadcrumb"
+import { PageHeader } from "~/components/page-header"
+import { scoreTextCls, scoreBgCls } from "~/lib/compliance_ui"
 import { Separator } from "~/components/ui/separator"
-import { SidebarTrigger } from "~/components/ui/sidebar"
 import {
   Card,
   CardContent,
@@ -49,18 +42,6 @@ const milestones = [
   { date: "05 Abr 2026", type: "Control", title: "Renovación de certificado SSL", priority: "high" },
   { date: "18 Abr 2026", type: "Tarea", title: "Capacitación en protección de datos", priority: "low" },
 ]
-
-function getScoreColor(score: number) {
-  if (score >= 80) return "text-green-600 dark:text-green-400"
-  if (score >= 60) return "text-amber-600 dark:text-amber-400"
-  return "text-red-600 dark:text-red-400"
-}
-
-function getScoreBarColor(score: number) {
-  if (score >= 80) return "bg-green-500"
-  if (score >= 60) return "bg-amber-500"
-  return "bg-red-500"
-}
 
 function getKriColors(level: string) {
   if (level === "low")
@@ -111,23 +92,7 @@ export default function Page() {
 
   return (
     <>
-      <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-        <div className="flex items-center gap-2 px-4">
-          <SidebarTrigger className="-ml-1" />
-          <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="/">Panel Principal</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator className="hidden md:block" />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Vista General Ejecutiva</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-        </div>
-      </header>
+      <PageHeader crumbs={[{ label: "Panel Principal", href: "/" }, { label: "Vista General Ejecutiva" }]} />
 
       <div className="flex flex-1 flex-col gap-6 p-6 pt-4">
         {/* Page title */}
@@ -155,7 +120,7 @@ export default function Page() {
             <CardHeader>
               <CardDescription>Cumplimiento Global</CardDescription>
               <CardTitle>
-                <span className={`text-3xl font-bold ${getScoreColor(globalScore)}`}>
+                <span className={`text-3xl font-bold ${scoreTextCls(globalScore)}`}>
                   {globalScore}%
                 </span>
               </CardTitle>
@@ -163,7 +128,7 @@ export default function Page() {
             <CardContent>
               <div className="h-2 rounded-full bg-muted overflow-hidden">
                 <div
-                  className={`h-full rounded-full ${getScoreBarColor(globalScore)}`}
+                  className={`h-full rounded-full ${scoreBgCls(globalScore)}`}
                   style={{ width: `${globalScore}%` }}
                 />
               </div>
@@ -255,14 +220,14 @@ export default function Page() {
                       <span className="text-xs text-muted-foreground">
                         {fw.compliant}/{fw.controls} controles
                       </span>
-                      <span className={`font-semibold tabular-nums ${getScoreColor(fw.score)}`}>
+                      <span className={`font-semibold tabular-nums ${scoreTextCls(fw.score)}`}>
                         {fw.score}%
                       </span>
                     </div>
                   </div>
                   <div className="h-2 rounded-full bg-muted overflow-hidden">
                     <div
-                      className={`h-full rounded-full ${getScoreBarColor(fw.score)}`}
+                      className={`h-full rounded-full ${scoreBgCls(fw.score)}`}
                       style={{ width: `${fw.score}%` }}
                     />
                   </div>
