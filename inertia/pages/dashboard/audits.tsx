@@ -1,45 +1,286 @@
+import { PageHeader } from "~/components/page-header"
+import { SectionNavCard } from "~/components/section-nav-card"
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "~/components/ui/breadcrumb"
-import { Separator } from "~/components/ui/separator"
-import { SidebarTrigger } from "~/components/ui/sidebar"
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card"
+import { Button } from "~/components/ui/button"
+import {
+  ClipboardListIcon,
+  SearchIcon,
+  FlaskConicalIcon,
+  AlertCircleIcon,
+  CheckCircle2Icon,
+  ClockIcon,
+  CalendarIcon,
+  ChevronRightIcon,
+  UserIcon,
+  BuildingIcon,
+  PlayCircleIcon,
+} from "lucide-react"
+import { badgeCls, scoreBgCls } from "~/lib/compliance_ui"
+
+const sections = [
+  {
+    number: "4.1",
+    title: "Plan de Auditorías",
+    description:
+      "Calendario y planificación de auditorías internas y externas. Asignación de auditores, alcance, fechas y estado de cada proceso.",
+    href: "/auditorias/plan",
+    icon: ClipboardListIcon,
+    stats: [
+      { label: "Programadas 2026", value: "8" },
+      { label: "En curso", value: "2" },
+    ],
+    accent: "text-blue-600 dark:text-blue-400",
+    bg: "bg-blue-50 dark:bg-blue-950/30",
+    border: "border-blue-200 dark:border-blue-800",
+  },
+  {
+    number: "4.2",
+    title: "Gestión de Hallazgos",
+    description:
+      "Registro de no conformidades, observaciones y oportunidades de mejora. Flujo de aprobación y cierre con planes de acción asociados.",
+    href: "/auditorias/hallazgos",
+    icon: SearchIcon,
+    stats: [
+      { label: "Hallazgos abiertos", value: "6" },
+      { label: "Críticos", value: "2" },
+    ],
+    accent: "text-amber-600 dark:text-amber-400",
+    bg: "bg-amber-50 dark:bg-amber-950/30",
+    border: "border-amber-200 dark:border-amber-800",
+  },
+  {
+    number: "4.3",
+    title: "Programas de Pruebas",
+    description:
+      "Definición de procedimientos para probar la eficacia de los controles. Registro de resultados, cobertura y próximas fechas de ejecución.",
+    href: "/auditorias/pruebas",
+    icon: FlaskConicalIcon,
+    stats: [
+      { label: "Pruebas activas", value: "12" },
+      { label: "Tasa superación", value: "67%" },
+    ],
+    accent: "text-purple-600 dark:text-purple-400",
+    bg: "bg-purple-50 dark:bg-purple-950/30",
+    border: "border-purple-200 dark:border-purple-800",
+  },
+]
+
+interface UpcomingAudit {
+  id: string
+  name: string
+  type: "internal" | "external"
+  scope: string
+  auditor: string
+  startDate: string
+  endDate: string
+  status: "planned" | "in-progress" | "completed"
+}
+
+const upcomingAudits: UpcomingAudit[] = [
+  { id: "AUD-2026-02", name: "SOC 2 Type II Readiness", type: "external", scope: "Sistemas cloud", auditor: "Grant Thornton", startDate: "10 Mar 2026", endDate: "21 Mar 2026", status: "in-progress" },
+  { id: "AUD-2026-03", name: "GDPR Privacy Audit", type: "internal", scope: "Gestión de datos", auditor: "Ana García", startDate: "15 Mar 2026", endDate: "28 Mar 2026", status: "in-progress" },
+  { id: "AUD-2026-04", name: "PCI DSS Compliance Review", type: "external", scope: "Sistemas de pago", auditor: "Deloitte", startDate: "05 Abr 2026", endDate: "18 Abr 2026", status: "planned" },
+  { id: "AUD-2026-05", name: "ISO 9001 Process Audit", type: "internal", scope: "Operaciones", auditor: "Carlos Rodríguez", startDate: "20 Abr 2026", endDate: "03 May 2026", status: "planned" },
+  { id: "AUD-2026-06", name: "NIS2 Gap Assessment", type: "external", scope: "Infraestructura crítica", auditor: "PwC", startDate: "10 May 2026", endDate: "23 May 2026", status: "planned" },
+]
+
+const auditStatusConfig = {
+  "planned": { label: "Planificada", cls: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-400" },
+  "in-progress": { label: "En curso", cls: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400" },
+  "completed": { label: "Completada", cls: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400" },
+}
+
+interface RecentFinding {
+  id: string
+  title: string
+  audit: string
+  classification: "non-conformity" | "observation" | "improvement"
+  severity: "critical" | "high" | "medium" | "low"
+  daysOpen: number
+}
+
+const recentFindings: RecentFinding[] = [
+  { id: "HAL-005", title: "Ausencia de registro de accesos privilegiados", audit: "SOC 2 Type II", classification: "non-conformity", severity: "critical", daysOpen: 5 },
+  { id: "HAL-004", title: "Proceso de DR no probado en 18 meses", audit: "SOC 2 Type II", classification: "non-conformity", severity: "high", daysOpen: 5 },
+  { id: "HAL-007", title: "Segmentación de red insuficiente", audit: "PCI DSS Pre-check", classification: "non-conformity", severity: "high", daysOpen: 12 },
+  { id: "HAL-006", title: "Contratos de terceros sin cláusulas DPA", audit: "GDPR Privacy Audit", classification: "observation", severity: "medium", daysOpen: 3 },
+]
+
+const classificationConfig = {
+  "non-conformity": { label: "No conformidad", cls: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400" },
+  "observation": { label: "Observación", cls: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400" },
+  "improvement": { label: "Mejora", cls: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-400" },
+}
+
+const findingSeverityConfig = {
+  "critical": { label: "Crítico", cls: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400" },
+  "high": { label: "Alto", cls: "bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-400" },
+  "medium": { label: "Medio", cls: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400" },
+  "low": { label: "Bajo", cls: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400" },
+}
 
 export default function Page() {
   return (
     <>
-      <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-        <div className="flex items-center gap-2 px-4">
-          <SidebarTrigger className="-ml-1" />
-          <Separator
-            orientation="vertical"
-            className="mr-2 data-[orientation=vertical]:h-4"
-          />
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="/">Panel Principal</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator className="hidden md:block" />
-              <BreadcrumbItem>
-                <BreadcrumbPage>4. Auditorías y Revisiones</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
+      <PageHeader crumbs={[{ label: "Panel Principal", href: "/" }, { label: "Auditorías y Revisiones" }]} />
+
+      <div className="flex flex-1 flex-col gap-6 p-6 pt-4">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">Auditorías y Revisiones</h1>
+          <p className="text-sm text-muted-foreground mt-0.5">
+            Planificación, ejecución y seguimiento de auditorías internas y externas
+          </p>
         </div>
-      </header>
-      <div className="flex flex-1 flex-col gap-4 p-6 pt-4">
-        <h1 className="text-2xl font-bold tracking-tight">4. Auditorías y Revisiones</h1>
-        <p className="text-muted-foreground">Espacio para planificar, ejecutar y documentar las auditorías internas y externas.</p>
-        <ul className="list-disc pl-6 space-y-1 text-sm">
-          <li>Plan de Auditorías (4.1).</li>
-          <li>Gestión de Hallazgos (4.2).</li>
-          <li>Programas de Pruebas (4.3).</li>
-        </ul>
+
+        {/* KPIs */}
+        <div className="grid gap-4 md:grid-cols-4">
+          <Card>
+            <CardHeader>
+              <CardDescription>Auditorías 2026</CardDescription>
+              <CardTitle><span className="text-3xl font-bold">8</span></CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex gap-2 text-xs flex-wrap">
+                <span className={`${badgeCls} bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400`}>1 completada</span>
+                <span className={`${badgeCls} bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400`}>2 en curso</span>
+                <span className={`${badgeCls} bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-400`}>5 planificadas</span>
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardDescription>Hallazgos Abiertos</CardDescription>
+              <CardTitle><span className="text-3xl font-bold text-red-600 dark:text-red-400">6</span></CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex gap-2 text-xs flex-wrap">
+                <span className={`${badgeCls} bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400`}>2 críticos</span>
+                <span className={`${badgeCls} bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-400`}>3 altos</span>
+                <span className={`${badgeCls} bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400`}>1 medio</span>
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardDescription>Tasa Superación Pruebas</CardDescription>
+              <CardTitle><span className="text-3xl font-bold text-amber-600 dark:text-amber-400">67%</span></CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="w-full bg-muted rounded-full h-2">
+                <div className={`h-2 rounded-full ${scoreBgCls(67)}`} style={{ width: "67%" }} />
+              </div>
+              <p className="text-xs text-muted-foreground mt-1.5">8 de 12 pruebas superadas</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardDescription>Próxima Auditoría</CardDescription>
+              <CardTitle><span className="text-lg font-bold leading-tight">PCI DSS Review</span></CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                <CalendarIcon className="size-3.5" />
+                <span>05 Abr 2026 · Deloitte</span>
+              </div>
+              <p className="text-xs text-muted-foreground mt-1">En 23 días</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Section Nav Cards */}
+        <div className="grid gap-4 md:grid-cols-3">
+          {sections.map((s) => (
+            <SectionNavCard key={s.number} {...s} />
+          ))}
+        </div>
+
+        {/* Bottom panels */}
+        <div className="grid gap-6 md:grid-cols-2">
+
+          {/* Upcoming audits */}
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <div>
+                <CardTitle className="text-base">Auditorías Próximas</CardTitle>
+                <CardDescription className="text-xs mt-0.5">Programadas en los próximos 90 días</CardDescription>
+              </div>
+              <Button variant="outline" size="sm" asChild>
+                <a href="/auditorias/plan">Ver plan <ChevronRightIcon /></a>
+              </Button>
+            </CardHeader>
+            <CardContent className="p-0">
+              <div className="divide-y">
+                {upcomingAudits.map((a) => {
+                  const cfg = auditStatusConfig[a.status]
+                  return (
+                    <div key={a.id} className="flex items-start justify-between px-6 py-3 hover:bg-muted/40 transition-colors">
+                      <div className="flex items-start gap-3 min-w-0">
+                        <div className={`mt-0.5 flex items-center justify-center w-7 h-7 rounded-md shrink-0 ${a.type === "internal" ? "bg-blue-50 dark:bg-blue-950/30" : "bg-purple-50 dark:bg-purple-950/30"}`}>
+                          {a.type === "internal"
+                            ? <UserIcon className="size-3.5 text-blue-600 dark:text-blue-400" />
+                            : <BuildingIcon className="size-3.5 text-purple-600 dark:text-purple-400" />
+                          }
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-sm font-medium leading-tight truncate">{a.name}</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">{a.startDate} → {a.endDate}</p>
+                          <p className="text-xs text-muted-foreground">{a.auditor} · {a.scope}</p>
+                        </div>
+                      </div>
+                      <div className="flex flex-col items-end gap-1.5 shrink-0 ml-3">
+                        <span className={`${badgeCls} ${cfg.cls}`}>{cfg.label}</span>
+                        <span className="text-[10px] text-muted-foreground font-mono">{a.id}</span>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Recent findings */}
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <div>
+                <CardTitle className="text-base">Hallazgos Recientes</CardTitle>
+                <CardDescription className="text-xs mt-0.5">Hallazgos abiertos de mayor criticidad</CardDescription>
+              </div>
+              <Button variant="outline" size="sm" asChild>
+                <a href="/auditorias/hallazgos">Ver todos <ChevronRightIcon /></a>
+              </Button>
+            </CardHeader>
+            <CardContent className="p-0">
+              <div className="divide-y">
+                {recentFindings.map((f) => {
+                  const sev = findingSeverityConfig[f.severity]
+                  const cls = classificationConfig[f.classification]
+                  return (
+                    <div key={f.id} className="flex items-start justify-between px-6 py-3 hover:bg-muted/40 transition-colors">
+                      <div className="flex items-start gap-3 min-w-0">
+                        <AlertCircleIcon className={`size-4 mt-0.5 shrink-0 ${f.severity === "critical" ? "text-red-500" : f.severity === "high" ? "text-orange-500" : "text-amber-500"}`} />
+                        <div className="min-w-0">
+                          <p className="text-sm font-medium leading-tight">{f.title}</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">{f.audit} · Abierto hace {f.daysOpen}d</p>
+                          <div className="flex gap-1.5 mt-1">
+                            <span className={`${badgeCls} ${cls.cls}`}>{cls.label}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <span className={`${badgeCls} shrink-0 ml-3 ${sev.cls}`}>{sev.label}</span>
+                    </div>
+                  )
+                })}
+              </div>
+            </CardContent>
+          </Card>
+
+        </div>
       </div>
     </>
   )
