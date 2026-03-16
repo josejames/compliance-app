@@ -1,4 +1,5 @@
 import {
+    AlarmClockIcon,
     AlertTriangleIcon,
     BellIcon,
     CheckCheckIcon,
@@ -157,6 +158,63 @@ export default function Page() {
             <CheckCheckIcon />
             Marcar todo como leído
           </Button>
+        </div>
+
+        {/* INAI 72h Breach Notification Timer */}
+        <div className="rounded-xl border-2 border-red-500 dark:border-red-600 bg-red-50 dark:bg-red-950/20 overflow-hidden">
+          {/* Elapsed progress bar — ~25% of 72h window consumed */}
+          <div className="h-1.5 bg-muted">
+            <div className="h-full bg-red-500 transition-all" style={{ width: "25%" }} />
+          </div>
+          <div className="p-4 flex flex-col gap-4 lg:flex-row lg:items-center">
+            <div className="flex items-center gap-3">
+              <div className="flex size-10 items-center justify-center rounded-full bg-red-500 text-white shrink-0">
+                <AlarmClockIcon className="size-5" />
+              </div>
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-red-600 dark:text-red-400">
+                  ⚠️ Incidente Activo · LFPDPPP Art. 20 — Ventana legal: 72 horas
+                </p>
+                <p className="text-sm font-semibold mt-0.5">INC-2026-001 — Brecha de Datos Personales</p>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Detectado: 15 Mar 2026, 22:30 · Límite INAI: <span className="font-semibold text-red-600 dark:text-red-400">18 Mar 2026, 22:30</span>
+                </p>
+              </div>
+            </div>
+
+            <div className="lg:ml-auto flex flex-wrap items-center gap-6">
+              {/* Countdown display */}
+              <div className="text-center min-w-20">
+                <p className="text-3xl font-bold tabular-nums text-red-600 dark:text-red-400 leading-none">54h 17m</p>
+                <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide mt-1">restantes de 72h</p>
+              </div>
+
+              {/* Escalation checklist */}
+              <div className="text-xs space-y-1.5 min-w-44 border-l pl-4">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-muted-foreground">INAI notificado</span>
+                  <span className="font-semibold text-red-600 dark:text-red-400">⏳ Pendiente</span>
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-muted-foreground">CERT-MX notificado</span>
+                  <span className="font-semibold text-green-600 dark:text-green-400">✔ Sí</span>
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-muted-foreground">Contención</span>
+                  <span className="font-semibold text-green-600 dark:text-green-400">✔ Activa</span>
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-muted-foreground">Investigación forense</span>
+                  <span className="font-semibold text-amber-600 dark:text-amber-400">⏳ En curso</span>
+                </div>
+              </div>
+
+              {/* CTA */}
+              <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white shrink-0">
+                Notificar al INAI <ChevronRightIcon className="size-3.5" />
+              </Button>
+            </div>
+          </div>
         </div>
 
         {/* Severity summary */}

@@ -200,6 +200,20 @@ export default function Page() {
                 <a href="/evidencias/repositorio">Ver todos <ChevronRightIcon /></a>
               </Button>
             </CardHeader>
+            <div className="flex items-center gap-x-5 gap-y-2 flex-wrap text-xs px-6 py-3 border-b">
+              <div className="flex items-center gap-1.5">
+                <span className="text-muted-foreground font-medium">Marco:</span>
+                {["Todos", "ISO 27001", "LFPDPPP", "PCI DSS", "NOM-035"].map((f, i) => (
+                  <button key={f} className={`px-2.5 py-1 rounded-full border transition-colors ${i === 0 ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:bg-muted"}`}>{f}</button>
+                ))}
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-muted-foreground font-medium">Tipo:</span>
+                {["Todos", "PDF", "Excel", "ZIP"].map((f, i) => (
+                  <button key={f} className={`px-2.5 py-1 rounded-full border transition-colors ${i === 0 ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:bg-muted"}`}>{f}</button>
+                ))}
+              </div>
+            </div>
             <CardContent className="p-0">
               <div className="divide-y">
                 {recentFiles.map((f) => {

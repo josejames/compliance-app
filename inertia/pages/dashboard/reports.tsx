@@ -106,11 +106,17 @@ export default function Page() {
       <PageHeader crumbs={[{ label: "Panel Principal", href: "/" }, { label: "Informes" }]} />
 
       <div className="flex flex-1 flex-col gap-6 p-6 pt-4">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">Informes</h1>
-          <p className="text-sm text-muted-foreground mt-0.5">
-            Fábrica de reportes para diferentes audiencias y necesidades de cumplimiento
-          </p>
+        <div className="flex items-start justify-between">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight">Informes</h1>
+            <p className="text-sm text-muted-foreground mt-0.5">
+              Fábrica de reportes para diferentes audiencias y necesidades de cumplimiento
+            </p>
+          </div>
+          <Button variant="outline" size="sm" disabled className="gap-1.5 opacity-70">
+            <DownloadIcon className="size-3.5" />
+            Exportar PDF · Español
+          </Button>
         </div>
 
         {/* KPIs */}

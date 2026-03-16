@@ -27,9 +27,9 @@ import {
 const data = {
   teams: [
     {
-      name: "Mi Organización",
+      name: "Nexum Servicios Digitales",
       logo: <GalleryVerticalEndIcon />,
-      plan: "Enterprise",
+      plan: "S.A. de C.V.",
     },
   ],
   navMain: [
@@ -40,8 +40,8 @@ const data = {
       isActive: true,
       items: [
         { title: "1.1. Vista General Ejecutiva", url: "/vista-general" },
-        { title: "1.2. Mis Tareas Pendientes", url: "/mis-tareas" },
-        { title: "1.3. Alertas y Notificaciones", url: "/alertas" },
+        { title: "1.2. Mis Tareas Pendientes", url: "/mis-tareas", badge: 2 },
+        { title: "1.3. Alertas y Notificaciones", url: "/alertas", badge: 3 },
       ],
     },
     {

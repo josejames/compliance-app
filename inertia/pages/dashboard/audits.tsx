@@ -82,7 +82,7 @@ interface UpcomingAudit {
 const upcomingAudits: UpcomingAudit[] = [
   { id: "AUD-2026-02", name: "Auditoría ISO 27001:2022", type: "external", scope: "Seguridad de la información", auditor: "Galindo & Asociados", startDate: "10 Mar 2026", endDate: "21 Mar 2026", status: "in-progress" },
   { id: "AUD-2026-03", name: "Revisión LFPDPPP — Aviso de Privacidad", type: "internal", scope: "Tratamiento de datos personales", auditor: "Lic. Ana García", startDate: "15 Mar 2026", endDate: "28 Mar 2026", status: "in-progress" },
-  { id: "AUD-2026-04", name: "PCI DSS Compliance Review", type: "external", scope: "Sistemas de pago", auditor: "Deloitte México", startDate: "05 Abr 2026", endDate: "18 Abr 2026", status: "planned" },
+  { id: "AUD-2026-04", name: "Revisión de Cumplimiento PCI DSS v4.0", type: "external", scope: "Sistemas de pago", auditor: "Deloitte México", startDate: "05 Abr 2026", endDate: "18 Abr 2026", status: "planned" },
   { id: "AUD-2026-05", name: "Auditoría Interna ISO 9001", type: "internal", scope: "Procesos operativos", auditor: "Ing. Carlos Ramírez", startDate: "20 Abr 2026", endDate: "03 May 2026", status: "planned" },
   { id: "AUD-2026-06", name: "Análisis de Brechas MAAGTICSI", type: "external", scope: "Infraestructura TIC gubernamental", auditor: "PwC México", startDate: "10 May 2026", endDate: "23 May 2026", status: "planned" },
 ]
@@ -178,7 +178,7 @@ export default function Page() {
           <Card>
             <CardHeader>
               <CardDescription>Próxima Auditoría</CardDescription>
-              <CardTitle><span className="text-lg font-bold leading-tight">PCI DSS Review</span></CardTitle>
+              <CardTitle><span className="text-lg font-bold leading-tight">Revisión PCI DSS v4.0</span></CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
@@ -195,6 +195,22 @@ export default function Page() {
           {sections.map((s) => (
             <SectionNavCard key={s.number} {...s} />
           ))}
+        </div>
+
+        {/* Filter bar */}
+        <div className="flex items-center gap-x-5 gap-y-2 flex-wrap text-xs">
+          <div className="flex items-center gap-1.5">
+            <span className="text-muted-foreground font-medium">Estado:</span>
+            {["Todos", "En curso", "Planificada", "Completada"].map((f, i) => (
+              <button key={f} className={`px-2.5 py-1 rounded-full border transition-colors ${i === 0 ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:bg-muted"}` }>{f}</button>
+            ))}
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span className="text-muted-foreground font-medium">Tipo:</span>
+            {["Todos", "Interna", "Externa"].map((f, i) => (
+              <button key={f} className={`px-2.5 py-1 rounded-full border transition-colors ${i === 0 ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:bg-muted"}`}>{f}</button>
+            ))}
+          </div>
         </div>
 
         {/* Bottom panels */}

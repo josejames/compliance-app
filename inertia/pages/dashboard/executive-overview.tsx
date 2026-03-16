@@ -1,9 +1,12 @@
 import {
+  AlertCircleIcon,
   CalendarIcon,
   ChevronRightIcon,
   MinusIcon,
+  ShieldAlertIcon,
   TrendingDownIcon,
   TrendingUpIcon,
+  ZapIcon,
 } from "lucide-react"
 import { PageHeader } from "~/components/page-header"
 import { Button } from "~/components/ui/button"
@@ -60,6 +63,58 @@ function getTypeBadge(type: string) {
   return map[type] ?? "bg-gray-100 text-gray-700"
 }
 
+function CircularGauge({ score }: { score: number }) {
+  const r = 40
+  const circumference = 2 * Math.PI * r
+  const dash = (score / 100) * circumference
+  const strokeColor = score >= 70 ? '#22c55e' : score >= 50 ? '#f59e0b' : '#ef4444'
+  return (
+    <div className="relative flex items-center justify-center">
+      <svg width="130" height="130" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r={r} fill="none" stroke="currentColor" strokeWidth="9" className="opacity-10" />
+        <circle
+          cx="50" cy="50" r={r} fill="none"
+          stroke={strokeColor}
+          strokeWidth="9"
+          strokeDasharray={`${dash} ${circumference}`}
+          strokeLinecap="round"
+          transform="rotate(-90 50 50)"
+        />
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+        <span className={`text-2xl font-bold tabular-nums ${scoreTextCls(score)}`}>{score}%</span>
+        <span className="text-[9px] text-muted-foreground font-medium uppercase tracking-widest">global</span>
+      </div>
+    </div>
+  )
+}
+
+const sparklineData: Record<string, { points: number[]; trend: 'up' | 'down' | 'stable' }> = {
+  'ISO 27001:2022':     { points: [72, 76, 78], trend: 'up' },
+  'LFPDPPP':           { points: [93, 91, 91], trend: 'stable' },
+  'NOM-035-STPS-2018': { points: [58, 61, 64], trend: 'up' },
+  'PCI DSS v4.0':      { points: [60, 57, 55], trend: 'down' },
+  'ISO 9001:2015':     { points: [80, 81, 82], trend: 'up' },
+  'MAAGTICSI':         { points: [69, 67, 70], trend: 'stable' },
+}
+
+function Sparkline({ points: pts, trend }: { points: number[]; trend: 'up' | 'down' | 'stable' }) {
+  const min = Math.min(...pts)
+  const max = Math.max(...pts)
+  const range = max - min || 1
+  const W = 44
+  const H = 18
+  const polyPoints = pts
+    .map((v, i) => `${(i / (pts.length - 1)) * W},${H - ((v - min) / range) * (H - 2) - 1}`)
+    .join(' ')
+  const color = trend === 'up' ? '#22c55e' : trend === 'down' ? '#ef4444' : '#94a3b8'
+  return (
+    <svg width={W} height={H} className="shrink-0 overflow-visible">
+      <polyline points={polyPoints} fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
 export default function Page() {
   const globalScore = Math.round(
     frameworks.reduce((acc, f) => acc + f.score, 0) / frameworks.length
@@ -76,7 +131,7 @@ export default function Page() {
             <h1 className="text-2xl font-bold tracking-tight">Vista General Ejecutiva</h1>
             <p className="text-sm text-muted-foreground mt-0.5">
               Estado de cumplimiento al{" "}
-              {new Date().toLocaleDateString("es-ES", {
+              {new Date().toLocaleDateString("es-MX", {
                 day: "2-digit",
                 month: "long",
                 year: "numeric",
@@ -92,22 +147,12 @@ export default function Page() {
         {/* Top KPIs */}
         <div className="grid gap-4 md:grid-cols-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-2">
               <CardDescription>Cumplimiento Global</CardDescription>
-              <CardTitle>
-                <span className={`text-3xl font-bold ${scoreTextCls(globalScore)}`}>
-                  {globalScore}%
-                </span>
-              </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="h-2 rounded-full bg-muted overflow-hidden">
-                <div
-                  className={`h-full rounded-full ${scoreBgCls(globalScore)}`}
-                  style={{ width: `${globalScore}%` }}
-                />
-              </div>
-              <p className="text-xs text-muted-foreground mt-2 flex items-center gap-1">
+            <CardContent className="flex flex-col items-center gap-1 pb-4">
+              <CircularGauge score={globalScore} />
+              <p className="text-xs text-muted-foreground flex items-center gap-1">
                 <TrendingUpIcon className="size-3 text-green-500" />
                 +4% respecto al mes anterior
               </p>
@@ -179,6 +224,43 @@ export default function Page() {
           </Card>
         </div>
 
+        {/* Today's priority actions */}
+        <Card className="border-amber-200 dark:border-amber-800 bg-amber-50/30 dark:bg-amber-950/10">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base flex items-center gap-2">
+              <ZapIcon className="size-4 text-amber-500" />
+              ¿Qué debo hacer hoy?
+            </CardTitle>
+            <CardDescription>16 de marzo de 2026 — 3 acciones prioritarias</CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-2 sm:grid-cols-3">
+            <div className="flex items-start gap-3 p-3 rounded-lg bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800">
+              <AlertCircleIcon className="size-4 text-red-500 shrink-0 mt-0.5" />
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold leading-tight">2 tareas vencidas</p>
+                <p className="text-xs text-muted-foreground mt-0.5">TSK-041 · Acceso privilegiado · ISO 27001 A.9</p>
+              </div>
+              <a href="/mis-tareas" className="shrink-0 text-xs text-red-600 dark:text-red-400 font-medium hover:underline">Ver →</a>
+            </div>
+            <div className="flex items-start gap-3 p-3 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800">
+              <CalendarIcon className="size-4 text-amber-500 shrink-0 mt-0.5" />
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold leading-tight">Auditoría en 5 días</p>
+                <p className="text-xs text-muted-foreground mt-0.5">ISO 27001 · Galindo & Asociados · 21 Mar 2026</p>
+              </div>
+              <a href="/auditorias" className="shrink-0 text-xs text-amber-700 dark:text-amber-400 font-medium hover:underline">Ver →</a>
+            </div>
+            <div className="flex items-start gap-3 p-3 rounded-lg bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800">
+              <ShieldAlertIcon className="size-4 text-purple-500 shrink-0 mt-0.5" />
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold leading-tight">Aviso de Privacidad vence en 6 días</p>
+                <p className="text-xs text-muted-foreground mt-0.5">Revisión INAI · LFPDPPP Art. 17 · 22 Mar 2026</p>
+              </div>
+              <a href="/alertas" className="shrink-0 text-xs text-purple-700 dark:text-purple-400 font-medium hover:underline">Ver →</a>
+            </div>
+          </CardContent>
+        </Card>
+
         <div className="grid gap-6 lg:grid-cols-2">
           {/* Framework compliance bars */}
           <Card>
@@ -191,7 +273,10 @@ export default function Page() {
                 <div key={fw.name} className="space-y-1.5">
                   <div className="flex items-center justify-between text-sm">
                     <span className="font-medium">{fw.name}</span>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-3">
+                      {sparklineData[fw.name] && (
+                        <Sparkline {...sparklineData[fw.name]} />
+                      )}
                       <span className="text-xs text-muted-foreground">
                         {fw.compliant}/{fw.controls} controles
                       </span>

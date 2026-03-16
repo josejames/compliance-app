@@ -179,6 +179,20 @@ export default function Page() {
               <a href="/tareas-workflows/gestion-tareas">Ver todas <ChevronRightIcon /></a>
             </Button>
           </CardHeader>
+          <div className="flex items-center gap-x-5 gap-y-2 flex-wrap text-xs px-6 py-3 border-b">
+            <div className="flex items-center gap-1.5">
+              <span className="text-muted-foreground font-medium">Estado:</span>
+              {["Todos", "Vencidas", "En progreso", "Pendientes"].map((f, i) => (
+                <button key={f} className={`px-2.5 py-1 rounded-full border transition-colors ${i === 0 ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:bg-muted"}`}>{f}</button>
+              ))}
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="text-muted-foreground font-medium">Prioridad:</span>
+              {["Todas", "Alta", "Media", "Baja"].map((f, i) => (
+                <button key={f} className={`px-2.5 py-1 rounded-full border transition-colors ${i === 0 ? "bg-foreground text-background border-foreground" : "border-border text-muted-foreground hover:bg-muted"}`}>{f}</button>
+              ))}
+            </div>
+          </div>
           <CardContent className="p-0">
             <div className="divide-y">
               {recentTasks.map((t) => {

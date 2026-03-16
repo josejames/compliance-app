@@ -1,4 +1,13 @@
+import {
+  BuildingIcon,
+  CalendarIcon,
+  CheckCircle2Icon,
+  GlobeIcon,
+  PencilIcon,
+  UsersIcon,
+} from "lucide-react"
 import { PageHeader } from "~/components/page-header"
+import { Button } from "~/components/ui/button"
 import {
   Card,
   CardContent,
@@ -6,48 +15,39 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card"
-import { Button } from "~/components/ui/button"
-import {
-  BuildingIcon,
-  PencilIcon,
-  GlobeIcon,
-  UsersIcon,
-  CheckCircle2Icon,
-  CalendarIcon,
-} from "lucide-react"
 import { badgeCls, scoreBgCls } from "~/lib/compliance_ui"
 
 const org = {
-  name: "Empresa ABC S.A.",
-  industry: "Servicios Financieros",
+  name: "Nexum Servicios Digitales S.A. de C.V.",
+  industry: "Tecnología / SaaS",
   size: "201–500 empleados",
-  country: "España",
-  taxId: "A-12345678",
-  website: "www.empresa-abc.com",
-  dpo: "Ana García",
-  dpoEmail: "dpo@empresa.com",
-  ciso: "Laura Martínez",
-  cisoEmail: "ciso@empresa.com",
+  country: "México",
+  rfc: "NSD920314AB3",
+  regimenFiscal: "601 – General de Ley Personas Morales",
+  responsableDatos: "Lic. Ana García",
+  responsableDatosEmail: "privacidad@nexum.com.mx",
+  ciso: "Ing. Carlos Ramírez",
+  cisoEmail: "seguridad@nexum.com.mx",
   nextReview: "01 Jun 2026",
   lastUpdated: "10 Ene 2026",
 }
 
 const departments = [
-  { name: "TI / Seguridad", head: "Carlos Rodríguez", headcount: 12, compliance: 88 },
-  { name: "Legal", head: "Javier López", headcount: 5, compliance: 95 },
-  { name: "Cumplimiento", head: "Ana García", headcount: 4, compliance: 92 },
-  { name: "Auditoría Interna", head: "Pablo Torres", headcount: 3, compliance: 90 },
-  { name: "RRHH", head: "María González", headcount: 8, compliance: 75 },
-  { name: "Finanzas", head: "Diego Morales", headcount: 10, compliance: 82 },
-  { name: "Operaciones", head: "Elena Sánchez", headcount: 20, compliance: 68 },
+  { name: "TI / Seguridad", head: "Ing. Carlos Ramírez", headcount: 12, compliance: 88 },
+  { name: "Legal", head: "Lic. Javier López", headcount: 5, compliance: 95 },
+  { name: "Cumplimiento", head: "Lic. Ana García", headcount: 4, compliance: 92 },
+  { name: "Auditoría Interna", head: "C.P. Pablo Torres", headcount: 3, compliance: 90 },
+  { name: "Recursos Humanos", head: "Lic. María González", headcount: 8, compliance: 75 },
+  { name: "Finanzas", head: "C.P. Diego Morales", headcount: 10, compliance: 82 },
+  { name: "Operaciones", head: "Ing. Elena Sánchez", headcount: 20, compliance: 68 },
 ]
 
 const frameworks = [
   { name: "ISO 27001:2022", scope: "Seguridad de la información", certExpiry: "15 Nov 2026", status: "certified" },
-  { name: "SOC 2 Type II", scope: "Sistemas cloud y SaaS", certExpiry: "30 Sep 2026", status: "in-progress" },
-  { name: "GDPR", scope: "Protección de datos personales", certExpiry: "Continuo", status: "active" },
+  { name: "LFPDPPP", scope: "Protección de datos personales", certExpiry: "Continuo", status: "active" },
+  { name: "NOM-035-STPS-2018", scope: "Factores de riesgo psicosocial", certExpiry: "Continuo", status: "active" },
   { name: "PCI DSS v4.0", scope: "Procesamiento de pagos", certExpiry: "01 Ago 2026", status: "active" },
-  { name: "NIS2", scope: "Infraestructura crítica", certExpiry: "Continuo", status: "in-progress" },
+  { name: "MAAGTICSI", scope: "Infraestructura TIC gubernamental", certExpiry: "Continuo", status: "in-progress" },
 ]
 
 const frameworkStatusConfig: Record<string, { label: string; cls: string }> = {
@@ -97,12 +97,12 @@ export default function Page() {
                   </div>
                 </div>
                 <div>
-                  <p className="text-muted-foreground">NIF / CIF</p>
-                  <p className="font-medium mt-0.5">{org.taxId}</p>
+                  <p className="text-muted-foreground">RFC</p>
+                  <p className="font-medium mt-0.5 font-mono tracking-wide">{org.rfc}</p>
                 </div>
                 <div>
-                  <p className="text-muted-foreground">Web</p>
-                  <p className="font-medium mt-0.5">{org.website}</p>
+                  <p className="text-muted-foreground">Régimen Fiscal</p>
+                  <p className="font-medium mt-0.5">{org.regimenFiscal}</p>
                 </div>
                 <div>
                   <p className="text-muted-foreground">Última actualización</p>
@@ -114,8 +114,8 @@ export default function Page() {
               </div>
               <div className="border-t pt-3 space-y-2 text-xs">
                 <div>
-                  <p className="text-muted-foreground">DPO (Delegado de Protección de Datos)</p>
-                  <p className="font-medium">{org.dpo} · {org.dpoEmail}</p>
+                  <p className="text-muted-foreground">Responsable de Datos Personales (LFPDPPP)</p>
+                  <p className="font-medium">{org.responsableDatos} · {org.responsableDatosEmail}</p>
                 </div>
                 <div>
                   <p className="text-muted-foreground">CISO</p>
