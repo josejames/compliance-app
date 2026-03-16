@@ -1,24 +1,24 @@
-import { PageHeader } from "~/components/page-header"
-import { severityConfig } from "~/lib/compliance_ui"
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card"
+    AlertTriangleIcon,
+    BellIcon,
+    CheckCheckIcon,
+    CheckCircle2Icon,
+    ChevronRightIcon,
+    ClockIcon,
+    InfoIcon,
+    ShieldAlertIcon,
+    XCircleIcon,
+} from "lucide-react"
+import { PageHeader } from "~/components/page-header"
 import { Button } from "~/components/ui/button"
 import {
-  AlertTriangleIcon,
-  ShieldAlertIcon,
-  ClockIcon,
-  CheckCircle2Icon,
-  XCircleIcon,
-  BellIcon,
-  CheckCheckIcon,
-  ChevronRightIcon,
-  InfoIcon,
-} from "lucide-react"
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "~/components/ui/card"
+import { severityConfig } from "~/lib/compliance_ui"
 
 type Severity = "critical" | "high" | "medium" | "info"
 
@@ -37,7 +37,7 @@ const activeAlerts: Alert[] = [
     id: 1,
     title: "Brecha de seguridad detectada",
     description:
-      "Se detectó acceso no autorizado al sistema de gestión documental desde una IP externa. Se han bloqueado automáticamente 3 intentos de acceso.",
+      "Se detectó acceso no autorizado al sistema de gestión documental desde una IP externa. Se han bloqueado automáticamente 3 intentos de acceso. Notificación en curso al CERT-MX conforme al art. 20 LFPDPPP.",
     severity: "critical",
     time: "Hace 15 minutos",
     read: false,
@@ -47,7 +47,7 @@ const activeAlerts: Alert[] = [
     id: 2,
     title: "3 controles ISO 27001 han vencido",
     description:
-      "Los controles A.12.1.2, A.12.6.1 y A.14.2.1 superaron su fecha de revisión. Se requiere acción del responsable asignado antes de la próxima auditoría.",
+      "Los controles A.12.1.2, A.12.6.1 y A.14.2.1 superaron su fecha de revisión. Se requiere acción del responsable asignado antes de la auditoría del 21 de marzo.",
     severity: "high",
     time: "Hace 2 horas",
     read: false,
@@ -57,7 +57,7 @@ const activeAlerts: Alert[] = [
     id: 3,
     title: "8 tareas han vencido sin completar",
     description:
-      "Existen tareas asignadas a distintos usuarios que superaron su fecha límite. Revisa el módulo de Tareas y reasigna si es necesario.",
+      "Existen tareas asignadas a distintos colaboradores que superaron su fecha límite. Revisa el módulo de Tareas y reasigna si es necesario.",
     severity: "high",
     time: "Hace 4 horas",
     read: false,
@@ -65,9 +65,9 @@ const activeAlerts: Alert[] = [
   },
   {
     id: 4,
-    title: "Auditoría externa en 5 días",
+    title: "Auditoría externa ISO 27001 en 5 días",
     description:
-      "La auditoría de certificación ISO 27001 programada para el 15 de marzo requiere que se suban las evidencias pendientes antes del 13 de marzo.",
+      "La auditoría de certificación ISO 27001 programada para el 21 de marzo requiere que se suban las evidencias pendientes antes del 19 de marzo. Despacho Galindo & Asociados — auditores acreditados.",
     severity: "medium",
     time: "Hoy, 09:00",
     read: false,
@@ -75,32 +75,32 @@ const activeAlerts: Alert[] = [
   },
   {
     id: 5,
-    title: "Política de contraseñas por revisar",
+    title: "Aviso de Privacidad requiere actualización",
     description:
-      "La política POL-SEC-001 tiene programada su revisión periódica. Fecha límite: 22 de marzo de 2026.",
+      "El Aviso de Privacidad corporativo (DOC-PRIV-003) debe actualizarse para reflejar los cambios a los Lineamientos del INAI publicados en el DOF el 10 de marzo de 2026. Fecha límite interna: 22 de marzo.",
     severity: "medium",
     time: "Hoy, 08:30",
     read: false,
-    source: "Gestión Documental",
+    source: "Gestión Documental · LFPDPPP",
   },
   {
     id: 6,
-    title: "Nuevo marco DORA disponible",
+    title: "NOM-035-STPS: evaluación pendiente",
     description:
-      "Se ha añadido el Reglamento DORA (Digital Operational Resilience Act) a la biblioteca normativa. Puedes iniciar el mapeo de controles.",
+      "Conforme al art. 9 de la NOM-035-STPS-2018, la evaluación anual de factores de riesgo psicosocial debe realizarse antes del 30 de abril. Se han completado 51 de 80 controles.",
     severity: "info",
     time: "Ayer, 14:20",
     read: false,
-    source: "Biblioteca Normativa",
+    source: "Biblioteca Normativa · STPS",
   },
 ]
 
 const readHistory: Alert[] = [
   {
     id: 7,
-    title: "Control PCI DSS 6.3.2 vencido – solucionado",
+    title: "Control PCI DSS 6.3.2 vencido – resuelto",
     description:
-      "El control de inventario de componentes de software ha sido actualizado por María González.",
+      "El control de inventario de componentes de software ha sido actualizado por Ing. María González (Seguridad TI).",
     severity: "high",
     time: "08 Mar 2026",
     read: true,
@@ -109,7 +109,7 @@ const readHistory: Alert[] = [
   {
     id: 8,
     title: "Evaluación de riesgos Q1 completada",
-    description: "Carlos Rodríguez marcó como completada la evaluación de riesgos del Q1 2026.",
+    description: "Lic. Carlos Ramírez marcó como completada la evaluación de riesgos del Q1 2026.",
     severity: "info",
     time: "07 Mar 2026",
     read: true,

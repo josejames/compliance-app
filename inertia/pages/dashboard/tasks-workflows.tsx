@@ -1,23 +1,22 @@
+import {
+    CheckSquareIcon,
+    ChevronRightIcon,
+    ClockIcon,
+    GitBranchIcon,
+    ListChecksIcon,
+    RefreshCwIcon,
+    UserIcon
+} from "lucide-react"
 import { PageHeader } from "~/components/page-header"
 import { SectionNavCard } from "~/components/section-nav-card"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card"
 import { Button } from "~/components/ui/button"
 import {
-  CheckSquareIcon,
-  ListChecksIcon,
-  GitBranchIcon,
-  RefreshCwIcon,
-  ChevronRightIcon,
-  AlertCircleIcon,
-  ClockIcon,
-  UserIcon,
-} from "lucide-react"
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "~/components/ui/card"
 import { badgeCls, priorityConfig, scoreBgCls } from "~/lib/compliance_ui"
 
 const sections = [
@@ -82,12 +81,12 @@ interface RecentTask {
 }
 
 const recentTasks: RecentTask[] = [
-  { id: "TSK-041", title: "Revisar controles de acceso privilegiado", owner: "Carlos R.", dueDate: "15 Mar 2026", priority: "high", status: "overdue", control: "ISO 27001 A.9" },
-  { id: "TSK-042", title: "Actualizar política de contraseñas", owner: "Ana G.", dueDate: "16 Mar 2026", priority: "high", status: "in-progress", control: "ISO 27001 A.9" },
-  { id: "TSK-043", title: "Completar formación GDPR obligatoria", owner: "María G.", dueDate: "20 Mar 2026", priority: "medium", status: "in-progress", control: "GDPR Art. 25" },
-  { id: "TSK-044", title: "Subir evidencia de backup mensual", owner: "Pablo T.", dueDate: "20 Mar 2026", priority: "medium", status: "pending", control: "SOC 2 CC9" },
-  { id: "TSK-045", title: "Validar cifrado en volcados de BD", owner: "Laura M.", dueDate: "22 Mar 2026", priority: "high", status: "pending", control: "PCI DSS 3.4" },
-  { id: "TSK-046", title: "Revisión trimestral de accesos", owner: "Javier L.", dueDate: "31 Mar 2026", priority: "medium", status: "pending", control: "SOC 2 CC6" },
+  { id: "TSK-041", title: "Revisar controles de acceso privilegiado", owner: "Ing. Carlos R.", dueDate: "15 Mar 2026", priority: "high", status: "overdue", control: "ISO 27001 A.9" },
+  { id: "TSK-042", title: "Actualizar política de contraseñas", owner: "Lic. Ana G.", dueDate: "16 Mar 2026", priority: "high", status: "in-progress", control: "ISO 27001 A.9" },
+  { id: "TSK-043", title: "Capacitación LFPDPPP — Derechos ARCO", owner: "María G.", dueDate: "20 Mar 2026", priority: "medium", status: "in-progress", control: "LFPDPPP Art. 22" },
+  { id: "TSK-044", title: "Subir evidencia de backup mensual", owner: "Ing. Pablo T.", dueDate: "20 Mar 2026", priority: "medium", status: "pending", control: "ISO 27001 A.8.13" },
+  { id: "TSK-045", title: "Validar cifrado en volcados de BD", owner: "Lic. Laura M.", dueDate: "22 Mar 2026", priority: "high", status: "pending", control: "PCI DSS 3.4" },
+  { id: "TSK-046", title: "Cuestionario NOM-035 — área Operaciones", owner: "Javier L.", dueDate: "31 Mar 2026", priority: "medium", status: "pending", control: "NOM-035-STPS Art. 9" },
 ]
 
 const taskStatusConfig: Record<TaskStatus, { label: string; cls: string }> = {

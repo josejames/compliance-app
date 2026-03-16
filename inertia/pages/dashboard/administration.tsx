@@ -1,23 +1,22 @@
+import {
+    BuildingIcon,
+    CalendarIcon,
+    ChevronRightIcon,
+    PlugZapIcon,
+    ScrollTextIcon,
+    ShieldCheckIcon,
+    UsersIcon
+} from "lucide-react"
 import { PageHeader } from "~/components/page-header"
 import { SectionNavCard } from "~/components/section-nav-card"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card"
 import { Button } from "~/components/ui/button"
 import {
-  Settings2Icon,
-  UsersIcon,
-  BuildingIcon,
-  ScrollTextIcon,
-  PlugZapIcon,
-  ShieldCheckIcon,
-  CalendarIcon,
-  ChevronRightIcon,
-} from "lucide-react"
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "~/components/ui/card"
 import { badgeCls } from "~/lib/compliance_ui"
 
 const sections = [
@@ -92,12 +91,12 @@ interface RecentActivity {
 }
 
 const recentActivity: RecentActivity[] = [
-  { user: "Ana García", action: "Aprobó política", resource: "Política de Contraseñas v3.1", time: "Hace 12 min", type: "update" },
-  { user: "Carlos Rodríguez", action: "Subió evidencia", resource: "Backup Feb 2026", time: "Hace 35 min", type: "create" },
-  { user: "Laura Martínez", action: "Cerró hallazgo", resource: "HAL-003", time: "Hace 1 h", type: "update" },
+  { user: "Lic. Ana García", action: "Aprobó política", resource: "Política de Contraseñas v3.1", time: "Hace 12 min", type: "update" },
+  { user: "Ing. Carlos Ramírez", action: "Subió evidencia", resource: "Backup Feb 2026", time: "Hace 35 min", type: "create" },
+  { user: "Lic. Laura Martínez", action: "Cerró hallazgo", resource: "HAL-003", time: "Hace 1 h", type: "update" },
   { user: "Sistema", action: "Informe generado", resource: "KPIs Mensuales PDF", time: "Hace 2 h", type: "export" },
-  { user: "Pablo Torres", action: "Inicio de sesión", resource: "—", time: "Hace 3 h", type: "login" },
-  { user: "María González", action: "Creó tarea", resource: "TSK-047 · GDPR Formación", time: "Hace 4 h", type: "create" },
+  { user: "Ing. Pablo Torres", action: "Inicio de sesión", resource: "—", time: "Hace 3 h", type: "login" },
+  { user: "María González", action: "Creó tarea", resource: "TSK-047 · Capacitación LFPDPPP", time: "Hace 4 h", type: "create" },
 ]
 
 const activityTypeConfig: Record<RecentActivity["type"], { cls: string; label: string }> = {

@@ -45,7 +45,7 @@ const data = {
       ],
     },
     {
-      title: "Gestión de Normas y Controles",
+      title: "2. Gestión de Normas y Controles",
       url: "/normas-controles",
       icon: <BookOpenIcon />,
       items: [

@@ -1,23 +1,23 @@
+import {
+    BarChart2Icon,
+    BookOpenIcon,
+    CalendarClockIcon,
+    CalendarIcon,
+    ChevronRightIcon,
+    DownloadIcon,
+    FileTextIcon,
+    PencilRulerIcon,
+} from "lucide-react"
 import { PageHeader } from "~/components/page-header"
 import { SectionNavCard } from "~/components/section-nav-card"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card"
 import { Button } from "~/components/ui/button"
 import {
-  BarChart2Icon,
-  BookOpenIcon,
-  PencilRulerIcon,
-  CalendarClockIcon,
-  ChevronRightIcon,
-  DownloadIcon,
-  CalendarIcon,
-  FileTextIcon,
-} from "lucide-react"
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "~/components/ui/card"
 import { badgeCls } from "~/lib/compliance_ui"
 
 const sections = [
@@ -79,11 +79,11 @@ interface RecentReport {
 }
 
 const recentReports: RecentReport[] = [
-  { id: "RPT-031", name: "Informe Ejecutivo ISO 27001 — Feb 2026", type: "Ejecutivo", framework: "ISO 27001", generatedBy: "Ana García", generatedAt: "01 Mar 2026", format: "PDF" },
-  { id: "RPT-030", name: "Gap Analysis SOC 2 Type II", type: "Brecha", framework: "SOC 2", generatedBy: "Sistema", generatedAt: "28 Feb 2026", format: "PDF" },
-  { id: "RPT-029", name: "Registro de Riesgos Q1 2026", type: "Riesgos", framework: "ISO 27001", generatedBy: "Carlos Rodríguez", generatedAt: "25 Feb 2026", format: "Excel" },
+  { id: "RPT-031", name: "Informe Ejecutivo ISO 27001 — Feb 2026", type: "Ejecutivo", framework: "ISO 27001", generatedBy: "Lic. Ana García", generatedAt: "01 Mar 2026", format: "PDF" },
+  { id: "RPT-030", name: "Análisis de Brechas LFPDPPP", type: "Brecha", framework: "LFPDPPP", generatedBy: "Sistema", generatedAt: "28 Feb 2026", format: "PDF" },
+  { id: "RPT-029", name: "Registro de Riesgos Q1 2026", type: "Riesgos", framework: "ISO 27001", generatedBy: "Ing. Carlos Ramírez", generatedAt: "25 Feb 2026", format: "Excel" },
   { id: "RPT-028", name: "Estado de Controles PCI DSS", type: "Cumplimiento", framework: "PCI DSS", generatedBy: "Sistema", generatedAt: "20 Feb 2026", format: "PDF" },
-  { id: "RPT-027", name: "Resumen de Hallazgos Abiertos", type: "Auditoría", framework: "Todos", generatedBy: "Pablo Torres", generatedAt: "15 Feb 2026", format: "PDF" },
+  { id: "RPT-027", name: "Resumen de Hallazgos Abiertos — NOM-035 & ISO 27001", type: "Auditoría", framework: "Todos", generatedBy: "Lic. Pablo Torres", generatedAt: "15 Feb 2026", format: "PDF" },
 ]
 
 const formatConfig: Record<RecentReport["format"], { cls: string }> = {

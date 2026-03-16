@@ -1,22 +1,22 @@
-import { PageHeader } from "~/components/page-header"
-import { priorityConfig } from "~/lib/compliance_ui"
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card"
+    AlertCircleIcon,
+    CheckCircle2Icon,
+    ChevronRightIcon,
+    ClockIcon,
+    ListTodoIcon,
+    SlidersHorizontalIcon,
+    UploadIcon,
+} from "lucide-react"
+import { PageHeader } from "~/components/page-header"
 import { Button } from "~/components/ui/button"
 import {
-  CheckCircle2Icon,
-  ClockIcon,
-  AlertCircleIcon,
-  UploadIcon,
-  ListTodoIcon,
-  ChevronRightIcon,
-  SlidersHorizontalIcon,
-} from "lucide-react"
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "~/components/ui/card"
+import { priorityConfig } from "~/lib/compliance_ui"
 
 interface Task {
   id: number
@@ -44,9 +44,9 @@ const tasks: Task[] = [
   },
   {
     id: 2,
-    title: "Capacitación obligatoria GDPR – Módulo 3",
-    framework: "GDPR",
-    control: "Art. 39",
+    title: "Capacitación obligatoria LFPDPPP — Módulo 3",
+    framework: "LFPDPPP",
+    control: "Art. 21",
     priority: "medium",
     status: "in_progress",
     dueDate: "15 Mar 2026",
@@ -78,8 +78,8 @@ const tasks: Task[] = [
   {
     id: 5,
     title: "Revisar derechos de acceso de proveedores",
-    framework: "SOC 2",
-    control: "CC6.7",
+    framework: "ISO 27001",
+    control: "A.8.3.1",
     priority: "low",
     status: "pending",
     dueDate: "28 Mar 2026",
@@ -99,9 +99,9 @@ const tasks: Task[] = [
   },
   {
     id: 7,
-    title: "Confirmar notificación de brecha de datos",
-    framework: "GDPR",
-    control: "Art. 33",
+    title: "Notificar brecha de datos personales al INAI",
+    framework: "LFPDPPP",
+    control: "Art. 20",
     priority: "high",
     status: "pending",
     dueDate: "14 Mar 2026",

@@ -1,5 +1,16 @@
+import {
+  AlertCircleIcon,
+  BuildingIcon,
+  CalendarIcon,
+  ChevronRightIcon,
+  ClipboardListIcon,
+  FlaskConicalIcon,
+  SearchIcon,
+  UserIcon
+} from "lucide-react"
 import { PageHeader } from "~/components/page-header"
 import { SectionNavCard } from "~/components/section-nav-card"
+import { Button } from "~/components/ui/button"
 import {
   Card,
   CardContent,
@@ -7,20 +18,6 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card"
-import { Button } from "~/components/ui/button"
-import {
-  ClipboardListIcon,
-  SearchIcon,
-  FlaskConicalIcon,
-  AlertCircleIcon,
-  CheckCircle2Icon,
-  ClockIcon,
-  CalendarIcon,
-  ChevronRightIcon,
-  UserIcon,
-  BuildingIcon,
-  PlayCircleIcon,
-} from "lucide-react"
 import { badgeCls, scoreBgCls } from "~/lib/compliance_ui"
 
 const sections = [
@@ -83,11 +80,11 @@ interface UpcomingAudit {
 }
 
 const upcomingAudits: UpcomingAudit[] = [
-  { id: "AUD-2026-02", name: "SOC 2 Type II Readiness", type: "external", scope: "Sistemas cloud", auditor: "Grant Thornton", startDate: "10 Mar 2026", endDate: "21 Mar 2026", status: "in-progress" },
-  { id: "AUD-2026-03", name: "GDPR Privacy Audit", type: "internal", scope: "Gestión de datos", auditor: "Ana García", startDate: "15 Mar 2026", endDate: "28 Mar 2026", status: "in-progress" },
-  { id: "AUD-2026-04", name: "PCI DSS Compliance Review", type: "external", scope: "Sistemas de pago", auditor: "Deloitte", startDate: "05 Abr 2026", endDate: "18 Abr 2026", status: "planned" },
-  { id: "AUD-2026-05", name: "ISO 9001 Process Audit", type: "internal", scope: "Operaciones", auditor: "Carlos Rodríguez", startDate: "20 Abr 2026", endDate: "03 May 2026", status: "planned" },
-  { id: "AUD-2026-06", name: "NIS2 Gap Assessment", type: "external", scope: "Infraestructura crítica", auditor: "PwC", startDate: "10 May 2026", endDate: "23 May 2026", status: "planned" },
+  { id: "AUD-2026-02", name: "Auditoría ISO 27001:2022", type: "external", scope: "Seguridad de la información", auditor: "Galindo & Asociados", startDate: "10 Mar 2026", endDate: "21 Mar 2026", status: "in-progress" },
+  { id: "AUD-2026-03", name: "Revisión LFPDPPP — Aviso de Privacidad", type: "internal", scope: "Tratamiento de datos personales", auditor: "Lic. Ana García", startDate: "15 Mar 2026", endDate: "28 Mar 2026", status: "in-progress" },
+  { id: "AUD-2026-04", name: "PCI DSS Compliance Review", type: "external", scope: "Sistemas de pago", auditor: "Deloitte México", startDate: "05 Abr 2026", endDate: "18 Abr 2026", status: "planned" },
+  { id: "AUD-2026-05", name: "Auditoría Interna ISO 9001", type: "internal", scope: "Procesos operativos", auditor: "Ing. Carlos Ramírez", startDate: "20 Abr 2026", endDate: "03 May 2026", status: "planned" },
+  { id: "AUD-2026-06", name: "Análisis de Brechas MAAGTICSI", type: "external", scope: "Infraestructura TIC gubernamental", auditor: "PwC México", startDate: "10 May 2026", endDate: "23 May 2026", status: "planned" },
 ]
 
 const auditStatusConfig = {
@@ -106,10 +103,10 @@ interface RecentFinding {
 }
 
 const recentFindings: RecentFinding[] = [
-  { id: "HAL-005", title: "Ausencia de registro de accesos privilegiados", audit: "SOC 2 Type II", classification: "non-conformity", severity: "critical", daysOpen: 5 },
-  { id: "HAL-004", title: "Proceso de DR no probado en 18 meses", audit: "SOC 2 Type II", classification: "non-conformity", severity: "high", daysOpen: 5 },
-  { id: "HAL-007", title: "Segmentación de red insuficiente", audit: "PCI DSS Pre-check", classification: "non-conformity", severity: "high", daysOpen: 12 },
-  { id: "HAL-006", title: "Contratos de terceros sin cláusulas DPA", audit: "GDPR Privacy Audit", classification: "observation", severity: "medium", daysOpen: 3 },
+  { id: "HAL-005", title: "Ausencia de registro de accesos privilegiados", audit: "Auditoría ISO 27001:2022", classification: "non-conformity", severity: "critical", daysOpen: 5 },
+  { id: "HAL-004", title: "Plan de recuperación ante desastres no probado en 18 meses", audit: "Auditoría ISO 27001:2022", classification: "non-conformity", severity: "high", daysOpen: 5 },
+  { id: "HAL-007", title: "Segmentación de red insuficiente en entorno de pagos", audit: "PCI DSS Pre-check", classification: "non-conformity", severity: "high", daysOpen: 12 },
+  { id: "HAL-006", title: "Contratos con terceros sin cláusulas de Aviso de Privacidad (LFPDPPP Art. 21)", audit: "Revisión LFPDPPP", classification: "observation", severity: "medium", daysOpen: 3 },
 ]
 
 const classificationConfig = {
@@ -186,7 +183,7 @@ export default function Page() {
             <CardContent>
               <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                 <CalendarIcon className="size-3.5" />
-                <span>05 Abr 2026 · Deloitte</span>
+                <span>05 Abr 2026 · Deloitte México</span>
               </div>
               <p className="text-xs text-muted-foreground mt-1">En 23 días</p>
             </CardContent>

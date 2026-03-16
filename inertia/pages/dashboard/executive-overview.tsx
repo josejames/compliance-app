@@ -16,32 +16,7 @@ import {
 } from "~/components/ui/card"
 import { Separator } from "~/components/ui/separator"
 import { scoreBgCls, scoreTextCls } from "~/lib/compliance_ui"
-
-const frameworkData = [
-  { name: "ISO 27001", score: 78, controls: 114, compliant: 89 },
-  { name: "GDPR", score: 91, controls: 47, compliant: 43 },
-  { name: "SOC 2 Type II", score: 64, controls: 80, compliant: 51 },
-  { name: "PCI DSS", score: 55, controls: 60, compliant: 33 },
-  { name: "ISO 9001", score: 82, controls: 36, compliant: 30 },
-  { name: "NIST CSF", score: 70, controls: 108, compliant: 76 },
-]
-
-const kriData = [
-  { label: "Vulnerabilidades Críticas", value: 3, level: "high", trend: "up" },
-  { label: "Controles Vencidos", value: 12, level: "medium", trend: "down" },
-  { label: "Proveedores Sin Evaluar", value: 5, level: "medium", trend: "stable" },
-  { label: "Incidentes Abiertos", value: 1, level: "low", trend: "down" },
-  { label: "Tareas Atrasadas", value: 8, level: "medium", trend: "up" },
-  { label: "Políticas por Revisar", value: 2, level: "low", trend: "stable" },
-]
-
-const milestones = [
-  { date: "15 Mar 2026", type: "Auditoría", title: "Auditoría externa ISO 27001", priority: "high" },
-  { date: "22 Mar 2026", type: "Tarea", title: "Revisión de política de acceso", priority: "medium" },
-  { date: "31 Mar 2026", type: "Informe", title: "Informe trimestral de riesgos", priority: "medium" },
-  { date: "05 Abr 2026", type: "Control", title: "Renovación de certificado SSL", priority: "high" },
-  { date: "18 Abr 2026", type: "Tarea", title: "Capacitación en protección de datos", priority: "low" },
-]
+import { frameworks, kris, milestones } from "~/lib/mock_data"
 
 function getKriColors(level: string) {
   if (level === "low")
@@ -87,7 +62,7 @@ function getTypeBadge(type: string) {
 
 export default function Page() {
   const globalScore = Math.round(
-    frameworkData.reduce((acc, f) => acc + f.score, 0) / frameworkData.length
+    frameworks.reduce((acc, f) => acc + f.score, 0) / frameworks.length
   )
 
   return (
@@ -212,7 +187,7 @@ export default function Page() {
               <CardDescription>Porcentaje de controles conformes por estándar</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {frameworkData.map((fw) => (
+              {frameworks.map((fw) => (
                 <div key={fw.name} className="space-y-1.5">
                   <div className="flex items-center justify-between text-sm">
                     <span className="font-medium">{fw.name}</span>
@@ -243,7 +218,7 @@ export default function Page() {
               <CardDescription>Estado actual de indicadores de riesgo operacional</CardDescription>
             </CardHeader>
             <CardContent className="grid grid-cols-2 gap-3">
-              {kriData.map((kri) => {
+              {kris.map((kri) => {
                 const colors = getKriColors(kri.level)
                 const TrendIcon =
                   kri.trend === "up"

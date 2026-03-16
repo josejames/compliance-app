@@ -1,27 +1,26 @@
+import {
+    AlertTriangleIcon,
+    BookOpenIcon,
+    CalendarIcon,
+    ChevronRightIcon,
+    FileIcon,
+    FilesIcon,
+    FileTextIcon,
+    FolderOpenIcon,
+    HardDriveIcon,
+    UploadCloudIcon,
+    UserIcon
+} from "lucide-react"
 import { PageHeader } from "~/components/page-header"
 import { SectionNavCard } from "~/components/section-nav-card"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card"
 import { Button } from "~/components/ui/button"
 import {
-  FolderOpenIcon,
-  BookOpenIcon,
-  UploadCloudIcon,
-  FileTextIcon,
-  FileIcon,
-  FilesIcon,
-  AlertTriangleIcon,
-  ChevronRightIcon,
-  ClockIcon,
-  UserIcon,
-  CalendarIcon,
-  HardDriveIcon,
-} from "lucide-react"
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "~/components/ui/card"
 import { badgeCls } from "~/lib/compliance_ui"
 
 const sections = [
@@ -84,11 +83,11 @@ interface RecentFile {
 }
 
 const recentFiles: RecentFile[] = [
-  { id: "EVD-342", name: "pentest-report-2026.pdf", type: "pdf", framework: "ISO 27001", control: "A.8.8", uploadedBy: "Pablo Torres", uploadedAt: "13 Mar 2026", size: "4.2 MB" },
-  { id: "EVD-341", name: "iam-review-q1-2026.xlsx", type: "xlsx", framework: "SOC 2", control: "CC6.1", uploadedBy: "Ana García", uploadedAt: "12 Mar 2026", size: "892 KB" },
-  { id: "EVD-340", name: "gdpr-training-completion.pdf", type: "pdf", framework: "GDPR", control: "Art.39", uploadedBy: "María González", uploadedAt: "12 Mar 2026", size: "1.1 MB" },
-  { id: "EVD-339", name: "backup-restore-test-feb26.pdf", type: "pdf", framework: "ISO 27001", control: "A.8.13", uploadedBy: "Pablo Torres", uploadedAt: "11 Mar 2026", size: "756 KB" },
-  { id: "EVD-338", name: "vendor-contracts-dpa-signed.zip", type: "zip", framework: "GDPR", control: "Art.28", uploadedBy: "Ana García", uploadedAt: "10 Mar 2026", size: "8.4 MB" },
+  { id: "EVD-342", name: "pentest-report-2026.pdf", type: "pdf", framework: "ISO 27001", control: "A.8.8", uploadedBy: "Ing. Pablo Torres", uploadedAt: "13 Mar 2026", size: "4.2 MB" },
+  { id: "EVD-341", name: "revision-accesos-q1-2026.xlsx", type: "xlsx", framework: "ISO 27001", control: "A.9.2.5", uploadedBy: "Lic. Ana García", uploadedAt: "12 Mar 2026", size: "892 KB" },
+  { id: "EVD-340", name: "capacitacion-lfpdppp-constancia.pdf", type: "pdf", framework: "LFPDPPP", control: "Art. 21", uploadedBy: "María González", uploadedAt: "12 Mar 2026", size: "1.1 MB" },
+  { id: "EVD-339", name: "prueba-restauracion-backup-feb26.pdf", type: "pdf", framework: "ISO 27001", control: "A.8.13", uploadedBy: "Ing. Pablo Torres", uploadedAt: "11 Mar 2026", size: "756 KB" },
+  { id: "EVD-338", name: "contratos-terceros-aviso-privacidad.zip", type: "zip", framework: "LFPDPPP", control: "Art. 28", uploadedBy: "Lic. Ana García", uploadedAt: "10 Mar 2026", size: "8.4 MB" },
 ]
 
 interface ExpiringPolicy {
@@ -114,8 +113,8 @@ const fileTypeConfig: Record<RecentFile["type"], { cls: string; icon: typeof Fil
 
 const frameworkColors: Record<string, string> = {
   "ISO 27001": "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-400",
-  "SOC 2": "bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-400",
-  "GDPR": "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400",
+  "LFPDPPP": "bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-400",
+  "NOM-035": "bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-400",
   "PCI DSS": "bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-400",
 }
 

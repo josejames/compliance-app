@@ -1,22 +1,21 @@
+import {
+    AlertCircleIcon,
+    BookOpenIcon,
+    CheckCircle2Icon,
+    ClockIcon,
+    ListChecksIcon,
+    NetworkIcon
+} from "lucide-react"
 import { PageHeader } from "~/components/page-header"
 import { SectionNavCard } from "~/components/section-nav-card"
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
 } from "~/components/ui/card"
-import { Button } from "~/components/ui/button"
-import {
-  BookOpenIcon,
-  NetworkIcon,
-  ListChecksIcon,
-  ShieldCheckIcon,
-  AlertCircleIcon,
-  CheckCircle2Icon,
-  ClockIcon,
-} from "lucide-react"
+import { frameworks } from "~/lib/mock_data"
 
 const sections = [
   {
@@ -141,21 +140,14 @@ export default function Page() {
             <CardDescription>Porcentaje de controles conformes por marco activo</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            {[
-              { framework: "ISO 27001:2022", conformes: 89, total: 114, color: "bg-blue-500" },
-              { framework: "GDPR (Reglamento UE 2016/679)", conformes: 43, total: 47, color: "bg-purple-500" },
-              { framework: "SOC 2 Type II", conformes: 51, total: 80, color: "bg-rose-500" },
-              { framework: "PCI DSS v4.0", conformes: 33, total: 60, color: "bg-orange-500" },
-              { framework: "NIST CSF 2.0", conformes: 76, total: 108, color: "bg-teal-500" },
-              { framework: "ISO 9001:2015", conformes: 30, total: 36, color: "bg-emerald-500" },
-            ].map((fw) => {
-              const pct = Math.round((fw.conformes / fw.total) * 100)
+            {frameworks.map((fw) => {
+              const pct = Math.round((fw.compliant / fw.controls) * 100)
               return (
-                <div key={fw.framework} className="space-y-1.5">
+                <div key={fw.name} className="space-y-1.5">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="font-medium">{fw.framework}</span>
+                    <span className="font-medium">{fw.name}</span>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-muted-foreground">{fw.conformes}/{fw.total}</span>
+                      <span className="text-xs text-muted-foreground">{fw.compliant}/{fw.controls}</span>
                       <span className={`font-semibold tabular-nums w-10 text-right ${pct >= 80 ? "text-green-600 dark:text-green-400" : pct >= 60 ? "text-amber-600 dark:text-amber-400" : "text-red-600 dark:text-red-400"}`}>
                         {pct}%
                       </span>
