@@ -1,3 +1,5 @@
+import { Link } from "@adonisjs/inertia/react"
+import { ChevronRightIcon } from "lucide-react"
 import {
   Collapsible,
   CollapsibleContent,
@@ -13,7 +15,6 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "~/components/ui/sidebar"
-import { ChevronRightIcon } from "lucide-react"
 
 export function NavMain({
   items,
@@ -53,9 +54,9 @@ export function NavMain({
                   {item.items?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.title}>
                       <SidebarMenuSubButton asChild>
-                        <a href={subItem.url}>
+                        <Link href={subItem.url}>
                           <span>{subItem.title}</span>
-                        </a>
+                        </Link>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                   ))}

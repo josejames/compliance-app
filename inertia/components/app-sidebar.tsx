@@ -1,9 +1,18 @@
-"use client"
-
-import * as React from "react"
-import { usePage } from '@inertiajs/react'
 import { Data } from '@generated/data'
+import { usePage } from '@inertiajs/react'
+import * as React from "react"
 
+import {
+  BarChart2Icon,
+  BookOpenIcon,
+  CheckSquareIcon,
+  ClipboardListIcon,
+  FolderOpenIcon,
+  GalleryVerticalEndIcon,
+  LayoutDashboardIcon,
+  Settings2Icon,
+  ShieldAlertIcon,
+} from "lucide-react"
 import { NavMain } from "~/components/nav-main"
 import { NavUser } from "~/components/nav-user"
 import { TeamSwitcher } from "~/components/team-switcher"
@@ -14,17 +23,6 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "~/components/ui/sidebar"
-import {
-  GalleryVerticalEndIcon,
-  LayoutDashboardIcon,
-  BookOpenIcon,
-  ShieldAlertIcon,
-  ClipboardListIcon,
-  FolderOpenIcon,
-  CheckSquareIcon,
-  BarChart2Icon,
-  Settings2Icon,
-} from "lucide-react"
 
 const data = {
   teams: [
@@ -47,10 +45,11 @@ const data = {
       ],
     },
     {
-      title: "2. Gestión de Normas y Controles",
+      title: "Gestión de Normas y Controles",
       url: "/normas-controles",
       icon: <BookOpenIcon />,
       items: [
+        { title: "Vista general", url: "/normas-controles" },
         { title: "2.1. Biblioteca de Marcos Normativos", url: "/normas-controles/biblioteca" },
         { title: "2.2. Mapeo de Controles", url: "/normas-controles/mapeo" },
         { title: "2.3. Catálogo de Controles Internos", url: "/normas-controles/catalogo" },
@@ -61,6 +60,7 @@ const data = {
       url: "/riesgos",
       icon: <ShieldAlertIcon />,
       items: [
+        { title: "Vista general", url: "/riesgos" },
         { title: "3.1. Registro de Riesgos", url: "/riesgos/registro" },
         { title: "3.2. Evaluación de Riesgos", url: "/riesgos/evaluacion" },
         { title: "3.3. Plan de Mitigación", url: "/riesgos/mitigacion" },
@@ -71,6 +71,7 @@ const data = {
       url: "/auditorias",
       icon: <ClipboardListIcon />,
       items: [
+        { title: "Vista general", url: "/auditorias" },
         { title: "4.1. Plan de Auditorías", url: "/auditorias/plan" },
         { title: "4.2. Gestión de Hallazgos", url: "/auditorias/hallazgos" },
         { title: "4.3. Programas de Pruebas", url: "/auditorias/pruebas" },
@@ -81,6 +82,7 @@ const data = {
       url: "/evidencias",
       icon: <FolderOpenIcon />,
       items: [
+        { title: "Vista general", url: "/evidencias" },
         { title: "5.1. Repositorio de Evidencias", url: "/evidencias/repositorio" },
         { title: "5.2. Políticas y Procedimientos", url: "/evidencias/politicas" },
         { title: "5.3. Subida Masiva", url: "/evidencias/subida-masiva" },
@@ -91,6 +93,7 @@ const data = {
       url: "/tareas-workflows",
       icon: <CheckSquareIcon />,
       items: [
+        { title: "Vista general", url: "/tareas-workflows" },
         { title: "6.1. Gestión de Tareas", url: "/tareas-workflows/gestion-tareas" },
         { title: "6.2. Diseñador de Flujos de Aprobación", url: "/tareas-workflows/diseno-flujos" },
         { title: "6.3. Tareas Recurrentes", url: "/tareas-workflows/tareas-recurrentes" },
@@ -101,6 +104,7 @@ const data = {
       url: "/informes",
       icon: <BarChart2Icon />,
       items: [
+        { title: "Vista general", url: "/informes" },
         { title: "7.1. Biblioteca de Informes Predefinidos", url: "/informes/biblioteca" },
         { title: "7.2. Creador de Informes Personalizados", url: "/informes/creador" },
         { title: "7.3. Informes Programados", url: "/informes/programados" },
@@ -111,6 +115,7 @@ const data = {
       url: "/administracion",
       icon: <Settings2Icon />,
       items: [
+        { title: "Vista general", url: "/administracion" },
         { title: "8.1. Gestión de Usuarios y Roles", url: "/administracion/usuarios-roles" },
         { title: "8.2. Configuración de la Organización", url: "/administracion/organizacion" },
         { title: "8.3. Registros de Actividad", url: "/administracion/logs" },

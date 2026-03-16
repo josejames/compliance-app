@@ -1,6 +1,12 @@
+import {
+  CalendarIcon,
+  ChevronRightIcon,
+  MinusIcon,
+  TrendingDownIcon,
+  TrendingUpIcon,
+} from "lucide-react"
 import { PageHeader } from "~/components/page-header"
-import { scoreTextCls, scoreBgCls } from "~/lib/compliance_ui"
-import { Separator } from "~/components/ui/separator"
+import { Button } from "~/components/ui/button"
 import {
   Card,
   CardContent,
@@ -8,14 +14,8 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card"
-import { Button } from "~/components/ui/button"
-import {
-  CalendarIcon,
-  TrendingUpIcon,
-  TrendingDownIcon,
-  MinusIcon,
-  ChevronRightIcon,
-} from "lucide-react"
+import { Separator } from "~/components/ui/separator"
+import { scoreBgCls, scoreTextCls } from "~/lib/compliance_ui"
 
 const frameworkData = [
   { name: "ISO 27001", score: 78, controls: 114, compliant: 89 },

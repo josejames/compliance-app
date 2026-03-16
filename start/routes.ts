@@ -7,8 +7,8 @@
 |
 */
 
-import { middleware } from '#start/kernel'
 import { controllers } from '#generated/controllers'
+import { middleware } from '#start/kernel'
 import router from '@adonisjs/core/services/router'
 
 router
@@ -16,7 +16,10 @@ router
     router.on('/').renderInertia('dashboard/home', {}).as('home')
 
     // 1. Panel Principal - sub-pages
-    router.on('/vista-general').renderInertia('dashboard/executive-overview', {}).as('vista-general')
+    router
+      .on('/vista-general')
+      .renderInertia('dashboard/executive-overview', {})
+      .as('vista-general')
     router.on('/mis-tareas').renderInertia('dashboard/my-tasks', {}).as('mis-tareas')
     router.on('/alertas').renderInertia('dashboard/alerts', {}).as('alertas')
 
@@ -55,10 +58,7 @@ router
 
     // 4. Auditorías y Revisiones
     router.on('/auditorias').renderInertia('dashboard/audits', {}).as('auditorias')
-    router
-      .on('/auditorias/plan')
-      .renderInertia('dashboard/audits/plan', {})
-      .as('auditorias.plan')
+    router.on('/auditorias/plan').renderInertia('dashboard/audits/plan', {}).as('auditorias.plan')
     router
       .on('/auditorias/hallazgos')
       .renderInertia('dashboard/audits/findings', {})
