@@ -41,6 +41,7 @@ export interface ApiDefinition {
     organizacion: typeof routes['administracion.organizacion']
     logs: typeof routes['administracion.logs']
     integraciones: typeof routes['administracion.integraciones']
+    proveedores: typeof routes['administracion.proveedores']
   }
   newAccount: {
     create: typeof routes['new_account.create']

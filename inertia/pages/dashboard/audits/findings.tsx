@@ -1,4 +1,17 @@
+import {
+  AlertCircleIcon,
+  ArrowRightIcon,
+  CalendarIcon,
+  CheckCircle2Icon,
+  ChevronRightIcon,
+  DownloadIcon,
+  FileTextIcon,
+  PlusIcon,
+  SearchIcon,
+  UserIcon,
+} from "lucide-react"
 import { PageHeader } from "~/components/page-header"
+import { Button } from "~/components/ui/button"
 import {
   Card,
   CardContent,
@@ -6,19 +19,6 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card"
-import { Button } from "~/components/ui/button"
-import {
-  PlusIcon,
-  SearchIcon,
-  DownloadIcon,
-  AlertCircleIcon,
-  CheckCircle2Icon,
-  ChevronRightIcon,
-  UserIcon,
-  CalendarIcon,
-  FileTextIcon,
-  ArrowRightIcon,
-} from "lucide-react"
 import { badgeCls } from "~/lib/compliance_ui"
 
 type Classification = "non-conformity" | "observation" | "improvement"
@@ -42,16 +42,16 @@ interface Finding {
 }
 
 const findings: Finding[] = [
-  { id: "HAL-001", title: "Cifrado de datos en reposo deficiente", description: "Los volúmenes de almacenamiento de la base de datos principal no tienen cifrado AES-256 activado.", audit: "ISO 27001 Q1", framework: "ISO 27001", classification: "non-conformity", severity: "critical", owner: "Carlos Rodríguez", dueDate: "28 Mar 2026", openedDate: "08 Mar 2026", status: "in-review", actionPlan: "Implementar cifrado en todos los volúmenes antes del 28 Mar." },
-  { id: "HAL-002", title: "Políticas de contraseñas desactualizadas", description: "La política actual no exige MFA ni mínimo de 12 caracteres conforme a NIST SP 800-63B.", audit: "ISO 27001 Q1", framework: "ISO 27001", classification: "non-conformity", severity: "high", owner: "Ana García", dueDate: "15 Mar 2026", openedDate: "08 Mar 2026", status: "in-review", actionPlan: "Actualizar política y forzar cambio de contraseñas." },
-  { id: "HAL-003", title: "Falta de evidencia de formación en privacidad", description: "No existen registros de completación de formación GDPR para el 40% del personal.", audit: "GDPR Privacy Audit", framework: "GDPR", classification: "observation", severity: "medium", owner: "María González", dueDate: "01 Abr 2026", openedDate: "15 Mar 2026", status: "pending-closure", actionPlan: "Completar formación pendiente y subir certificados al LMS." },
-  { id: "HAL-004", title: "Proceso de DR no probado en 18 meses", description: "El Plan de Recuperación ante Desastres no ha sido probado desde Sep 2024, incumpliendo el control CC9.1.", audit: "SOC 2 Type II", framework: "SOC 2", classification: "non-conformity", severity: "high", owner: "Pablo Torres", dueDate: "20 Mar 2026", openedDate: "12 Mar 2026", status: "open", actionPlan: "Planificar simulacro de DR para la tercera semana de marzo." },
-  { id: "HAL-005", title: "Ausencia de registro de accesos privilegiados", description: "No existe log centralizado de accesos de administrador a sistemas de producción.", audit: "SOC 2 Type II", framework: "SOC 2", classification: "non-conformity", severity: "critical", owner: "Laura Martínez", dueDate: "18 Mar 2026", openedDate: "12 Mar 2026", status: "open", actionPlan: "Implementar SIEM con correlación de logs privilegiados." },
-  { id: "HAL-006", title: "Contratos de terceros sin cláusulas DPA", description: "4 proveedores que procesan datos personales carecen de acuerdo de tratamiento de datos actualizado.", audit: "GDPR Privacy Audit", framework: "GDPR", classification: "observation", severity: "medium", owner: "Ana García", dueDate: "30 Mar 2026", openedDate: "16 Mar 2026", status: "in-review", actionPlan: "Firmar DPAs pendientes con proveedores afectados." },
-  { id: "HAL-007", title: "Segmentación de red insuficiente", description: "El entorno de datos de titulares de tarjetas (CDE) no está correctamente aislado de la red corporativa.", audit: "PCI DSS Pre-check", framework: "PCI DSS", classification: "non-conformity", severity: "high", owner: "Pablo Torres", dueDate: "15 Abr 2026", openedDate: "01 Mar 2026", status: "open", actionPlan: "Redesign VLAN architecture to properly isolate CDE." },
-  { id: "HAL-008", title: "Registros de auditoría con retención < 12 meses", description: "Los logs de seguridad se están eliminando a los 90 días, cuando el estándar requiere 12 meses.", audit: "ISO 27001 Q1", framework: "ISO 27001", classification: "observation", severity: "low", owner: "Carlos Rodríguez", dueDate: "20 Mar 2026", openedDate: "08 Mar 2026", status: "pending-closure", actionPlan: "Configurar retención de 365 días en el SIEM ya desplegado." },
-  { id: "HAL-009", title: "Proceso de cambio sin aprobación formal", description: "Se detectaron 3 despliegues a producción sin ticket de aprobación del CAB.", audit: "ISO 27001 Q1", framework: "ISO 9001", classification: "improvement", severity: "low", owner: "Javier López", dueDate: "01 Mar 2026", openedDate: "08 Mar 2026", status: "closed", actionPlan: "Se activó aprobación obligatoria en la pipeline CI/CD.", closedDate: "28 Feb 2026" },
-  { id: "HAL-010", title: "Ausencia de BCP para proveedor clave", description: "No existe plan de continuidad documentado para el fallo del proveedor de procesamiento de pagos.", audit: "SOC 2 Type II", framework: "SOC 2", classification: "observation", severity: "medium", owner: "Elena Sánchez", dueDate: "10 Mar 2026", openedDate: "12 Mar 2026", status: "closed", actionPlan: "BCP documentado y aprobado por el Comité de Continuidad.", closedDate: "08 Mar 2026" },
+  { id: "HAL-001", title: "Cifrado de datos en reposo deficiente", description: "Los volúmenes de la base de datos principal no tienen cifrado AES-256 activado, incumpliendo el control A.10.1 de ISO 27001:2022.", audit: "Auditoría ISO 27001:2022", framework: "ISO 27001", classification: "non-conformity", severity: "critical", owner: "Ing. Carlos Rodríguez", dueDate: "28 Mar 2026", openedDate: "08 Mar 2026", status: "in-review", actionPlan: "Implementar cifrado en todos los volúmenes antes del 28 Mar." },
+  { id: "HAL-002", title: "Políticas de contraseñas desactualizadas", description: "La política de acceso no exige MFA ni mínimo de 12 caracteres conforme al control A.9.4.3 de ISO 27001:2022.", audit: "Auditoría ISO 27001:2022", framework: "ISO 27001", classification: "non-conformity", severity: "high", owner: "Lic. Ana García", dueDate: "15 Mar 2026", openedDate: "08 Mar 2026", status: "in-review", actionPlan: "Actualizar política y forzar cambio de contraseñas en el siguiente ciclo." },
+  { id: "HAL-003", title: "Falta de evidencia de capacitación en privacidad", description: "No existen registros de capacitación en Aviso de Privacidad (Art. 17 LFPDPPP) para el 40% del personal con acceso a datos personales.", audit: "Revisión LFPDPPP — Aviso de Privacidad", framework: "LFPDPPP", classification: "observation", severity: "medium", owner: "Lic. María González", dueDate: "01 Abr 2026", openedDate: "15 Mar 2026", status: "pending-closure", actionPlan: "Completar capacitación LFPDPPP pendiente y subir constancias al LMS corporativo." },
+  { id: "HAL-004", title: "Plan de recuperación ante desastres no probado en 18 meses", description: "El Plan de Recuperación ante Desastres no ha sido probado desde Sep 2024, incumpliendo el control A.17.1 de ISO 27001:2022.", audit: "Auditoría ISO 27001:2022", framework: "ISO 27001", classification: "non-conformity", severity: "high", owner: "Ing. Pablo Torres", dueDate: "20 Mar 2026", openedDate: "12 Mar 2026", status: "open", actionPlan: "Planificar simulacro de DR para la tercera semana de marzo." },
+  { id: "HAL-005", title: "Ausencia de registro de accesos privilegiados", description: "No existe log centralizado de accesos de administrador a sistemas de producción, incumpliendo el control A.12.4 de ISO 27001:2022.", audit: "Auditoría ISO 27001:2022", framework: "ISO 27001", classification: "non-conformity", severity: "critical", owner: "Lic. Laura Martínez", dueDate: "18 Mar 2026", openedDate: "12 Mar 2026", status: "open", actionPlan: "Implementar SIEM con correlación de logs de accesos privilegiados." },
+  { id: "HAL-006", title: "Contratos con terceros sin cláusulas de Aviso de Privacidad", description: "4 proveedores que procesan datos personales carecen de cláusula de Aviso de Privacidad conforme al Art. 21 de la LFPDPPP.", audit: "Revisión LFPDPPP — Aviso de Privacidad", framework: "LFPDPPP", classification: "observation", severity: "medium", owner: "Lic. Ana García", dueDate: "30 Mar 2026", openedDate: "16 Mar 2026", status: "in-review", actionPlan: "Actualizar contratos con cláusula de Aviso de Privacidad conforme a LFPDPPP Art. 21." },
+  { id: "HAL-007", title: "Segmentación de red insuficiente en entorno de pagos", description: "El entorno de datos de titulares de tarjetas (CDE) no está correctamente aislado de la red corporativa, incumpliendo el requisito 1.3 de PCI DSS v4.0.", audit: "Revisión de Cumplimiento PCI DSS v4.0", framework: "PCI DSS", classification: "non-conformity", severity: "high", owner: "Ing. Pablo Torres", dueDate: "15 Abr 2026", openedDate: "01 Mar 2026", status: "open", actionPlan: "Rediseñar arquitectura VLAN para aislar correctamente el CDE conforme a PCI DSS v4.0." },
+  { id: "HAL-008", title: "Registros de auditoría con retención menor a 12 meses", description: "Los logs de seguridad se eliminan a los 90 días; el control A.12.4.1 de ISO 27001:2022 requiere retención mínima de 12 meses.", audit: "Auditoría ISO 27001:2022", framework: "ISO 27001", classification: "observation", severity: "low", owner: "Ing. Carlos Rodríguez", dueDate: "20 Mar 2026", openedDate: "08 Mar 2026", status: "pending-closure", actionPlan: "Configurar retención de 365 días en el SIEM ya desplegado." },
+  { id: "HAL-009", title: "Cambios a producción sin aprobación formal del CAB", description: "Se detectaron 3 despliegues a producción sin ticket de aprobación del Comité de Control de Cambios, incumpliendo el procedimiento PTI-CC-01.", audit: "Revisión NOM-035 / Proceso Interno", framework: "ISO 9001", classification: "improvement", severity: "low", owner: "Ing. Javier López", dueDate: "01 Mar 2026", openedDate: "08 Mar 2026", status: "closed", actionPlan: "Se activó aprobación obligatoria en la pipeline CI/CD. Procedimiento PTI-CC-01 actualizado.", closedDate: "28 Feb 2026" },
+  { id: "HAL-010", title: "Ausencia de plan de continuidad para proveedor de pagos", description: "No existe plan de continuidad documentado para el fallo del proveedor principal de procesamiento, incumpliendo el requisito 12.3 de PCI DSS v4.0.", audit: "Revisión de Cumplimiento PCI DSS v4.0", framework: "PCI DSS", classification: "observation", severity: "medium", owner: "Lic. Elena Sánchez", dueDate: "10 Mar 2026", openedDate: "12 Mar 2026", status: "closed", actionPlan: "BCP documentado y aprobado por el Comité de Continuidad de Negocio.", closedDate: "08 Mar 2026" },
 ]
 
 const classificationConfig: Record<Classification, { label: string; cls: string }> = {
@@ -76,10 +76,10 @@ const statusConfig: Record<FindingStatus, { label: string; cls: string; step: nu
 
 const frameworkColors: Record<string, string> = {
   "ISO 27001": "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-400",
-  "SOC 2": "bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-400",
-  "GDPR": "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400",
+  "LFPDPPP": "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400",
   "PCI DSS": "bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-400",
   "ISO 9001": "bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-400",
+  "NOM-035": "bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-400",
 }
 
 const workflowSteps = ["Abierto", "En revisión", "Pendiente cierre", "Cerrado"]
@@ -190,6 +190,23 @@ export default function Page() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Filters */}
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="text-xs text-muted-foreground font-medium">Filtrar:</span>
+          <button className={`${badgeCls} bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300`}>Todos</button>
+          <span className="text-xs text-muted-foreground">Severidad:</span>
+          <button className={`${badgeCls} bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400`}>Crítico</button>
+          <button className={`${badgeCls} bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-400`}>Alto</button>
+          <button className={`${badgeCls} bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400`}>Medio</button>
+          <span className="text-xs text-muted-foreground">Clasificación:</span>
+          <button className={`${badgeCls} bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400`}>No conformidad</button>
+          <button className={`${badgeCls} bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400`}>Observación</button>
+          <span className="text-xs text-muted-foreground">Auditoría:</span>
+          <button className={`${badgeCls} bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-400`}>ISO 27001</button>
+          <button className={`${badgeCls} bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400`}>LFPDPPP</button>
+          <button className={`${badgeCls} bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-400`}>PCI DSS</button>
+        </div>
 
         {/* Active findings table */}
         <Card>

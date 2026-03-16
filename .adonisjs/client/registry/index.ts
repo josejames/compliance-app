@@ -204,6 +204,12 @@ const routes = {
     tokens: [{"old":"/administracion/integraciones","type":0,"val":"administracion","end":""},{"old":"/administracion/integraciones","type":0,"val":"integraciones","end":""}],
     types: placeholder as Registry['administracion.integraciones']['types'],
   },
+  'administracion.proveedores': {
+    methods: ["GET","HEAD"],
+    pattern: '/administracion/proveedores',
+    tokens: [{"old":"/administracion/proveedores","type":0,"val":"administracion","end":""},{"old":"/administracion/proveedores","type":0,"val":"proveedores","end":""}],
+    types: placeholder as Registry['administracion.proveedores']['types'],
+  },
   'new_account.create': {
     methods: ["GET","HEAD"],
     pattern: '/signup',

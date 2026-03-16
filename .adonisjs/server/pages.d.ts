@@ -19,6 +19,7 @@ declare module '@adonisjs/inertia/types' {
     'dashboard/administration/logs': ExtractProps<(typeof import('../../inertia/pages/dashboard/administration/logs.tsx'))['default']>
     'dashboard/administration/organization': ExtractProps<(typeof import('../../inertia/pages/dashboard/administration/organization.tsx'))['default']>
     'dashboard/administration/users-roles': ExtractProps<(typeof import('../../inertia/pages/dashboard/administration/users-roles.tsx'))['default']>
+    'dashboard/administration/vendors': ExtractProps<(typeof import('../../inertia/pages/dashboard/administration/vendors.tsx'))['default']>
     'dashboard/alerts': ExtractProps<(typeof import('../../inertia/pages/dashboard/alerts.tsx'))['default']>
     'dashboard/audits': ExtractProps<(typeof import('../../inertia/pages/dashboard/audits.tsx'))['default']>
     'dashboard/audits/findings': ExtractProps<(typeof import('../../inertia/pages/dashboard/audits/findings.tsx'))['default']>

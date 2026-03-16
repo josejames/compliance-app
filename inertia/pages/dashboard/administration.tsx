@@ -5,6 +5,7 @@ import {
     PlugZapIcon,
     ScrollTextIcon,
     ShieldCheckIcon,
+    TruckIcon,
     UsersIcon
 } from "lucide-react"
 import { PageHeader } from "~/components/page-header"
@@ -79,6 +80,21 @@ const sections = [
     accent: "text-green-600 dark:text-green-400",
     bg: "bg-green-50 dark:bg-green-950/30",
     border: "border-green-200 dark:border-green-800",
+  },
+  {
+    number: "8.5",
+    title: "Proveedores y Terceros",
+    description:
+      "Registro de encargados y responsables de datos personales. Control de Aviso de Privacidad, cláusula de transferencia y vencimiento de contratos (LFPDPPP Arts. 21 y 50).",
+    href: "/administracion/proveedores",
+    icon: TruckIcon,
+    stats: [
+      { label: "Proveedores", value: "8" },
+      { label: "Incumplen", value: "2" },
+    ],
+    accent: "text-red-600 dark:text-red-400",
+    bg: "bg-red-50 dark:bg-red-950/30",
+    border: "border-red-200 dark:border-red-800",
   },
 ]
 
@@ -166,8 +182,8 @@ export default function Page() {
           </Card>
         </div>
 
-        {/* Section Nav Cards — 2×2 grid */}
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {/* Section Nav Cards — 2×3 grid */}
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {sections.map((s) => (
             <SectionNavCard key={s.number} {...s} />
           ))}

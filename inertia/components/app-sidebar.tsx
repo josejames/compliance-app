@@ -120,6 +120,7 @@ const data = {
         { title: "8.2. Configuración de la Organización", url: "/administracion/organizacion" },
         { title: "8.3. Registros de Actividad", url: "/administracion/logs" },
         { title: "8.4. Integraciones", url: "/administracion/integraciones" },
+        { title: "8.5. Proveedores y Terceros", url: "/administracion/proveedores", badge: 2 },
       ],
     },
   ],

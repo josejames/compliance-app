@@ -134,6 +134,10 @@ router
       .on('/administracion/integraciones')
       .renderInertia('dashboard/administration/integrations', {})
       .as('administracion.integraciones')
+    router
+      .on('/administracion/proveedores')
+      .renderInertia('dashboard/administration/vendors', {})
+      .as('administracion.proveedores')
   })
   .use(middleware.auth())
 
