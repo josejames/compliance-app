@@ -1,0 +1,46 @@
+name: Compliance Template Dev
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v5
+        name: Install pnpm
+        with:
+          version: 10
+          run_install: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: 'pnpm'
+      - name: Install dependencies and make build
+        run: |
+          pnpm install
+          pnpm build
+          cd build
+          pnpm i --prod
+      - name: Deploy to Server
+        uses: burnett01/rsync-deployments@v8
+        with:
+          switches: -azr --delete --update
+          path: ./build/*
+          remote_path: /home/ubuntu/template-compliance
+          remote_host: ${{ secrets.DEPLOY_HOST }}
+          remote_port: ${{ secrets.DEPLOY_PORT }}
+          remote_user: ${{ secrets.DEPLOY_USER }}
+          remote_key: ${{ secrets.DEPLOY_KEY }}
+      - name: Execute server and restart pm2
+        uses: appleboy/ssh-action@v1.2.1
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          script: |
+            cd /home/ubuntu/template-compliance
+            echo "Deployed successfully"
