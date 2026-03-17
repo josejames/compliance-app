@@ -146,7 +146,7 @@ export default function Page() {
 
         {/* Top KPIs */}
         <div className="grid gap-4 md:grid-cols-4">
-          <Card>
+          <Card className="border-l-4 border-indigo-500">
             <CardHeader className="pb-2">
               <CardDescription>Cumplimiento Global</CardDescription>
             </CardHeader>
@@ -159,7 +159,7 @@ export default function Page() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-l-4 border-amber-500">
             <CardHeader>
               <CardDescription>Riesgos Activos</CardDescription>
               <CardTitle>
@@ -185,7 +185,7 @@ export default function Page() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-l-4 border-red-500">
             <CardHeader>
               <CardDescription>Tareas Pendientes</CardDescription>
               <CardTitle>
@@ -208,7 +208,7 @@ export default function Page() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-l-4 border-violet-500">
             <CardHeader>
               <CardDescription>Próximas Auditorías</CardDescription>
               <CardTitle>

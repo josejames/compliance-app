@@ -56,9 +56,9 @@ export function NavMain({
                     <SidebarMenuSubItem key={subItem.title}>
                       <SidebarMenuSubButton asChild>
                         <Link href={subItem.url}>
-                          <span className="flex-1">{subItem.title}</span>
+                          <span className="flex-1 min-w-0 leading-snug">{subItem.title}</span>
                           {subItem.badge ? (
-                            <span className="flex size-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white leading-none shrink-0">
+                            <span className="flex size-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white leading-none shrink-0 mt-0.5">
                               {subItem.badge}
                             </span>
                           ) : null}

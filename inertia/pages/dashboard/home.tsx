@@ -1,11 +1,11 @@
 import {
-    AlertTriangleIcon,
-    CalendarIcon,
-    ChevronRightIcon,
-    ClipboardListIcon,
-    ShieldCheckIcon,
-    TrendingUpIcon,
-    XCircleIcon,
+  AlertTriangleIcon,
+  CalendarIcon,
+  ChevronRightIcon,
+  ClipboardListIcon,
+  ShieldCheckIcon,
+  TrendingUpIcon,
+  XCircleIcon,
 } from "lucide-react"
 import { PageHeader } from "~/components/page-header"
 import { Button } from "~/components/ui/button"
@@ -92,7 +92,7 @@ export default function Page() {
         {/* Top KPI strip */}
         <div className="grid gap-4 md:grid-cols-4">
           {/* Global score */}
-          <Card>
+          <Card className="border-l-4 border-indigo-500">
             <CardHeader>
               <CardDescription>Cumplimiento Global</CardDescription>
               <CardTitle>
@@ -116,7 +116,7 @@ export default function Page() {
           </Card>
 
           {/* My pending tasks */}
-          <Card>
+          <Card className="border-l-4 border-amber-500">
             <CardHeader>
               <CardDescription>Mis Tareas Pendientes</CardDescription>
               <CardTitle>
@@ -131,7 +131,7 @@ export default function Page() {
           </Card>
 
           {/* Active alerts */}
-          <Card>
+          <Card className="border-l-4 border-red-500">
             <CardHeader>
               <CardDescription>Alertas Activas</CardDescription>
               <CardTitle>
@@ -151,7 +151,7 @@ export default function Page() {
           </Card>
 
           {/* Next milestone */}
-          <Card>
+          <Card className="border-l-4 border-violet-500">
             <CardHeader>
               <CardDescription>Próximo Hito</CardDescription>
               <CardTitle>
