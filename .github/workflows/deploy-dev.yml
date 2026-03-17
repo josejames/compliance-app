@@ -24,7 +24,8 @@ jobs:
           pnpm build
           cd build
           pnpm i --prod
-      - name: Deploy to Server
+          mv ../node_modules ./node_modules
+      - name: Deploy Code to Server
         uses: burnett01/rsync-deployments@v8
         with:
           switches: -azr --delete --update
