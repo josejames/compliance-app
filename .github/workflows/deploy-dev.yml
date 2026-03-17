@@ -20,22 +20,26 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies and make build
         run: |
-          pnpm install
+          # In CI/CD or fresh environments
+          NODE_ENV=development pnpm install
           pnpm build
-          cd build
+          # Copy pnpm-workspace.yaml so better-sqlite3 is allowed to compile
+          cp pnpm-workspace.yaml build/
+          # Move build outside the workspace so pnpm doesn't find the parent workspace
+          mv build /tmp/app-build
+          cd /tmp/app-build
           pnpm i --prod
-          mv ../node_modules ./node_modules
       - name: Deploy Code to Server
         uses: burnett01/rsync-deployments@v8
         with:
-          switches: -azr --delete --update
-          path: ./build/*
+          switches: -azr --delete --update --exclude=.env
+          path: /tmp/app-build/
           remote_path: /home/ubuntu/template-compliance
           remote_host: ${{ secrets.DEPLOY_HOST }}
           remote_port: ${{ secrets.DEPLOY_PORT }}
           remote_user: ${{ secrets.DEPLOY_USER }}
           remote_key: ${{ secrets.DEPLOY_KEY }}
-      - name: Execute server and restart pm2
+      - name: Run migrations and restart server
         uses: appleboy/ssh-action@v1.2.1
         with:
           host: ${{ secrets.DEPLOY_HOST }}
@@ -44,4 +48,5 @@ jobs:
           port: ${{ secrets.DEPLOY_PORT }}
           script: |
             cd /home/ubuntu/template-compliance
-            echo "Deployed successfully"
+            # node ace migration:run --force
+            # pm2 restart compliance-app || pm2 start bin/server.js --name compliance-app
