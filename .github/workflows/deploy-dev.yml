@@ -20,20 +20,20 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies and make build
         run: |
-          # In CI/CD or fresh environments
           NODE_ENV=development pnpm install
           pnpm build
-          # Copy pnpm-workspace.yaml so better-sqlite3 is allowed to compile
+          # Copy pnpm-workspace.yaml into build/ so better-sqlite3 can compile
+          # and so pnpm treats build/ as its own workspace root (won't traverse up)
           cp pnpm-workspace.yaml build/
-          # Move build outside the workspace so pnpm doesn't find the parent workspace
-          mv build /tmp/app-build
-          cd /tmp/app-build
+          # Rename the parent workspace file so pnpm stops at build/pnpm-workspace.yaml
+          mv pnpm-workspace.yaml pnpm-workspace.yaml.bak
+          cd build
           pnpm i --prod
       - name: Deploy Code to Server
         uses: burnett01/rsync-deployments@v8
         with:
           switches: -azr --delete --update --exclude=.env
-          path: /tmp/app-build/
+          path: build/
           remote_path: /home/ubuntu/template-compliance
           remote_host: ${{ secrets.DEPLOY_HOST }}
           remote_port: ${{ secrets.DEPLOY_PORT }}
