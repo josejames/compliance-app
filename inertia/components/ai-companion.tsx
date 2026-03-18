@@ -203,26 +203,45 @@ export function AiCompanion() {
 
   return (
     <>
-      {/* ── Floating trigger button ── */}
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className={cn(
-          'fixed bottom-5 right-5 z-50 flex size-13 items-center justify-center rounded-full shadow-lg ring-1 ring-foreground/10 transition-all duration-200 hover:scale-105 active:scale-95',
-          open ? 'bg-muted text-foreground' : 'bg-primary text-primary-foreground'
-        )}
-        aria-label="Abrir asistente Lex IA"
-      >
-        {open ? (
-          <ChevronDownIcon className="size-5" />
-        ) : (
-          <BotMessageSquareIcon className="size-5" />
-        )}
-        {!open && unread > 0 && (
-          <span className="absolute -top-1 -right-1 flex size-5 items-center justify-center rounded-full bg-destructive text-[10px] font-semibold text-white">
-            {unread}
+      {/* ── Floating trigger wrapper (pulse rings + label live here) ── */}
+      <div className="fixed bottom-5 right-5 z-50 flex items-center">
+
+        {/* Label pill — slides in from the right when closed */}
+        <div
+          className={cn(
+            'mr-3 flex items-center gap-1.5 rounded-full bg-card px-3.5 py-2 shadow-md ring-1 ring-foreground/10 transition-all duration-500',
+            !open
+              ? 'translate-x-0 opacity-100 pointer-events-auto'
+              : 'translate-x-4 opacity-0 pointer-events-none'
+          )}
+        >
+          <span className="inline-block size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="text-xs font-medium text-foreground whitespace-nowrap">
+            Pregunta a <strong>Lex IA</strong>
           </span>
-        )}
-      </button>
+        </div>
+
+        {/* The button itself */}
+        <button
+          onClick={() => setOpen((v) => !v)}
+          className={cn(
+            'relative flex size-13 items-center justify-center rounded-full shadow-lg ring-1 ring-foreground/10 transition-all duration-200 hover:scale-105 active:scale-95',
+            open ? 'bg-muted text-foreground' : 'bg-primary text-primary-foreground'
+          )}
+          aria-label="Abrir asistente Aion"
+        >
+          {open ? (
+            <ChevronDownIcon className="size-5" />
+          ) : (
+            <BotMessageSquareIcon className="size-5" />
+          )}
+          {!open && unread > 0 && (
+            <span className="absolute -top-1 -right-1 flex size-5 items-center justify-center rounded-full bg-destructive text-[10px] font-semibold text-white">
+              {unread}
+            </span>
+          )}
+        </button>
+      </div>
 
       {/* ── Chat panel ── */}
       <div

@@ -1,4 +1,4 @@
-import { cn } from "~/lib/utils"
+import { Form, Link } from '@adonisjs/inertia/react'
 import { Button } from "~/components/ui/button"
 import {
   Card,
@@ -13,7 +13,7 @@ import {
   FieldLabel,
 } from "~/components/ui/field"
 import { Input } from "~/components/ui/input"
-import { Form } from '@adonisjs/inertia/react'
+import { cn } from "~/lib/utils"
 
 export function LoginForm({
   className,
@@ -55,6 +55,11 @@ export function LoginForm({
                   />
                   {errors.password && <div className="text-red-500 text-sm font-medium mt-0.5">{errors.password}</div>}
                 </Field>
+
+                {/* Do not have an account? Register */}
+                <div className="text-sm text-gray-500">
+                  Don't have an account? <Link href="/signup" className="text-blue-500 hover:underline">Signup</Link>
+                </div>
 
                 <Field>
                   <Button 
