@@ -1,4 +1,6 @@
 import { Form, Link } from '@adonisjs/inertia/react'
+import { EyeIcon, EyeOffIcon } from 'lucide-react'
+import { useState } from 'react'
 import { Button } from "~/components/ui/button"
 import {
   Card,
@@ -19,6 +21,8 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const [showPassword, setShowPassword] = useState(false)
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -46,13 +50,23 @@ export function LoginForm({
 
                 <Field>
                   <FieldLabel htmlFor="password" className="mb-1 block text-sm font-medium">Password</FieldLabel>
-                  <Input
-                    type="password"
-                    name="password"
-                    id="password"
-                    autoComplete="current-password"
-                    className={`w-full h-10 rounded border px-4 ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
-                  />
+                  <div className="relative">
+                    <Input
+                      type={showPassword ? 'text' : 'password'}
+                      name="password"
+                      id="password"
+                      autoComplete="current-password"
+                      className={`w-full h-10 rounded border px-4 pr-10 ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((v) => !v)}
+                      className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground hover:text-foreground transition-colors"
+                      aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                    >
+                      {showPassword ? <EyeOffIcon className="size-4" /> : <EyeIcon className="size-4" />}
+                    </button>
+                  </div>
                   {errors.password && <div className="text-red-500 text-sm font-medium mt-0.5">{errors.password}</div>}
                 </Field>
 
