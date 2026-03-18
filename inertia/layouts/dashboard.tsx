@@ -1,7 +1,8 @@
 import { Data } from '@generated/data'
-import { toast, Toaster } from 'sonner'
 import { usePage } from '@inertiajs/react'
 import { ReactElement, useEffect } from 'react'
+import { toast, Toaster } from 'sonner'
+import { AiCompanion } from '~/components/ai-companion'
 import { AppSidebar } from '~/components/app-sidebar'
 import { SidebarInset, SidebarProvider } from '~/components/ui/sidebar'
 
@@ -22,6 +23,7 @@ export default function DashboardLayout({ children }: { children: ReactElement<D
           {children}
         </SidebarInset>
       </SidebarProvider>
+      <AiCompanion />
       <Toaster position="top-center" richColors />
     </>
   )
