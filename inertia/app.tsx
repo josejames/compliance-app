@@ -1,16 +1,16 @@
-import './css/app.css'
+import { resolvePageComponent } from '@adonisjs/inertia/helpers'
+import { TuyauProvider } from '@adonisjs/inertia/react'
+import { Data } from '@generated/data'
+import { createInertiaApp } from '@inertiajs/react'
 import { ReactElement } from 'react'
-import { client } from './client'
-import Layout from '~/layouts/default'
+import { createRoot } from 'react-dom/client'
 import AuthLayout from '~/layouts/auth'
 import DashboardLayout from '~/layouts/dashboard'
-import { Data } from '@generated/data'
-import { createRoot } from 'react-dom/client'
-import { createInertiaApp } from '@inertiajs/react'
-import { TuyauProvider } from '@adonisjs/inertia/react'
-import { resolvePageComponent } from '@adonisjs/inertia/helpers'
+import Layout from '~/layouts/default'
+import { client } from './client'
+import './css/app.css'
 
-const appName = import.meta.env.VITE_APP_NAME || 'AdonisJS'
+const appName = import.meta.env.VITE_APP_NAME || 'LexAI'
 
 createInertiaApp({
   title: (title) => (title ? `${title} - ${appName}` : appName),
