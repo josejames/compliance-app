@@ -20,6 +20,7 @@ import {
   CalendarIcon,
   UserIcon,
 } from "lucide-react"
+import { EvaluationSheet } from "~/components/sheets"
 
 type EvalScope = "project" | "area" | "asset"
 type EvalStatus = "completed" | "in-progress" | "scheduled"
@@ -101,8 +102,7 @@ export default function Page() {
               Evaluaciones por proyecto, área o activo · cuestionarios dinámicos de riesgo
             </p>
           </div>
-          <Button size="sm"><PlusIcon />Nueva evaluación</Button>
-        </div>
+          <EvaluationSheet trigger={<Button size="sm"><PlusIcon />Nueva evaluación</Button>} />        </div>
 
         {/* KPIs */}
         <div className="grid gap-4 md:grid-cols-4">

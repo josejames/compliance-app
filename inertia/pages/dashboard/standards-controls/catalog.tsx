@@ -20,6 +20,7 @@ import {
   UserIcon,
   CalendarIcon,
 } from "lucide-react"
+import { ControlSheet } from "~/components/sheets"
 
 type ControlStatus = "active" | "needs-review" | "overdue" | "inactive"
 type ReviewFrequency = "continuous" | "monthly" | "quarterly" | "annual"
@@ -251,10 +252,14 @@ export default function Page() {
               <DownloadIcon />
               Exportar
             </Button>
-            <Button size="sm">
-              <PlusIcon />
-              Nuevo control
-            </Button>
+            <ControlSheet
+              trigger={
+                <Button size="sm">
+                  <PlusIcon />
+                  Nuevo control
+                </Button>
+              }
+            />
           </div>
         </div>
 

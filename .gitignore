@@ -26,4 +26,5 @@ yarn-error.log
 .DS_Store
 
 # docs
-docs/
+docs/nohup.out
+nohup.out

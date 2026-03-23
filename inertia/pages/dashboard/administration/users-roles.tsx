@@ -19,6 +19,7 @@ import {
   KeyRoundIcon,
 } from "lucide-react"
 import { badgeCls } from "~/lib/compliance_ui"
+import { UserSheet } from "~/components/sheets"
 
 type UserRole = "admin" | "ciso" | "compliance" | "auditor" | "employee"
 type UserStatus = "active" | "inactive" | "pending"
@@ -95,7 +96,7 @@ export default function Page() {
               Alta, baja y modificación de usuarios con asignación de roles y permisos
             </p>
           </div>
-          <Button size="sm"><PlusIcon /> Invitar Usuario</Button>
+          <UserSheet trigger={<Button size="sm"><PlusIcon /> Invitar Usuario</Button>} />
         </div>
 
         {/* KPIs */}

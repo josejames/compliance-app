@@ -20,6 +20,7 @@ import {
   CardTitle,
 } from "~/components/ui/card"
 import { badgeCls } from "~/lib/compliance_ui"
+import { FindingSheet } from "~/components/sheets"
 
 type Classification = "non-conformity" | "observation" | "improvement"
 type FindingSeverity = "critical" | "high" | "medium" | "low"
@@ -112,7 +113,7 @@ export default function Page() {
           </div>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm"><DownloadIcon />Exportar</Button>
-            <Button size="sm"><PlusIcon />Nuevo hallazgo</Button>
+            <FindingSheet trigger={<Button size="sm"><PlusIcon />Nuevo hallazgo</Button>} />
           </div>
         </div>
 
