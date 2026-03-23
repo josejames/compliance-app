@@ -49,4 +49,4 @@ jobs:
           script: |
             cd /home/ubuntu/template-compliance
             # node ace migration:run --force
-            # pm2 restart compliance-app || pm2 start bin/server.js --name compliance-app
+            pm2 restart lex-dev-3333
