@@ -1,4 +1,17 @@
+import { type Data } from "@generated/data"
+import {
+  CalendarIcon,
+  CheckCircle2Icon,
+  KeyRoundIcon,
+  MailIcon,
+  PlusIcon,
+  SearchIcon,
+  UserIcon,
+  XCircleIcon
+} from "lucide-react"
 import { PageHeader } from "~/components/page-header"
+import { UserSheet } from "~/components/sheets"
+import { Button } from "~/components/ui/button"
 import {
   Card,
   CardContent,
@@ -6,80 +19,32 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card"
-import { Button } from "~/components/ui/button"
-import {
-  PlusIcon,
-  SearchIcon,
-  UserIcon,
-  MailIcon,
-  ShieldIcon,
-  CheckCircle2Icon,
-  XCircleIcon,
-  CalendarIcon,
-  KeyRoundIcon,
-} from "lucide-react"
-import { badgeCls } from "~/lib/compliance_ui"
-import { UserSheet } from "~/components/sheets"
+import { badgeCls, roleConfig, userStatusConfig, type UserRole, type UserStatus } from "~/lib/compliance_ui"
+import { InertiaProps } from "~/types"
 
-type UserRole = "admin" | "ciso" | "compliance" | "auditor" | "employee"
-type UserStatus = "active" | "inactive" | "pending"
+type Props = InertiaProps<{
+  roles: Data.Role[]
+  users: Data.User[]
+}>
 
-interface SystemUser {
-  id: string
-  name: string
-  email: string
-  role: UserRole
-  department: string
-  lastLogin: string | null
-  status: UserStatus
-  mfa: boolean
+function formatLastLogin(iso: string | null): string {
+  if (!iso) return "Nunca"
+  return new Date(iso).toLocaleString("es-ES", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  })
 }
 
-const users: SystemUser[] = [
-  { id: "USR-001", name: "Laura Martínez", email: "laura@empresa.com", role: "ciso", department: "Seguridad", lastLogin: "14 Mar 2026 08:42", status: "active", mfa: true },
-  { id: "USR-002", name: "Ana García", email: "ana@empresa.com", role: "compliance", department: "Cumplimiento", lastLogin: "14 Mar 2026 09:05", status: "active", mfa: true },
-  { id: "USR-003", name: "Carlos Rodríguez", email: "carlos@empresa.com", role: "employee", department: "TI", lastLogin: "14 Mar 2026 08:15", status: "active", mfa: true },
-  { id: "USR-004", name: "Pablo Torres", email: "pablo@empresa.com", role: "auditor", department: "Auditoría Interna", lastLogin: "13 Mar 2026 17:30", status: "active", mfa: true },
-  { id: "USR-005", name: "María González", email: "maria@empresa.com", role: "employee", department: "RRHH", lastLogin: "13 Mar 2026 16:45", status: "active", mfa: false },
-  { id: "USR-006", name: "Elena Sánchez", email: "elena@empresa.com", role: "employee", department: "Legal", lastLogin: "13 Mar 2026 14:20", status: "active", mfa: true },
-  { id: "USR-007", name: "Javier López", email: "javier@empresa.com", role: "employee", department: "Calidad", lastLogin: "12 Mar 2026 10:00", status: "active", mfa: false },
-  { id: "USR-008", name: "Roberto Admin", email: "admin@empresa.com", role: "admin", department: "TI", lastLogin: "14 Mar 2026 07:50", status: "active", mfa: true },
-  { id: "USR-009", name: "Sónia Ferreira", email: "sonia@empresa.com", role: "employee", department: "Operaciones", lastLogin: "11 Mar 2026 09:30", status: "active", mfa: false },
-  { id: "USR-010", name: "Diego Morales", email: "diego@empresa.com", role: "employee", department: "Finanzas", lastLogin: "10 Mar 2026 16:15", status: "active", mfa: true },
-  { id: "USR-011", name: "Claudia Ruiz", email: "claudia@empresa.com", role: "compliance", department: "Cumplimiento", lastLogin: "14 Mar 2026 08:55", status: "active", mfa: true },
-  { id: "USR-012", name: "Andrés Vega", email: "andres@empresa.com", role: "auditor", department: "Auditoría Interna", lastLogin: "13 Mar 2026 11:00", status: "active", mfa: true },
-  { id: "USR-013", name: "Natalia Pinto", email: "natalia@empresa.com", role: "employee", department: "Marketing", lastLogin: "05 Mar 2026 09:00", status: "inactive", mfa: false },
-  { id: "USR-014", name: "Fernando Blanco", email: "fernando@empresa.com", role: "employee", department: "Ventas", lastLogin: null, status: "pending", mfa: false },
-  { id: "USR-015", name: "Isabel Castro", email: "isabel@empresa.com", role: "employee", department: "Soporte", lastLogin: null, status: "pending", mfa: false },
-]
 
-const roleConfig: Record<UserRole, { label: string; cls: string }> = {
-  admin: { label: "Administrador", cls: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400" },
-  ciso: { label: "CISO", cls: "bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-400" },
-  compliance: { label: "Cumplimiento", cls: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-400" },
-  auditor: { label: "Auditor", cls: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400" },
-  employee: { label: "Empleado", cls: "bg-muted text-muted-foreground" },
-}
 
-const statusConfig: Record<UserStatus, { label: string; cls: string }> = {
-  active: { label: "Activo", cls: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400" },
-  inactive: { label: "Inactivo", cls: "bg-muted text-muted-foreground" },
-  pending: { label: "Pendiente", cls: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-400" },
-}
+export default function Page({ roles, users }: Props) {
+  const activeCount = users.filter(u => u.status === "active").length
+  const pendingCount = users.filter(u => u.status === "pending").length
+  const noMfaCount = users.filter(u => !u.mfaEnabled && u.status === "active").length
 
-const activeCount = users.filter(u => u.status === "active").length
-const pendingCount = users.filter(u => u.status === "pending").length
-const noMfaCount = users.filter(u => !u.mfa && u.status === "active").length
-
-const roleDescriptions: { role: UserRole; description: string; count: number }[] = [
-  { role: "admin", description: "Acceso total al sistema. Gestión de usuarios, configuración y logs.", count: users.filter(u => u.role === "admin").length },
-  { role: "ciso", description: "Aprobación final de riesgos, políticas y flujos de seguridad.", count: users.filter(u => u.role === "ciso").length },
-  { role: "compliance", description: "Gestión de normas, controles, evidencias y flujos de aprobación.", count: users.filter(u => u.role === "compliance").length },
-  { role: "auditor", description: "Acceso de solo lectura a evidencias, hallazgos y programas de pruebas.", count: users.filter(u => u.role === "auditor").length },
-  { role: "employee", description: "Acceso a sus propias tareas y subida de evidencias asignadas.", count: users.filter(u => u.role === "employee").length },
-]
-
-export default function Page() {
   return (
     <>
       <PageHeader crumbs={[
@@ -116,9 +81,9 @@ export default function Page() {
           <Card>
             <CardHeader>
               <CardDescription>Roles Definidos</CardDescription>
-              <CardTitle><span className="text-3xl font-bold text-purple-600 dark:text-purple-400">5</span></CardTitle>
+              <CardTitle><span className="text-3xl font-bold text-purple-600 dark:text-purple-400">{roles.length}</span></CardTitle>
             </CardHeader>
-            <CardContent><p className="text-xs text-muted-foreground">Admin, CISO, Cumplimiento, Auditor, Empleado</p></CardContent>
+            <CardContent><p className="text-xs text-muted-foreground">{roles.map(r => roleConfig[r.slug as UserRole]?.label ?? r.name).join(", ")}</p></CardContent>
           </Card>
           <Card>
             <CardHeader>
@@ -161,8 +126,8 @@ export default function Page() {
                   </thead>
                   <tbody className="divide-y">
                     {users.map((u) => {
-                      const role = roleConfig[u.role]
-                      const status = statusConfig[u.status]
+                      const role = roleConfig[u.role as UserRole]
+                      const status = userStatusConfig[u.status as UserStatus]
                       return (
                         <tr key={u.id} className={`hover:bg-muted/30 transition-colors ${u.status !== "active" ? "opacity-60" : ""}`}>
                           <td className="px-4 py-3">
@@ -171,7 +136,7 @@ export default function Page() {
                                 <UserIcon className="size-3.5 text-muted-foreground" />
                               </div>
                               <div className="min-w-0">
-                                <p className="text-sm font-medium leading-tight">{u.name}</p>
+                                <p className="text-sm font-medium leading-tight">{u.fullName ?? u.email}</p>
                                 <div className="flex items-center gap-1 text-xs text-muted-foreground">
                                   <MailIcon className="size-3 shrink-0" />
                                   <span className="truncate max-w-36">{u.email}</span>
@@ -180,23 +145,23 @@ export default function Page() {
                             </div>
                           </td>
                           <td className="px-4 py-3 hidden md:table-cell">
-                            <span className={`${badgeCls} ${role.cls}`}>{role.label}</span>
+                            <span className={`${badgeCls} ${role?.cls}`}>{role?.label ?? u.role}</span>
                             <p className="text-[10px] text-muted-foreground mt-0.5">{u.department}</p>
                           </td>
                           <td className="px-4 py-3 hidden lg:table-cell">
                             <div className="flex items-center gap-1 text-xs">
                               <CalendarIcon className="size-3 text-muted-foreground shrink-0" />
-                              <span>{u.lastLogin ?? "Nunca"}</span>
+                              <span>{formatLastLogin(u.lastLogin)}</span>
                             </div>
                           </td>
                           <td className="px-4 py-3">
-                            {u.mfa
+                            {u.mfaEnabled
                               ? <CheckCircle2Icon className="size-4 text-green-600 dark:text-green-400" />
                               : <XCircleIcon className="size-4 text-amber-500" />
                             }
                           </td>
                           <td className="px-4 py-3">
-                            <span className={`${badgeCls} ${status.cls}`}>{status.label}</span>
+                            <span className={`${badgeCls} ${status?.cls}`}>{status?.label}</span>
                           </td>
                           <td className="px-4 py-3">
                             <div className="flex gap-1">
@@ -221,13 +186,12 @@ export default function Page() {
             </CardHeader>
             <CardContent className="p-0">
               <div className="divide-y">
-                {roleDescriptions.map((r) => {
-                  const cfg = roleConfig[r.role]
+                {roles.map((r) => {
+                  const cfg = roleConfig[r.slug as UserRole]
                   return (
-                    <div key={r.role} className="px-4 py-3">
+                    <div key={r.slug} className="px-4 py-3">
                       <div className="flex items-center justify-between mb-1">
-                        <span className={`${badgeCls} ${cfg.cls}`}>{cfg.label}</span>
-                        <span className="text-xs font-semibold">{r.count} usuario{r.count !== 1 ? "s" : ""}</span>
+                        <span className={`${badgeCls} ${cfg?.cls}`}>{cfg?.label ?? r.name}</span>
                       </div>
                       <p className="text-xs text-muted-foreground leading-relaxed">{r.description}</p>
                     </div>

@@ -119,8 +119,7 @@ router
     // 8. Administración
     router.on('/administracion').renderInertia('dashboard/administration', {}).as('administracion')
     router
-      .on('/administracion/usuarios-roles')
-      .renderInertia('dashboard/administration/users-roles', {})
+      .get('/administracion/usuarios-roles', [controllers.Admin, 'index'])
       .as('administracion.usuarios-roles')
     router
       .on('/administracion/organizacion')

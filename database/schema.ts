@@ -27,18 +27,7 @@ export class RoleSchema extends BaseModel {
 }
 
 export class UserSchema extends BaseModel {
-  static $columns = [
-    'createdAt',
-    'department',
-    'email',
-    'fullName',
-    'id',
-    'mfaEnabled',
-    'password',
-    'role',
-    'status',
-    'updatedAt',
-  ] as const
+  static $columns = ['createdAt', 'department', 'email', 'fullName', 'id', 'lastLogin', 'mfaEnabled', 'password', 'role', 'status', 'updatedAt'] as const
   $columns = UserSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
@@ -50,6 +39,8 @@ export class UserSchema extends BaseModel {
   declare fullName: string | null
   @column({ isPrimary: true })
   declare id: number
+  @column.dateTime()
+  declare lastLogin: DateTime | null
   @column()
   declare mfaEnabled: boolean
   @column({ serializeAs: null })
@@ -57,7 +48,7 @@ export class UserSchema extends BaseModel {
   @column()
   declare role: string
   @column()
-  declare status: 'active' | 'inactive' | 'pending'
+  declare status: string
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }

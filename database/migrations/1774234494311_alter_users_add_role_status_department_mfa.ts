@@ -25,20 +25,16 @@ export default class extends BaseSchema {
        * - inactive : manually deactivated by an administrator
        * - pending  : invitation sent, user has not yet set a password
        */
-      table
-        .enum('status', ['active', 'inactive', 'pending'])
-        .notNullable()
-        .defaultTo('active')
+      table.enum('status', ['active', 'inactive', 'pending']).notNullable().defaultTo('active')
 
       /**
        * Organisational unit the user belongs to (free-form string kept
        * flexible enough for different company structures).
        */
       table.string('department', 150).nullable()
-
+      table.timestamp('last_login').nullable()
       /**
-       * Whether the user has a second authentication factor configured.
-       * Tracked here for compliance dashboards (e.g. "users without MFA").
+       * Whether the user has enabled multi-factor authentication (MFA) on their
        */
       table.boolean('mfa_enabled').notNullable().defaultTo(false)
     })
@@ -49,6 +45,7 @@ export default class extends BaseSchema {
       table.dropColumn('role')
       table.dropColumn('status')
       table.dropColumn('department')
+      table.dropColumn('last_login')
       table.dropColumn('mfa_enabled')
     })
   }

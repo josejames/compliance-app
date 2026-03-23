@@ -71,6 +71,43 @@ export const severityConfig: Record<
   },
 }
 
+export type UserRole = 'admin' | 'ciso' | 'compliance' | 'auditor' | 'employee'
+export type UserStatus = 'active' | 'inactive' | 'pending'
+
+/** Role badge colours and display labels, keyed by slug */
+export const roleConfig: Record<UserRole, { label: string; cls: string }> = {
+  admin: {
+    label: 'Administrador',
+    cls: 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400',
+  },
+  ciso: {
+    label: 'CISO',
+    cls: 'bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-400',
+  },
+  compliance: {
+    label: 'Cumplimiento',
+    cls: 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-400',
+  },
+  auditor: {
+    label: 'Auditor',
+    cls: 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400',
+  },
+  employee: { label: 'Empleado', cls: 'bg-muted text-muted-foreground' },
+}
+
+/** User account status badge colours */
+export const userStatusConfig: Record<UserStatus, { label: string; cls: string }> = {
+  active: {
+    label: 'Activo',
+    cls: 'bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400',
+  },
+  inactive: { label: 'Inactivo', cls: 'bg-muted text-muted-foreground' },
+  pending: {
+    label: 'Pendiente',
+    cls: 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-400',
+  },
+}
+
 /** Progress-bar background colour based on compliance % score */
 export function scoreBgCls(score: number): string {
   if (score >= 80) return 'bg-green-500'

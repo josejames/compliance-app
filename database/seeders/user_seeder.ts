@@ -1,5 +1,6 @@
-import { BaseSeeder } from '@adonisjs/lucid/seeders'
 import User from '#models/user'
+import { BaseSeeder } from '@adonisjs/lucid/seeders'
+import { DateTime } from 'luxon'
 
 /**
  * Seed a representative set of system users that mirrors the wireframe data
@@ -16,15 +17,17 @@ export default class UserSeeder extends BaseSeeder {
   static environment = ['development', 'test']
 
   async run() {
-    const password = process.env.SEED_USER_PASSWORD ?? 'Password1!'
+    const password = process.env.SEED_USER_PASSWORD ?? 'Pa$$w0rd!'
 
     const users = [
       {
-        fullName: 'Roberto Admin',
-        email: 'admin@empresa.com',
+        fullName: 'Jaime Rodríguez',
+        email: 'jaime@innovatio.dev',
         role: 'admin',
         department: 'TI',
         status: 'active' as const,
+        // last login in the past
+        lastLogin: DateTime.fromJSDate(new Date(Date.now() - 1000 * 60 * 60 * 24 * 7)), // 7 days ago
         mfaEnabled: true,
       },
       {
@@ -33,14 +36,16 @@ export default class UserSeeder extends BaseSeeder {
         role: 'ciso',
         department: 'Seguridad',
         status: 'active' as const,
+        lastLogin: DateTime.fromJSDate(new Date(Date.now() - 1000 * 60 * 60 * 24 * 7)), // 7 days ago
         mfaEnabled: true,
       },
       {
-        fullName: 'Ana García',
-        email: 'ana@empresa.com',
+        fullName: 'Carlos Gonzales',
+        email: 'carlos@lex.ai',
         role: 'compliance',
         department: 'Cumplimiento',
         status: 'active' as const,
+        lastLogin: DateTime.fromJSDate(new Date(Date.now() - 1000 * 60 * 60 * 24 * 3)), // 3 days ago
         mfaEnabled: true,
       },
       {
@@ -49,6 +54,7 @@ export default class UserSeeder extends BaseSeeder {
         role: 'compliance',
         department: 'Cumplimiento',
         status: 'active' as const,
+        lastLogin: DateTime.fromJSDate(new Date(Date.now() - 1000 * 60 * 60 * 24 * 1)), // 1 day ago
         mfaEnabled: true,
       },
       {
@@ -57,6 +63,7 @@ export default class UserSeeder extends BaseSeeder {
         role: 'auditor',
         department: 'Auditoría Interna',
         status: 'active' as const,
+        lastLogin: DateTime.fromJSDate(new Date(Date.now() - 1000 * 60 * 60 * 24 * 10)), // 10 days ago
         mfaEnabled: true,
       },
       {
@@ -65,6 +72,7 @@ export default class UserSeeder extends BaseSeeder {
         role: 'auditor',
         department: 'Auditoría Interna',
         status: 'active' as const,
+        lastLogin: DateTime.fromJSDate(new Date(Date.now() - 1000 * 60 * 60 * 24 * 15)), // 15 days ago
         mfaEnabled: true,
       },
       {
@@ -73,6 +81,7 @@ export default class UserSeeder extends BaseSeeder {
         role: 'employee',
         department: 'TI',
         status: 'active' as const,
+        lastLogin: DateTime.fromJSDate(new Date(Date.now() - 1000 * 60 * 60 * 24 * 2)), // 2 days ago
         mfaEnabled: true,
       },
       {
@@ -81,6 +90,7 @@ export default class UserSeeder extends BaseSeeder {
         role: 'employee',
         department: 'RRHH',
         status: 'active' as const,
+        lastLogin: DateTime.fromJSDate(new Date(Date.now() - 1000 * 60 * 60 * 24 * 5)), // 5 days ago
         mfaEnabled: false,
       },
       {
@@ -89,6 +99,7 @@ export default class UserSeeder extends BaseSeeder {
         role: 'employee',
         department: 'Legal',
         status: 'active' as const,
+        lastLogin: DateTime.fromJSDate(new Date(Date.now() - 1000 * 60 * 60 * 24 * 20)), // 20 days ago
         mfaEnabled: true,
       },
       {
@@ -97,6 +108,7 @@ export default class UserSeeder extends BaseSeeder {
         role: 'employee',
         department: 'Calidad',
         status: 'active' as const,
+        lastLogin: DateTime.fromJSDate(new Date(Date.now() - 1000 * 60 * 60 * 24 * 30)), // 30 days ago
         mfaEnabled: false,
       },
       {
@@ -105,6 +117,7 @@ export default class UserSeeder extends BaseSeeder {
         role: 'employee',
         department: 'Operaciones',
         status: 'active' as const,
+        lastLogin: DateTime.fromJSDate(new Date(Date.now() - 1000 * 60 * 60 * 24 * 1)), // 1 day ago
         mfaEnabled: false,
       },
       {
@@ -113,6 +126,7 @@ export default class UserSeeder extends BaseSeeder {
         role: 'employee',
         department: 'Finanzas',
         status: 'active' as const,
+        lastLogin: DateTime.fromJSDate(new Date(Date.now() - 1000 * 60 * 60 * 24 * 3)), // 3 days ago
         mfaEnabled: true,
       },
       {
@@ -121,6 +135,7 @@ export default class UserSeeder extends BaseSeeder {
         role: 'employee',
         department: 'Marketing',
         status: 'inactive' as const,
+        lastLogin: DateTime.fromJSDate(new Date(Date.now() - 1000 * 60 * 60 * 24 * 60)), // 60 days ago
         mfaEnabled: false,
       },
       {
@@ -129,6 +144,7 @@ export default class UserSeeder extends BaseSeeder {
         role: 'employee',
         department: 'Ventas',
         status: 'pending' as const,
+        lastLogin: DateTime.fromJSDate(new Date(Date.now() - 1000 * 60 * 60 * 24 * 90)), // 90 days ago
         mfaEnabled: false,
       },
       {
@@ -137,15 +153,13 @@ export default class UserSeeder extends BaseSeeder {
         role: 'employee',
         department: 'Soporte',
         status: 'pending' as const,
+        lastLogin: DateTime.fromJSDate(new Date(Date.now() - 1000 * 60 * 60 * 24 * 120)), // 120 days ago
         mfaEnabled: false,
       },
     ]
 
     for (const userData of users) {
-      await User.updateOrCreate(
-        { email: userData.email },
-        { ...userData, password }
-      )
+      await User.updateOrCreate({ email: userData.email }, { ...userData, password })
     }
   }
 }
