@@ -11,4 +11,12 @@ export default class User extends compose(UserSchema, withAuthFinder(hash)) {
     }
     return `${first.slice(0, 2)}`.toUpperCase()
   }
+
+  get isActive(): boolean {
+    return this.status === 'active'
+  }
+
+  get isPending(): boolean {
+    return this.status === 'pending'
+  }
 }

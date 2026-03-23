@@ -7,19 +7,57 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
+export class RoleSchema extends BaseModel {
+  static $columns = ['createdAt', 'description', 'id', 'name', 'slug', 'sortOrder', 'updatedAt'] as const
+  $columns = RoleSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare description: string | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare name: string
+  @column()
+  declare slug: string
+  @column()
+  declare sortOrder: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class UserSchema extends BaseModel {
-  static $columns = ['createdAt', 'email', 'fullName', 'id', 'password', 'updatedAt'] as const
+  static $columns = [
+    'createdAt',
+    'department',
+    'email',
+    'fullName',
+    'id',
+    'mfaEnabled',
+    'password',
+    'role',
+    'status',
+    'updatedAt',
+  ] as const
   $columns = UserSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
+  @column()
+  declare department: string | null
   @column()
   declare email: string
   @column()
   declare fullName: string | null
   @column({ isPrimary: true })
   declare id: number
+  @column()
+  declare mfaEnabled: boolean
   @column({ serializeAs: null })
   declare password: string
+  @column()
+  declare role: string
+  @column()
+  declare status: 'active' | 'inactive' | 'pending'
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }

@@ -8,6 +8,13 @@ const dbConfig = defineConfig({
    */
   connection: 'mysql',
 
+  /**
+   * Path(s) to seeder files.  Run them with: node ace db:seed
+   */
+  seeders: {
+    paths: ['database/seeders'],
+  },
+
   connections: {
     /**
      * SQLite connection (default).
