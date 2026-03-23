@@ -1,0 +1,31 @@
+import { BaseSeeder } from '@adonisjs/lucid/seeders'
+import app from '@adonisjs/core/services/app'
+
+/**
+ * Main database seeder.
+ *
+ * Runs all seeders in dependency order:
+ *   1. RoleSeeder  – must run first so role slugs exist before users reference them
+ *   2. UserSeeder  – development / test only, seeds sample users
+ *
+ * Run with:
+ *   node ace db:seed
+ *
+ * Run a single seeder with:
+ *   node ace db:seed --files="database/seeders/role_seeder.ts"
+ */
+export default class MainSeeder extends BaseSeeder {
+  async run() {
+    const { default: RoleSeeder } = await import('./role_seeder.js')
+    await new RoleSeeder(this.client).run()
+
+    /**
+     * UserSeeder contains sample data and must only run in non-production
+     * environments.
+     */
+    if (app.nodeEnvironment !== 'production') {
+      const { default: UserSeeder } = await import('./user_seeder.js')
+      await new UserSeeder(this.client).run()
+    }
+  }
+}
