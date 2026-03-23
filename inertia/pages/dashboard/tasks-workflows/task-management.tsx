@@ -18,6 +18,7 @@ import {
   FilterIcon,
 } from "lucide-react"
 import { badgeCls, priorityConfig } from "~/lib/compliance_ui"
+import { TaskSheet } from "~/components/sheets"
 
 type TaskPriority = "high" | "medium" | "low"
 type TaskStatus = "pending" | "in-progress" | "overdue" | "completed" | "cancelled"
@@ -91,9 +92,7 @@ export default function Page() {
               Vista de todas las tareas del sistema con filtros avanzados
             </p>
           </div>
-          <Button size="sm">
-            <PlusIcon /> Nueva Tarea
-          </Button>
+          <TaskSheet trigger={<Button size="sm"><PlusIcon /> Nueva Tarea</Button>} />
         </div>
 
         {/* KPIs */}

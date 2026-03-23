@@ -21,6 +21,7 @@ import {
   ArrowRightIcon,
   ChevronRightIcon,
 } from "lucide-react"
+import { MitigationSheet } from "~/components/sheets"
 
 type ActionStatus = "completed" | "in-progress" | "pending" | "overdue"
 type RiskLevel = "critical" | "high" | "medium" | "low"
@@ -84,7 +85,7 @@ export default function Page() {
               Seguimiento de acciones para reducir los riesgos identificados
             </p>
           </div>
-          <Button size="sm"><PlusIcon />Nueva acción</Button>
+          <MitigationSheet trigger={<Button size="sm"><PlusIcon />Nueva acción</Button>} />
         </div>
 
         {/* KPIs */}

@@ -21,6 +21,7 @@ import {
   XCircleIcon,
 } from "lucide-react"
 import { badgeCls } from "~/lib/compliance_ui"
+import { AuditSheet } from "~/components/sheets"
 
 type AuditType = "internal" | "external"
 type AuditStatus = "planned" | "in-progress" | "completed" | "cancelled"
@@ -89,7 +90,7 @@ export default function Page() {
           </div>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm"><DownloadIcon />Exportar</Button>
-            <Button size="sm"><PlusIcon />Nueva auditoría</Button>
+            <AuditSheet trigger={<Button size="sm"><PlusIcon />Nueva auditoría</Button>} />
           </div>
         </div>
 

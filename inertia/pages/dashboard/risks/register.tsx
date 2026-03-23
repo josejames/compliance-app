@@ -19,6 +19,7 @@ import {
   TrendingDownIcon,
   ArrowRightIcon,
 } from "lucide-react"
+import { RiskSheet } from "~/components/sheets"
 
 type RiskLevel = "critical" | "high" | "medium" | "low"
 type Treatment = "mitigate" | "accept" | "transfer" | "avoid"
@@ -112,7 +113,7 @@ export default function Page() {
           </div>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm"><DownloadIcon />Exportar</Button>
-            <Button size="sm"><PlusIcon />Nuevo riesgo</Button>
+            <RiskSheet trigger={<Button size="sm"><PlusIcon />Nuevo riesgo</Button>} />
           </div>
         </div>
 

@@ -23,6 +23,7 @@ import {
   ShieldCheckIcon,
 } from "lucide-react"
 import { badgeCls } from "~/lib/compliance_ui"
+import { PolicySheet } from "~/components/sheets"
 
 type PolicyStatus = "active" | "review-due" | "overdue" | "draft" | "retired"
 type PolicyCategory =
@@ -118,7 +119,7 @@ export default function Page() {
           </div>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm"><DownloadIcon />Exportar</Button>
-            <Button size="sm"><PlusIcon />Nueva política</Button>
+            <PolicySheet trigger={<Button size="sm"><PlusIcon />Nueva política</Button>} />
           </div>
         </div>
 
