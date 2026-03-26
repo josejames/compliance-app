@@ -122,6 +122,9 @@ router
       .get('/administracion/usuarios-roles', [controllers.Admin, 'index'])
       .as('administracion.usuarios-roles')
     router
+      .put('/administracion/usuarios-roles/:id', [controllers.Admin, 'update'])
+      .as('administracion.usuarios-roles.update')
+    router
       .on('/administracion/organizacion')
       .renderInertia('dashboard/administration/organization', {})
       .as('administracion.organizacion')
