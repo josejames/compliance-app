@@ -165,7 +165,17 @@ export default function Page({ roles, users }: Props) {
                           </td>
                           <td className="px-4 py-3">
                             <div className="flex gap-1">
-                              <Button variant="ghost" size="xs">Editar</Button>
+                              <UserSheet
+                                trigger={<Button variant="ghost" size="xs">Editar</Button>}
+                                userId={u.id}
+                                defaultValues={{
+                                  name: u.fullName ?? "",
+                                  email: u.email,
+                                  role: u.role,
+                                  department: u.department ?? "",
+                                  status: u.status,
+                                }}
+                              />
                               <Button variant="ghost" size="xs"><KeyRoundIcon /></Button>
                             </div>
                           </td>

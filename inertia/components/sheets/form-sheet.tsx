@@ -28,7 +28,7 @@ import { Separator } from "~/components/ui/separator"
 
 export interface FormSheetProps {
   /** Element that opens the sheet (usually a Button). */
-  trigger: React.ReactNode
+  trigger?: React.ReactNode
   /** Short title shown in the sheet header. */
   title: string
   /** Optional subtitle / instruction text. */
@@ -43,6 +43,10 @@ export interface FormSheetProps {
   icon?: React.ReactNode
   /** Accent stripe colour class (Tailwind bg-*). */
   accentClass?: string
+  /** Controlled open state (optional). */
+  open?: boolean
+  /** Callback when controlled open state changes. */
+  onOpenChange?: (open: boolean) => void
   children: React.ReactNode
 }
 
@@ -55,11 +59,13 @@ export function FormSheet({
   destructiveAction,
   icon,
   accentClass = "bg-primary",
+  open,
+  onOpenChange,
   children,
 }: FormSheetProps) {
   return (
-    <Sheet>
-      <SheetTrigger asChild>{trigger}</SheetTrigger>
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      {trigger && <SheetTrigger asChild>{trigger}</SheetTrigger>}
       <SheetContent
         side="right"
         showCloseButton={false}
