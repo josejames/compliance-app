@@ -42,11 +42,11 @@ router
       .as('normas-controles.catalogo')
 
     // 3. Riesgos
-    router.on('/riesgos').renderInertia('dashboard/risks', {}).as('riesgos')
-    router
-      .on('/riesgos/registro')
-      .renderInertia('dashboard/risks/register', {})
-      .as('riesgos.registro')
+    router.get('/riesgos', [controllers.Risks, 'index']).as('riesgos')
+    router.get('/riesgos/registro', [controllers.Risks, 'register']).as('riesgos.registro')
+    router.post('/riesgos', [controllers.Risks, 'store']).as('riesgos.store')
+    router.put('/riesgos/:id', [controllers.Risks, 'update']).as('riesgos.update')
+    router.delete('/riesgos/:id', [controllers.Risks, 'destroy']).as('riesgos.destroy')
     router
       .on('/riesgos/evaluacion')
       .renderInertia('dashboard/risks/evaluation', {})
