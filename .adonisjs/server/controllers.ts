@@ -5,6 +5,7 @@
 
 export const controllers = {
   Admin: () => import('#controllers/admin_controller'),
+  Frameworks: () => import('#controllers/frameworks_controller'),
   NewAccount: () => import('#controllers/new_account_controller'),
   Risks: () => import('#controllers/risks_controller'),
   Session: () => import('#controllers/session_controller'),

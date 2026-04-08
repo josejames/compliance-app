@@ -7,6 +7,37 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
+export class FrameworkSchema extends BaseModel {
+  static $columns = ['category', 'compliancePercentage', 'controlsCount', 'createdAt', 'description', 'domainsCount', 'id', 'lastReviewDate', 'name', 'slug', 'status', 'updatedAt', 'version'] as const
+  $columns = FrameworkSchema.$columns
+  @column()
+  declare category: string
+  @column()
+  declare compliancePercentage: number
+  @column()
+  declare controlsCount: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare description: string | null
+  @column()
+  declare domainsCount: number
+  @column({ isPrimary: true })
+  declare id: number
+  @column.date()
+  declare lastReviewDate: DateTime | null
+  @column()
+  declare name: string
+  @column()
+  declare slug: string
+  @column()
+  declare status: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+  @column()
+  declare version: string
+}
+
 export class RiskSchema extends BaseModel {
   static $columns = ['category', 'createdAt', 'description', 'frameworks', 'id', 'impact', 'owner', 'probability', 'status', 'title', 'treatment', 'updatedAt'] as const
   $columns = RiskSchema.$columns
