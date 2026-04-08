@@ -1,0 +1,120 @@
+name: "Copilot Setup Steps"
+
+# Run automatically when this file changes to validate it,
+# and allow manual testing from the Actions tab.
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+  pull_request:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+
+jobs:
+  # The job MUST be named `copilot-setup-steps` to be picked up by the agent.
+  copilot-setup-steps:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    permissions:
+      contents: read
+
+    # Spin up a MySQL 8 service for migrations and seeding.
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: compliance_app
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
+    steps:
+      # ── Checkout ────────────────────────────────────────────────────────────
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      # ── Node.js + pnpm ──────────────────────────────────────────────────────
+      - name: Install pnpm
+        uses: pnpm/action-setup@v5
+        with:
+          version: 10
+          run_install: false
+
+      - name: Set up Node.js 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+
+      # ── Dependencies ────────────────────────────────────────────────────────
+      - name: Install dependencies
+        run: pnpm install
+
+      # ── Environment file ────────────────────────────────────────────────────
+      # Non-sensitive defaults are inlined. Sensitive values come from the
+      # `copilot` environment (Settings → Environments → copilot):
+      #   • APP_KEY           — generate once with: node ace generate:key
+      #   • DB_PASSWORD       — optional; defaults to "root" which matches the
+      #                         MYSQL_ROOT_PASSWORD hardcoded in the service above.
+      #                         Only set this secret if you change the service password.
+      #   • SEED_USER_PASSWORD — optional; password for seeded dev users
+      - name: Create .env file
+        env:
+          APP_KEY: ${{ secrets.APP_KEY }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD || 'root' }}
+          SEED_USER_PASSWORD: ${{ secrets.SEED_USER_PASSWORD || 'Pa$$w0rd!' }}
+        run: |
+          cat > .env <<EOF
+          TZ=UTC
+          PORT=3333
+          HOST=localhost
+          LOG_LEVEL=info
+          APP_KEY=${APP_KEY}
+          NODE_ENV=development
+
+          DB_HOST=127.0.0.1
+          DB_PORT=3306
+          DB_USER=root
+          DB_PASSWORD=${DB_PASSWORD}
+          DB_DATABASE=compliance_app
+
+          SEED_USER_PASSWORD=${SEED_USER_PASSWORD}
+          EOF
+
+      # ── Database ─────────────────────────────────────────────────────────────
+      - name: Wait for MySQL to be ready
+        run: |
+          for i in {1..30}; do
+            if mysqladmin ping -h 127.0.0.1 -u root --password=root --silent 2>/dev/null; then
+              echo "MySQL is ready."
+              break
+            fi
+            echo "Waiting for MySQL... ($i/30)"
+            sleep 2
+          done
+
+      - name: Run database migrations
+        run: node ace migration:run --force
+
+      - name: Seed database
+        run: node ace db:seed
+
+      # ── Type generation ──────────────────────────────────────────────────────
+      # Regenerates @generated/* types (controllers, routes, Inertia data types)
+      # so the agent has accurate autocomplete from the first prompt.
+      - name: Generate types
+        run: node ace generate:types
+
+      # ── Validation ───────────────────────────────────────────────────────────
+      - name: Type-check backend and frontend
+        run: pnpm typecheck
+
+      - name: Lint
+        run: pnpm lint
