@@ -108,12 +108,6 @@ jobs:
       - name: Seed database
         run: node ace db:seed
 
-      # ── Type generation ──────────────────────────────────────────────────────
-      # Regenerates @generated/* types (controllers, routes, Inertia data types)
-      # so the agent has accurate autocomplete from the first prompt.
-      - name: Generate types
-        run: node ace generate:types
-
       # ── Validation ───────────────────────────────────────────────────────────
       - name: Type-check backend and frontend
         run: pnpm typecheck
