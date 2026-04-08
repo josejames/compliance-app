@@ -14,7 +14,7 @@ import { DateTime } from 'luxon'
  * creating duplicates.
  */
 export default class UserSeeder extends BaseSeeder {
-  static environment = ['development', 'test']
+  static environment = ['development', 'test', 'production']
 
   async run() {
     const password = process.env.SEED_USER_PASSWORD ?? 'Pa$$w0rd!'
