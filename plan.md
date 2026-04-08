@@ -7,6 +7,7 @@
 | Auth (Login / Signup) | ✅ Done | Full CRUD, session-based |
 | 8.1 Users & Roles Admin | ✅ Done | Full CRUD, role assignment |
 | 3. Risks (Register) | ✅ Done | Full CRUD, impact/probability matrix |
+| 2.1 Frameworks Library | ✅ Done | Full CRUD, real DB data, seeded with 7 frameworks |
 | All other sections | 🟡 Mockup | Pages exist with hardcoded data |
 
 ---
@@ -17,7 +18,7 @@ Ordered by **dependency** — each phase depends on the previous one being compl
 
 ---
 
-### Phase 1 — Frameworks (Marcos Normativos) 📋
+### Phase 1 — Frameworks (Marcos Normativos) ✅ Complete
 
 > Foundation for all compliance logic. Everything else references frameworks.
 
@@ -31,11 +32,11 @@ Ordered by **dependency** — each phase depends on the previous one being compl
 - [x] Transformer: `app/transformers/framework_transformer.ts`
 - [x] Controller: `app/controllers/frameworks_controller.ts`
 - [x] Routes: `/normas-controles/biblioteca` → `FrameworksController`
-- [x] Page: `standards-controls/library.tsx` — real DB data, full CRUD (add / edit / delete)
+- [x] Page: `standards-controls/library.tsx` — real DB data, full CRUD (add / edit / delete), live search + category filter
 
 ---
 
-### Phase 2 — Internal Controls Catalog (Catálogo de Controles)
+### ➡️ Phase 2 — Internal Controls Catalog (Catálogo de Controles) ← **NEXT STEP**
 
 > **Depends on Phase 1** (controls are linked to frameworks).
 
