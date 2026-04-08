@@ -8,25 +8,12 @@ import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
 export class RiskSchema extends BaseModel {
-  static $columns = [
-    'category',
-    'createdAt',
-    'description',
-    'frameworks',
-    'id',
-    'impact',
-    'owner',
-    'probability',
-    'status',
-    'title',
-    'treatment',
-    'updatedAt',
-  ] as const
+  static $columns = ['category', 'createdAt', 'description', 'frameworks', 'id', 'impact', 'owner', 'probability', 'status', 'title', 'treatment', 'updatedAt'] as const
   $columns = RiskSchema.$columns
   @column()
   declare category: string
   @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime
+  declare createdAt: DateTime | null
   @column()
   declare description: string | null
   @column()
@@ -50,15 +37,7 @@ export class RiskSchema extends BaseModel {
 }
 
 export class RoleSchema extends BaseModel {
-  static $columns = [
-    'createdAt',
-    'description',
-    'id',
-    'name',
-    'slug',
-    'sortOrder',
-    'updatedAt',
-  ] as const
+  static $columns = ['createdAt', 'description', 'id', 'name', 'slug', 'sortOrder', 'updatedAt'] as const
   $columns = RoleSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
@@ -77,19 +56,7 @@ export class RoleSchema extends BaseModel {
 }
 
 export class UserSchema extends BaseModel {
-  static $columns = [
-    'createdAt',
-    'department',
-    'email',
-    'fullName',
-    'id',
-    'lastLogin',
-    'mfaEnabled',
-    'password',
-    'role',
-    'status',
-    'updatedAt',
-  ] as const
+  static $columns = ['createdAt', 'department', 'email', 'fullName', 'id', 'lastLogin', 'mfaEnabled', 'password', 'role', 'status', 'updatedAt'] as const
   $columns = UserSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
