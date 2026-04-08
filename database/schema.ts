@@ -7,6 +7,46 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
+export class ControlFrameworkSchema extends BaseModel {
+  static $columns = ['controlId', 'frameworkId', 'id'] as const
+  $columns = ControlFrameworkSchema.$columns
+  @column()
+  declare controlId: number
+  @column()
+  declare frameworkId: number
+  @column({ isPrimary: true })
+  declare id: number
+}
+
+export class ControlSchema extends BaseModel {
+  static $columns = ['createdAt', 'description', 'domain', 'frameworks', 'frequency', 'id', 'lastReviewedAt', 'nextReviewAt', 'owner', 'status', 'title', 'updatedAt'] as const
+  $columns = ControlSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare description: string | null
+  @column()
+  declare domain: string
+  @column()
+  declare frameworks: string | null
+  @column()
+  declare frequency: string | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column.date()
+  declare lastReviewedAt: DateTime | null
+  @column.date()
+  declare nextReviewAt: DateTime | null
+  @column()
+  declare owner: string
+  @column()
+  declare status: string | null
+  @column()
+  declare title: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+}
+
 export class FrameworkSchema extends BaseModel {
   static $columns = ['category', 'compliancePercentage', 'controlsCount', 'createdAt', 'description', 'domainsCount', 'id', 'lastReviewDate', 'name', 'slug', 'status', 'updatedAt', 'version'] as const
   $columns = FrameworkSchema.$columns

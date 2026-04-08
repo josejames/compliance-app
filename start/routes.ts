@@ -38,10 +38,10 @@ router
       .on('/normas-controles/mapeo')
       .renderInertia('dashboard/standards-controls/mapping', {})
       .as('normas-controles.mapeo')
-    router
-      .on('/normas-controles/catalogo')
-      .renderInertia('dashboard/standards-controls/catalog', {})
-      .as('normas-controles.catalogo')
+    router.get('/normas-controles/catalogo', [controllers.Controls, 'index']).as('normas-controles.catalogo')
+    router.post('/normas-controles/catalogo', [controllers.Controls, 'store']).as('normas-controles.catalogo.store')
+    router.put('/normas-controles/catalogo/:id', [controllers.Controls, 'update']).as('normas-controles.catalogo.update')
+    router.delete('/normas-controles/catalogo/:id', [controllers.Controls, 'destroy']).as('normas-controles.catalogo.destroy')
 
     // 3. Riesgos
     router.get('/riesgos', [controllers.Risks, 'index']).as('riesgos')
