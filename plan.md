@@ -36,34 +36,40 @@ Ordered by **dependency** — each phase depends on the previous one being compl
 
 ---
 
-### ➡️ Phase 2 — Internal Controls Catalog (Catálogo de Controles) ← **NEXT STEP**
+### ✅ Phase 2 — Internal Controls Catalog (Catálogo de Controles) — Complete
 
 > **Depends on Phase 1** (controls are linked to frameworks).
 
 **Module:** 2.3 Catálogo de Controles Internos (`/normas-controles/catalogo`)
 
-- [ ] Migration: `create_controls_table`
-- [ ] Migration: `create_control_framework_table` (many-to-many pivot)
-- [ ] Model: `Control` (extends `ControlSchema`)
-- [ ] Seeder: `ControlSeeder`
-- [ ] Validator: `app/validators/control.ts`
-- [ ] Service: `app/services/control_service.ts`
-- [ ] Transformer: `app/transformers/control_transformer.ts`
-- [ ] Controller: `app/controllers/controls_controller.ts`
-- [ ] Routes: `/normas-controles/catalogo` → `ControlsController`
-- [ ] Page: `standards-controls/catalog.tsx` — real DB data, full CRUD
+- [x] Migration: `create_controls_table`
+- [x] Migration: `create_control_framework_table` (many-to-many pivot)
+- [x] Model: `Control` (extends `ControlSchema`, computed `code` + `frameworkList`)
+- [x] Seeder: `ControlSeeder` (12 sample controls) + registered in `MainSeeder`
+- [x] Validator: `app/validators/control.ts`
+- [x] Service: `app/services/control_service.ts`
+- [x] Transformer: `app/transformers/control_transformer.ts`
+- [x] Controller: `app/controllers/controls_controller.ts`
+- [x] Routes: `/normas-controles/catalogo` → `ControlsController` (GET/POST/PUT/DELETE)
+- [x] Page: `standards-controls/catalog.tsx` — real DB data, full CRUD (add / edit / delete), live search + status filter
 
 ---
 
-### Phase 3 — Control–Framework Mapping
+### ➡️ Phase 3 — Control–Framework Mapping ← **NEXT STEP**
 
 > **Depends on Phase 1 & 2**.
 
 **Module:** 2.2 Mapeo de Controles (`/normas-controles/mapeo`)
 
 - [ ] Service: add mapping methods to `ControlService` / `FrameworkService`
-- [ ] Controller: update to serve mapping matrix
-- [ ] Page: `standards-controls/mapping.tsx` — live matrix view
+- [ ] Controller: `ControlsController` or dedicated `MappingController` to serve mapping data
+- [ ] Page: `standards-controls/mapping.tsx` — live matrix view (controls × frameworks)
+
+> **Note on type generation:** There is no `node ace generate:types` command in AdonisJS v7.
+> The `.adonisjs/server/controllers.ts` and `.adonisjs/client/data.d.ts` files are auto-regenerated
+> when the dev server starts (`node ace serve --hmr`) or `node ace build` runs.
+> After adding a new controller or transformer, manually add entries to those files
+> until the next server restart regenerates them automatically.
 
 ---
 
