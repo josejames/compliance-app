@@ -16,6 +16,7 @@ jobs:
   copilot-setup-steps:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    environment: copilot
 
     permissions:
       contents: read
@@ -78,7 +79,8 @@ jobs:
           LOG_LEVEL=info
           APP_KEY=${APP_KEY}
           NODE_ENV=development
-
+          SESSION_DRIVER=cookie
+          APP_URL=http://localhost:3333
           DB_HOST=127.0.0.1
           DB_PORT=3306
           DB_USER=root
