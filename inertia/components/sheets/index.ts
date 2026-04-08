@@ -1,6 +1,9 @@
 export { FormSheet, SheetField, SheetFieldRow, SheetSection } from "./form-sheet"
 export type { FormSheetProps } from "./form-sheet"
 
+export { FrameworkSheet } from "./framework-sheet"
+export type { FrameworkSheetProps, FrameworkFormValues } from "./framework-sheet"
+
 export { RiskSheet } from "./risk-sheet"
 export type { RiskSheetProps, RiskFormValues } from "./risk-sheet"
 

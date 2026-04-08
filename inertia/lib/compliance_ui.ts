@@ -125,3 +125,44 @@ export function scoreTextCls(score: number): string {
 /** Canonical badge class strings for consistent pill sizing */
 export const badgeCls = 'text-xs font-medium px-2 py-0.5 rounded-full'
 export const badgeSmCls = 'text-xs font-medium px-1.5 py-0.5 rounded'
+
+// ─── Frameworks ─────────────────────────────────────────────────────────────
+
+export type FrameworkCategory = 'international' | 'regional' | 'sector' | 'custom'
+export type FrameworkStatus = 'active' | 'inactive' | 'custom'
+
+export const FRAMEWORK_CATEGORIES = ['international', 'regional', 'sector', 'custom'] as const
+export const FRAMEWORK_STATUSES = ['active', 'inactive', 'custom'] as const
+
+/** Framework category badge colours and display labels */
+export const frameworkCategoryConfig: Record<FrameworkCategory, { label: string; cls: string }> = {
+  international: {
+    label: 'Internacional',
+    cls: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300',
+  },
+  regional: {
+    label: 'Regional',
+    cls: 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-400',
+  },
+  sector: {
+    label: 'Sectorial',
+    cls: 'bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-400',
+  },
+  custom: {
+    label: 'Personalizado',
+    cls: 'bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-400',
+  },
+}
+
+/** Framework status badge colours and display labels */
+export const frameworkStatusConfig: Record<FrameworkStatus, { label: string; cls: string }> = {
+  active: {
+    label: 'Activo',
+    cls: 'bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400',
+  },
+  inactive: { label: 'Inactivo', cls: 'bg-muted text-muted-foreground' },
+  custom: {
+    label: 'Personalizado',
+    cls: 'bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-400',
+  },
+}

@@ -29,9 +29,11 @@ router
       .renderInertia('dashboard/standards-controls', {})
       .as('normas-controles')
     router
-      .on('/normas-controles/biblioteca')
-      .renderInertia('dashboard/standards-controls/library', {})
+      .get('/normas-controles/biblioteca', [controllers.Frameworks, 'index'])
       .as('normas-controles.biblioteca')
+    router.post('/normas-controles/biblioteca', [controllers.Frameworks, 'store']).as('normas-controles.biblioteca.store')
+    router.put('/normas-controles/biblioteca/:id', [controllers.Frameworks, 'update']).as('normas-controles.biblioteca.update')
+    router.delete('/normas-controles/biblioteca/:id', [controllers.Frameworks, 'destroy']).as('normas-controles.biblioteca.destroy')
     router
       .on('/normas-controles/mapeo')
       .renderInertia('dashboard/standards-controls/mapping', {})
