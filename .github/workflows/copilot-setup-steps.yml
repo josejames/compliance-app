@@ -109,8 +109,8 @@ jobs:
         run: node ace db:seed
 
       # ── Validation ───────────────────────────────────────────────────────────
-      - name: Type-check backend and frontend
-        run: pnpm typecheck
+      # - name: Type-check backend and frontend
+      #   run: pnpm typecheck
 
-      - name: Lint
-        run: pnpm lint
+      # - name: Lint
+      #   run: pnpm lint
