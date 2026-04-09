@@ -1,7 +1,8 @@
 /**
  * ControlSheet – Side sheet for creating / editing an internal control.
  */
-import React from "react"
+import React, { useState } from "react"
+import { router } from "@inertiajs/react"
 import { ShieldCheckIcon } from "lucide-react"
 import { FormSheet, SheetField, SheetFieldRow, SheetSection } from "./form-sheet"
 import { Input } from "~/components/ui/input"
@@ -9,13 +10,14 @@ import { Textarea } from "~/components/ui/textarea"
 import { SelectNative } from "~/components/ui/select-native"
 
 export interface ControlSheetProps {
-  trigger: React.ReactNode
+  trigger?: React.ReactNode
+  controlId?: number
   defaultValues?: Partial<ControlFormValues>
-  onSubmit?: (values: ControlFormValues) => void
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
 }
 
 export interface ControlFormValues {
-  code: string
   title: string
   description: string
   domain: string
@@ -23,6 +25,8 @@ export interface ControlFormValues {
   frequency: string
   status: string
   frameworks: string
+  lastReviewedAt: string
+  nextReviewAt: string
 }
 
 const DOMAINS = [
@@ -36,6 +40,12 @@ const DOMAINS = [
   "Auditoría y Logs",
   "Seguridad en el Desarrollo",
   "Gobernanza",
+  "Infraestructura",
+  "Monitorización",
+  "Respuesta",
+  "Continuidad",
+  "Cadena de Suministro",
+  "Personas",
 ]
 
 const FREQUENCIES = [
@@ -54,41 +64,70 @@ const STATUSES = [
 
 export function ControlSheet({
   trigger,
+  controlId,
   defaultValues,
-  onSubmit,
+  open,
+  onOpenChange,
 }: ControlSheetProps) {
+  const isEditMode = controlId !== undefined
+
+  const [controlledOpen, setControlledOpen] = useState(open ?? false)
+  const effectiveOpen = open !== undefined ? open : controlledOpen
+  const handleOpenChange = (val: boolean) => {
+    setControlledOpen(val)
+    onOpenChange?.(val)
+  }
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const fd = new FormData(e.currentTarget)
-    onSubmit?.({
-      code: fd.get("code") as string,
+
+    const payload = {
       title: fd.get("title") as string,
-      description: fd.get("description") as string,
+      description: (fd.get("description") as string) || undefined,
       domain: fd.get("domain") as string,
       owner: fd.get("owner") as string,
       frequency: fd.get("frequency") as string,
       status: fd.get("status") as string,
-      frameworks: fd.get("frameworks") as string,
-    })
+      frameworks: (fd.get("frameworks") as string) || undefined,
+      lastReviewedAt: (fd.get("lastReviewedAt") as string) || undefined,
+      nextReviewAt: (fd.get("nextReviewAt") as string) || undefined,
+    }
+
+    if (isEditMode) {
+      router.put(`/normas-controles/catalogo/${controlId}`, payload, {
+        onSuccess: () => handleOpenChange(false),
+      })
+    } else {
+      router.post(`/normas-controles/catalogo`, payload, {
+        onSuccess: () => handleOpenChange(false),
+      })
+    }
   }
 
   return (
     <FormSheet
       trigger={trigger}
-      title={defaultValues ? "Editar Control" : "Nuevo Control Interno"}
-      description="Defina un control de cumplimiento con su responsable y frecuencia de revisión."
-      submitLabel={defaultValues ? "Actualizar Control" : "Crear Control"}
+      title={isEditMode ? "Editar Control" : "Nuevo Control Interno"}
+      description={
+        isEditMode
+          ? "Modifica los datos del control interno. Los cambios se aplicarán de inmediato."
+          : "Registra un nuevo control interno para tu organización."
+      }
+      submitLabel={isEditMode ? "Actualizar Control" : "Crear Control"}
       icon={<ShieldCheckIcon className="size-4" />}
       accentClass="bg-teal-500"
+      open={effectiveOpen}
+      onOpenChange={handleOpenChange}
       onSubmit={handleSubmit}
     >
       <SheetSection title="Identificación">
         <SheetFieldRow>
-          <SheetField label="Código" required hint="Ej. CTL-015">
+          <SheetField label="Título del control" required>
             <Input
-              name="code"
-              placeholder="CTL-015"
-              defaultValue={defaultValues?.code}
+              name="title"
+              placeholder="Ej. Política de Control de Acceso"
+              defaultValue={defaultValues?.title}
               required
             />
           </SheetField>
@@ -103,15 +142,6 @@ export function ControlSheet({
             </SelectNative>
           </SheetField>
         </SheetFieldRow>
-
-        <SheetField label="Título del control" required>
-          <Input
-            name="title"
-            placeholder="Ej. Política de Control de Acceso"
-            defaultValue={defaultValues?.title}
-            required
-          />
-        </SheetField>
 
         <SheetField label="Descripción">
           <Textarea
@@ -155,6 +185,26 @@ export function ControlSheet({
             required
           />
         </SheetField>
+      </SheetSection>
+
+      <SheetSection title="Revisión">
+        <SheetFieldRow>
+          <SheetField label="Última revisión">
+            <Input
+              name="lastReviewedAt"
+              type="date"
+              defaultValue={defaultValues?.lastReviewedAt ?? ""}
+            />
+          </SheetField>
+
+          <SheetField label="Próxima revisión">
+            <Input
+              name="nextReviewAt"
+              type="date"
+              defaultValue={defaultValues?.nextReviewAt ?? ""}
+            />
+          </SheetField>
+        </SheetFieldRow>
       </SheetSection>
 
       <SheetSection title="Marcos Normativos">

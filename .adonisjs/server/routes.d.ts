@@ -10,8 +10,14 @@ export type ScannedRoutes = {
     'alertas': { paramsTuple?: []; params?: {} }
     'normas-controles': { paramsTuple?: []; params?: {} }
     'normas-controles.biblioteca': { paramsTuple?: []; params?: {} }
+    'normas-controles.biblioteca.store': { paramsTuple?: []; params?: {} }
+    'normas-controles.biblioteca.update': { paramsTuple?: [ParamValue]; params?: { id: ParamValue } }
+    'normas-controles.biblioteca.destroy': { paramsTuple?: [ParamValue]; params?: { id: ParamValue } }
     'normas-controles.mapeo': { paramsTuple?: []; params?: {} }
     'normas-controles.catalogo': { paramsTuple?: []; params?: {} }
+    'normas-controles.catalogo.store': { paramsTuple?: []; params?: {} }
+    'normas-controles.catalogo.update': { paramsTuple?: [ParamValue]; params?: { id: ParamValue } }
+    'normas-controles.catalogo.destroy': { paramsTuple?: [ParamValue]; params?: { id: ParamValue } }
     'riesgos': { paramsTuple?: []; params?: {} }
     'riesgos.registro': { paramsTuple?: []; params?: {} }
     'riesgos.evaluacion': { paramsTuple?: []; params?: {} }
@@ -51,8 +57,14 @@ export type ScannedRoutes = {
     'alertas': { paramsTuple?: []; params?: {} }
     'normas-controles': { paramsTuple?: []; params?: {} }
     'normas-controles.biblioteca': { paramsTuple?: []; params?: {} }
+    'normas-controles.biblioteca.store': { paramsTuple?: []; params?: {} }
+    'normas-controles.biblioteca.update': { paramsTuple?: [ParamValue]; params?: { id: ParamValue } }
+    'normas-controles.biblioteca.destroy': { paramsTuple?: [ParamValue]; params?: { id: ParamValue } }
     'normas-controles.mapeo': { paramsTuple?: []; params?: {} }
     'normas-controles.catalogo': { paramsTuple?: []; params?: {} }
+    'normas-controles.catalogo.store': { paramsTuple?: []; params?: {} }
+    'normas-controles.catalogo.update': { paramsTuple?: [ParamValue]; params?: { id: ParamValue } }
+    'normas-controles.catalogo.destroy': { paramsTuple?: [ParamValue]; params?: { id: ParamValue } }
     'riesgos': { paramsTuple?: []; params?: {} }
     'riesgos.registro': { paramsTuple?: []; params?: {} }
     'riesgos.evaluacion': { paramsTuple?: []; params?: {} }
@@ -89,8 +101,14 @@ export type ScannedRoutes = {
     'alertas': { paramsTuple?: []; params?: {} }
     'normas-controles': { paramsTuple?: []; params?: {} }
     'normas-controles.biblioteca': { paramsTuple?: []; params?: {} }
+    'normas-controles.biblioteca.store': { paramsTuple?: []; params?: {} }
+    'normas-controles.biblioteca.update': { paramsTuple?: [ParamValue]; params?: { id: ParamValue } }
+    'normas-controles.biblioteca.destroy': { paramsTuple?: [ParamValue]; params?: { id: ParamValue } }
     'normas-controles.mapeo': { paramsTuple?: []; params?: {} }
     'normas-controles.catalogo': { paramsTuple?: []; params?: {} }
+    'normas-controles.catalogo.store': { paramsTuple?: []; params?: {} }
+    'normas-controles.catalogo.update': { paramsTuple?: [ParamValue]; params?: { id: ParamValue } }
+    'normas-controles.catalogo.destroy': { paramsTuple?: [ParamValue]; params?: { id: ParamValue } }
     'riesgos': { paramsTuple?: []; params?: {} }
     'riesgos.registro': { paramsTuple?: []; params?: {} }
     'riesgos.evaluacion': { paramsTuple?: []; params?: {} }

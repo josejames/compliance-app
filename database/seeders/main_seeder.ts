@@ -7,7 +7,8 @@ import app from '@adonisjs/core/services/app'
  * Runs all seeders in dependency order:
  *   1. RoleSeeder      – must run first so role slugs exist before users reference them
  *   2. FrameworkSeeder – seed initial compliance frameworks
- *   3. UserSeeder      – development / test only, seeds sample users
+ *   3. ControlSeeder   – seed initial internal controls catalog
+ *   4. UserSeeder      – development / test only, seeds sample users
  *
  * Run with:
  *   node ace db:seed
@@ -22,6 +23,9 @@ export default class MainSeeder extends BaseSeeder {
 
     const { default: FrameworkSeeder } = await import('./framework_seeder.js')
     await new FrameworkSeeder(this.client).run()
+
+    const { default: ControlSeeder } = await import('./control_seeder.js')
+    await new ControlSeeder(this.client).run()
 
     /**
      * UserSeeder contains sample data and must only run in non-production
