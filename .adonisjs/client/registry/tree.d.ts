@@ -7,12 +7,25 @@ export interface ApiDefinition {
   misTareas: typeof routes['mis-tareas']
   alertas: typeof routes['alertas']
   normasControles: typeof routes['normas-controles'] & {
-    biblioteca: typeof routes['normas-controles.biblioteca']
-    mapeo: typeof routes['normas-controles.mapeo']
-    catalogo: typeof routes['normas-controles.catalogo']
+    biblioteca: typeof routes['normas-controles.biblioteca'] & {
+      store: typeof routes['normas-controles.biblioteca.store']
+      update: typeof routes['normas-controles.biblioteca.update']
+      destroy: typeof routes['normas-controles.biblioteca.destroy']
+    }
+    mapeo: typeof routes['normas-controles.mapeo'] & {
+      toggle: typeof routes['normas-controles.mapeo.toggle']
+    }
+    catalogo: typeof routes['normas-controles.catalogo'] & {
+      store: typeof routes['normas-controles.catalogo.store']
+      update: typeof routes['normas-controles.catalogo.update']
+      destroy: typeof routes['normas-controles.catalogo.destroy']
+    }
   }
   riesgos: typeof routes['riesgos'] & {
     registro: typeof routes['riesgos.registro']
+    store: typeof routes['riesgos.store']
+    update: typeof routes['riesgos.update']
+    destroy: typeof routes['riesgos.destroy']
     evaluacion: typeof routes['riesgos.evaluacion']
     mitigacion: typeof routes['riesgos.mitigacion']
   }
@@ -37,7 +50,9 @@ export interface ApiDefinition {
     programados: typeof routes['informes.programados']
   }
   administracion: typeof routes['administracion'] & {
-    usuariosRoles: typeof routes['administracion.usuarios-roles']
+    usuariosRoles: typeof routes['administracion.usuarios-roles'] & {
+      update: typeof routes['administracion.usuarios-roles.update']
+    }
     organizacion: typeof routes['administracion.organizacion']
     logs: typeof routes['administracion.logs']
     integraciones: typeof routes['administracion.integraciones']

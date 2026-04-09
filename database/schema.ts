@@ -8,7 +8,7 @@ import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
 export class ControlFrameworkSchema extends BaseModel {
-  static $columns = ['controlId', 'frameworkId', 'id'] as const
+  static $columns = ['controlId', 'frameworkId', 'id', 'mappingStatus'] as const
   $columns = ControlFrameworkSchema.$columns
   @column()
   declare controlId: number
@@ -16,6 +16,8 @@ export class ControlFrameworkSchema extends BaseModel {
   declare frameworkId: number
   @column({ isPrimary: true })
   declare id: number
+  @column()
+  declare mappingStatus: string
 }
 
 export class ControlSchema extends BaseModel {

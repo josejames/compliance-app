@@ -1,154 +1,143 @@
-import { PageHeader } from "~/components/page-header"
+import { Data } from '@generated/data'
+import { Form } from '@adonisjs/inertia/react'
+import { PageHeader } from '~/components/page-header'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "~/components/ui/card"
-import { Button } from "~/components/ui/button"
+} from '~/components/ui/card'
 import {
   CheckIcon,
   MinusIcon,
   XIcon,
-  SlidersHorizontalIcon,
-  DownloadIcon,
   InfoIcon,
-} from "lucide-react"
+} from 'lucide-react'
+import { InertiaProps } from '~/types'
 
-// Frameworks as columns
-const frameworks = ["ISO 27001", "GDPR", "SOC 2", "PCI DSS", "NIST CSF", "ISO 9001"]
+type MappingStatus = 'full' | 'partial' | 'none'
 
-type MappingStatus = "full" | "partial" | "none"
-
-interface InternalControl {
-  code: string
-  title: string
-  domain: string
-  mapping: Record<string, MappingStatus>
+interface MappingEntry {
+  [key: string]: string | number
+  controlId: number
+  frameworkId: number
+  mappingStatus: MappingStatus
 }
 
-const controls: InternalControl[] = [
-  {
-    code: "CTL-001",
-    title: "Política de Control de Acceso",
-    domain: "Seguridad de Acceso",
-    mapping: { "ISO 27001": "full", "GDPR": "partial", "SOC 2": "full", "PCI DSS": "full", "NIST CSF": "partial", "ISO 9001": "none" },
-  },
-  {
-    code: "CTL-002",
-    title: "Gestión de Cuentas Privilegiadas",
-    domain: "Seguridad de Acceso",
-    mapping: { "ISO 27001": "full", "GDPR": "none", "SOC 2": "full", "PCI DSS": "full", "NIST CSF": "full", "ISO 9001": "none" },
-  },
-  {
-    code: "CTL-003",
-    title: "Cifrado de Datos en Reposo",
-    domain: "Protección de Datos",
-    mapping: { "ISO 27001": "full", "GDPR": "full", "SOC 2": "full", "PCI DSS": "full", "NIST CSF": "partial", "ISO 9001": "none" },
-  },
-  {
-    code: "CTL-004",
-    title: "Política de Retención de Datos",
-    domain: "Protección de Datos",
-    mapping: { "ISO 27001": "partial", "GDPR": "full", "SOC 2": "partial", "PCI DSS": "partial", "NIST CSF": "none", "ISO 9001": "full" },
-  },
-  {
-    code: "CTL-005",
-    title: "Segmentación de Redes",
-    domain: "Infraestructura",
-    mapping: { "ISO 27001": "full", "GDPR": "none", "SOC 2": "full", "PCI DSS": "full", "NIST CSF": "full", "ISO 9001": "none" },
-  },
-  {
-    code: "CTL-006",
-    title: "Gestión de Parches y Vulnerabilidades",
-    domain: "Infraestructura",
-    mapping: { "ISO 27001": "full", "GDPR": "partial", "SOC 2": "full", "PCI DSS": "full", "NIST CSF": "full", "ISO 9001": "none" },
-  },
-  {
-    code: "CTL-007",
-    title: "Plan de Continuidad de Negocio",
-    domain: "Continuidad",
-    mapping: { "ISO 27001": "full", "GDPR": "partial", "SOC 2": "full", "PCI DSS": "partial", "NIST CSF": "full", "ISO 9001": "partial" },
-  },
-  {
-    code: "CTL-008",
-    title: "Copias de Seguridad y Restauración",
-    domain: "Continuidad",
-    mapping: { "ISO 27001": "full", "GDPR": "partial", "SOC 2": "full", "PCI DSS": "partial", "NIST CSF": "full", "ISO 9001": "none" },
-  },
-  {
-    code: "CTL-009",
-    title: "Registro y Monitorización de Eventos",
-    domain: "Monitorización",
-    mapping: { "ISO 27001": "full", "GDPR": "partial", "SOC 2": "full", "PCI DSS": "full", "NIST CSF": "full", "ISO 9001": "none" },
-  },
-  {
-    code: "CTL-010",
-    title: "Gestión de Incidentes de Seguridad",
-    domain: "Respuesta",
-    mapping: { "ISO 27001": "full", "GDPR": "full", "SOC 2": "full", "PCI DSS": "full", "NIST CSF": "full", "ISO 9001": "partial" },
-  },
-  {
-    code: "CTL-011",
-    title: "Evaluación de Riesgos de Proveedores",
-    domain: "Cadena de Suministro",
-    mapping: { "ISO 27001": "full", "GDPR": "partial", "SOC 2": "partial", "PCI DSS": "partial", "NIST CSF": "partial", "ISO 9001": "full" },
-  },
-  {
-    code: "CTL-012",
-    title: "Formación y Concienciación en Seguridad",
-    domain: "Personas",
-    mapping: { "ISO 27001": "full", "GDPR": "full", "SOC 2": "partial", "PCI DSS": "partial", "NIST CSF": "partial", "ISO 9001": "partial" },
-  },
-]
+type PageProps = InertiaProps<{
+  controls: Data.Control[]
+  frameworks: Data.Framework[]
+  mappings: MappingEntry[]
+}>
 
-// Group by domain for display
-const domains = [...new Set(controls.map((c) => c.domain))]
-
-const mappingConfig: Record<MappingStatus, { icon: typeof CheckIcon; cls: string; cellCls: string; label: string }> = {
+const mappingConfig: Record<
+  MappingStatus,
+  { icon: typeof CheckIcon; cls: string; cellCls: string; label: string }
+> = {
   full: {
     icon: CheckIcon,
-    cls: "text-green-600 dark:text-green-400",
-    cellCls: "bg-green-50 dark:bg-green-950/30",
-    label: "Completo",
+    cls: 'text-green-600 dark:text-green-400',
+    cellCls: 'bg-green-50 dark:bg-green-950/30',
+    label: 'Completo',
   },
   partial: {
     icon: MinusIcon,
-    cls: "text-amber-500 dark:text-amber-400",
-    cellCls: "bg-amber-50 dark:bg-amber-950/30",
-    label: "Parcial",
+    cls: 'text-amber-500 dark:text-amber-400',
+    cellCls: 'bg-amber-50 dark:bg-amber-950/30',
+    label: 'Parcial',
   },
   none: {
     icon: XIcon,
-    cls: "text-muted-foreground/40",
-    cellCls: "",
-    label: "No mapeado",
+    cls: 'text-muted-foreground/40',
+    cellCls: '',
+    label: 'No mapeado',
   },
 }
 
-function MappingCell({ status }: { status: MappingStatus }) {
+const STATUS_CYCLE: MappingStatus[] = ['none', 'partial', 'full']
+
+function nextStatus(current: MappingStatus): MappingStatus {
+  const idx = STATUS_CYCLE.indexOf(current)
+  return STATUS_CYCLE[(idx + 1) % STATUS_CYCLE.length]
+}
+
+function MappingCell({
+  status,
+  controlId,
+  frameworkId,
+}: {
+  status: MappingStatus
+  controlId: number
+  frameworkId: number
+}) {
   const cfg = mappingConfig[status]
   const Icon = cfg.icon
+  const next = nextStatus(status)
+
   return (
     <td className={`text-center py-2.5 px-2 ${cfg.cellCls}`}>
-      <Icon className={`size-4 mx-auto ${cfg.cls}`} strokeWidth={status === "full" ? 2.5 : 2} />
+      <Form route="normas-controles.mapeo.toggle" className="inline">
+        <input type="hidden" name="controlId" value={controlId} />
+        <input type="hidden" name="frameworkId" value={frameworkId} />
+        <input type="hidden" name="mappingStatus" value={next} />
+        <button
+          type="submit"
+          className="cursor-pointer hover:opacity-70 transition-opacity"
+          title={`${cfg.label} — clic para cambiar`}
+        >
+          <Icon
+            className={`size-4 mx-auto ${cfg.cls}`}
+            strokeWidth={status === 'full' ? 2.5 : 2}
+          />
+        </button>
+      </Form>
     </td>
   )
 }
 
-function coverageCount(ctrl: InternalControl) {
-  return Object.values(ctrl.mapping).filter((v) => v === "full" || v === "partial").length
+function coverageCount(
+  controlId: number,
+  mappings: MappingEntry[]
+): number {
+  return mappings.filter(
+    (m) => m.controlId === controlId && m.mappingStatus !== 'none'
+  ).length
 }
 
-export default function Page() {
-  const totalMappings = controls.flatMap((c) => Object.values(c.mapping)).filter((v) => v !== "none").length
-  const fullMappings = controls.flatMap((c) => Object.values(c.mapping)).filter((v) => v === "full").length
-  const multiCoverage = controls.filter((c) => coverageCount(c) >= 4).length
+function getMappingStatus(
+  controlId: number,
+  frameworkId: number,
+  mappings: MappingEntry[]
+): MappingStatus {
+  const entry = mappings.find(
+    (m) => m.controlId === controlId && m.frameworkId === frameworkId
+  )
+  return entry?.mappingStatus ?? 'none'
+}
+
+export default function Page({ controls, frameworks, mappings }: PageProps) {
+  const totalMappings = mappings.filter((m) => m.mappingStatus !== 'none').length
+  const fullMappings = mappings.filter((m) => m.mappingStatus === 'full').length
+  const multiCoverage = controls.filter(
+    (c) => coverageCount(c.id, mappings) >= 4
+  ).length
+
+  const controlsWithMapping = new Set(
+    mappings.filter((m) => m.mappingStatus !== 'none').map((m) => m.controlId)
+  )
+  const unmappedCount = controls.length - controlsWithMapping.size
+
+  const domains = [...new Set(controls.map((c) => c.domain))]
 
   return (
     <>
-      <PageHeader crumbs={[{ label: "Gestión de Normas y Controles", href: "/normas-controles" }, { label: "Mapeo de Controles" }]} />
+      <PageHeader
+        crumbs={[
+          { label: 'Gestión de Normas y Controles', href: '/normas-controles' },
+          { label: 'Mapeo de Controles' },
+        ]}
+      />
 
       <div className="flex flex-1 flex-col gap-6 p-6 pt-4">
         <div className="flex items-center justify-between">
@@ -158,16 +147,6 @@ export default function Page() {
               Correspondencia entre controles internos y requisitos de cada marco normativo
             </p>
           </div>
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm">
-              <SlidersHorizontalIcon />
-              Filtrar
-            </Button>
-            <Button variant="outline" size="sm">
-              <DownloadIcon />
-              Exportar
-            </Button>
-          </div>
         </div>
 
         {/* Summary cards */}
@@ -175,37 +154,60 @@ export default function Page() {
           <Card>
             <CardHeader>
               <CardDescription>Controles Mapeados</CardDescription>
-              <CardTitle><span className="text-3xl font-bold">{controls.length}</span></CardTitle>
+              <CardTitle>
+                <span className="text-3xl font-bold">{controlsWithMapping.size}</span>
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-xs text-muted-foreground">en {frameworks.length} marcos normativos</p>
+              <p className="text-xs text-muted-foreground">
+                en {frameworks.length} marcos normativos
+              </p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader>
-              <CardDescription>Mapeos Totales</CardDescription>
-              <CardTitle><span className="text-3xl font-bold text-green-600 dark:text-green-400">{fullMappings}</span></CardTitle>
+              <CardDescription>Mapeos Completos</CardDescription>
+              <CardTitle>
+                <span className="text-3xl font-bold text-green-600 dark:text-green-400">
+                  {fullMappings}
+                </span>
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-xs text-muted-foreground">{totalMappings - fullMappings} parciales · {controls.length * frameworks.length - totalMappings} sin mapear</p>
+              <p className="text-xs text-muted-foreground">
+                {totalMappings - fullMappings} parciales &middot;{' '}
+                {controls.length * frameworks.length - totalMappings} sin mapear
+              </p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader>
-              <CardDescription>Cobertura Múltiple (≥4)</CardDescription>
-              <CardTitle><span className="text-3xl font-bold text-blue-600 dark:text-blue-400">{multiCoverage}</span></CardTitle>
+              <CardDescription>Cobertura M&uacute;ltiple (&ge;4)</CardDescription>
+              <CardTitle>
+                <span className="text-3xl font-bold text-blue-600 dark:text-blue-400">
+                  {multiCoverage}
+                </span>
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-xs text-muted-foreground">controles que cubren 4+ marcos</p>
+              <p className="text-xs text-muted-foreground">
+                controles que cubren 4+ marcos
+              </p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader>
-              <CardDescription>Sin Ningún Mapeo</CardDescription>
-              <CardTitle><span className="text-3xl font-bold text-amber-600 dark:text-amber-400">18</span></CardTitle>
+              <CardDescription>Sin Ning&uacute;n Mapeo</CardDescription>
+              <CardTitle>
+                <span className="text-3xl font-bold text-amber-600 dark:text-amber-400">
+                  {unmappedCount}
+                </span>
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-xs text-muted-foreground">controles sin asignar a ningún marco</p>
+              <p className="text-xs text-muted-foreground">
+                controles sin asignar a ning&uacute;n marco
+              </p>
             </CardContent>
           </Card>
         </div>
@@ -213,7 +215,7 @@ export default function Page() {
         {/* Legend */}
         <div className="flex items-center gap-6 text-xs text-muted-foreground">
           <span className="font-medium text-foreground">Leyenda:</span>
-          {(["full", "partial", "none"] as MappingStatus[]).map((s) => {
+          {(['full', 'partial', 'none'] as MappingStatus[]).map((s) => {
             const cfg = mappingConfig[s]
             const Icon = cfg.icon
             return (
@@ -225,7 +227,7 @@ export default function Page() {
           })}
           <span className="flex items-center gap-1 ml-2 text-blue-500">
             <InfoIcon className="size-3" />
-            Haz clic en una fila para ver los requisitos vinculados
+            Haz clic en un icono para cambiar el estado del mapeo
           </span>
         </div>
 
@@ -234,7 +236,7 @@ export default function Page() {
           <CardHeader>
             <CardTitle>Matriz de Correspondencia</CardTitle>
             <CardDescription>
-              Filas = controles internos · Columnas = marcos normativos
+              Filas = controles internos &middot; Columnas = marcos normativos
             </CardDescription>
           </CardHeader>
           <CardContent className="p-0">
@@ -242,15 +244,26 @@ export default function Page() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-border">
-                    <th className="text-left font-medium text-muted-foreground px-4 py-3 w-28">Código</th>
-                    <th className="text-left font-medium text-muted-foreground px-3 py-3">Control Interno</th>
-                    <th className="text-left font-medium text-muted-foreground px-3 py-3 hidden lg:table-cell">Dominio</th>
+                    <th className="text-left font-medium text-muted-foreground px-4 py-3 w-28">
+                      C&oacute;digo
+                    </th>
+                    <th className="text-left font-medium text-muted-foreground px-3 py-3">
+                      Control Interno
+                    </th>
+                    <th className="text-left font-medium text-muted-foreground px-3 py-3 hidden lg:table-cell">
+                      Dominio
+                    </th>
                     {frameworks.map((fw) => (
-                      <th key={fw} className="text-center font-medium text-muted-foreground px-2 py-3 min-w-20">
-                        <span className="text-[11px]">{fw}</span>
+                      <th
+                        key={fw.id}
+                        className="text-center font-medium text-muted-foreground px-2 py-3 min-w-20"
+                      >
+                        <span className="text-[11px]">{fw.name}</span>
                       </th>
                     ))}
-                    <th className="text-center font-medium text-muted-foreground px-3 py-3">Cobertura</th>
+                    <th className="text-center font-medium text-muted-foreground px-3 py-3">
+                      Cobertura
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -266,11 +279,11 @@ export default function Page() {
                       {controls
                         .filter((c) => c.domain === domain)
                         .map((ctrl) => {
-                          const covered = coverageCount(ctrl)
+                          const covered = coverageCount(ctrl.id, mappings)
                           return (
                             <tr
-                              key={ctrl.code}
-                              className="border-b border-border/40 hover:bg-muted/20 transition-colors cursor-pointer"
+                              key={ctrl.id}
+                              className="border-b border-border/40 hover:bg-muted/20 transition-colors"
                             >
                               <td className="px-4 py-2.5">
                                 <span className="font-mono text-xs font-medium text-muted-foreground">
@@ -284,11 +297,22 @@ export default function Page() {
                                 {ctrl.domain}
                               </td>
                               {frameworks.map((fw) => (
-                                <MappingCell key={fw} status={ctrl.mapping[fw]} />
+                                <MappingCell
+                                  key={fw.id}
+                                  status={getMappingStatus(ctrl.id, fw.id, mappings)}
+                                  controlId={ctrl.id}
+                                  frameworkId={fw.id}
+                                />
                               ))}
                               <td className="text-center px-3 py-2.5">
                                 <span
-                                  className={`text-xs font-bold tabular-nums ${covered >= 5 ? "text-green-600 dark:text-green-400" : covered >= 3 ? "text-amber-600 dark:text-amber-400" : "text-red-600 dark:text-red-400"}`}
+                                  className={`text-xs font-bold tabular-nums ${
+                                    covered >= 5
+                                      ? 'text-green-600 dark:text-green-400'
+                                      : covered >= 3
+                                        ? 'text-amber-600 dark:text-amber-400'
+                                        : 'text-red-600 dark:text-red-400'
+                                  }`}
                                 >
                                   {covered}/{frameworks.length}
                                 </span>
@@ -305,47 +329,64 @@ export default function Page() {
         </Card>
 
         {/* Multi-coverage highlight */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Vista de Cumplimiento Múltiple</CardTitle>
-            <CardDescription>Controles que satisfacen requisitos de 4 o más marcos simultáneamente</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            {controls
-              .filter((c) => coverageCount(c) >= 4)
-              .sort((a, b) => coverageCount(b) - coverageCount(a))
-              .map((ctrl) => {
-                const covered = coverageCount(ctrl)
-                const coveredFrameworks = Object.entries(ctrl.mapping)
-                  .filter(([, v]) => v !== "none")
-                  .map(([fw]) => fw)
-                return (
-                  <div
-                    key={ctrl.code}
-                    className="flex items-center gap-4 rounded-lg border border-border/50 px-4 py-3 hover:bg-muted/20 transition-colors"
-                  >
-                    <span className="font-mono text-xs font-medium text-muted-foreground w-16 shrink-0">
-                      {ctrl.code}
-                    </span>
-                    <span className="font-medium text-sm flex-1 min-w-0 truncate">{ctrl.title}</span>
-                    <div className="flex items-center gap-1.5 flex-wrap justify-end">
-                      {coveredFrameworks.map((fw) => (
-                        <span
-                          key={fw}
-                          className={`text-[10px] font-medium px-1.5 py-0.5 rounded ${ctrl.mapping[fw] === "full" ? "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400" : "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400"}`}
-                        >
-                          {fw}
-                        </span>
-                      ))}
-                    </div>
-                    <span className="text-xs font-bold text-green-600 dark:text-green-400 shrink-0 w-12 text-right">
-                      {covered}/{frameworks.length}
-                    </span>
-                  </div>
+        {controls.filter((c) => coverageCount(c.id, mappings) >= 4).length > 0 && (
+          <Card>
+            <CardHeader>
+              <CardTitle>Vista de Cumplimiento M&uacute;ltiple</CardTitle>
+              <CardDescription>
+                Controles que satisfacen requisitos de 4 o m&aacute;s marcos simult&aacute;neamente
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              {controls
+                .filter((c) => coverageCount(c.id, mappings) >= 4)
+                .sort(
+                  (a, b) =>
+                    coverageCount(b.id, mappings) - coverageCount(a.id, mappings)
                 )
-              })}
-          </CardContent>
-        </Card>
+                .map((ctrl) => {
+                  const covered = coverageCount(ctrl.id, mappings)
+                  const coveredFrameworks = frameworks.filter((fw) => {
+                    const status = getMappingStatus(ctrl.id, fw.id, mappings)
+                    return status !== 'none'
+                  })
+                  return (
+                    <div
+                      key={ctrl.id}
+                      className="flex items-center gap-4 rounded-lg border border-border/50 px-4 py-3 hover:bg-muted/20 transition-colors"
+                    >
+                      <span className="font-mono text-xs font-medium text-muted-foreground w-16 shrink-0">
+                        {ctrl.code}
+                      </span>
+                      <span className="font-medium text-sm flex-1 min-w-0 truncate">
+                        {ctrl.title}
+                      </span>
+                      <div className="flex items-center gap-1.5 flex-wrap justify-end">
+                        {coveredFrameworks.map((fw) => {
+                          const status = getMappingStatus(ctrl.id, fw.id, mappings)
+                          return (
+                            <span
+                              key={fw.id}
+                              className={`text-[10px] font-medium px-1.5 py-0.5 rounded ${
+                                status === 'full'
+                                  ? 'bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400'
+                                  : 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400'
+                              }`}
+                            >
+                              {fw.name}
+                            </span>
+                          )
+                        })}
+                      </div>
+                      <span className="text-xs font-bold text-green-600 dark:text-green-400 shrink-0 w-12 text-right">
+                        {covered}/{frameworks.length}
+                      </span>
+                    </div>
+                  )
+                })}
+            </CardContent>
+          </Card>
+        )}
       </div>
     </>
   )

@@ -55,15 +55,22 @@ Ordered by **dependency** — each phase depends on the previous one being compl
 
 ---
 
-### ➡️ Phase 3 — Control–Framework Mapping ← **NEXT STEP**
+### ✅ Phase 3 — Control–Framework Mapping — Complete
 
 > **Depends on Phase 1 & 2**.
 
 **Module:** 2.2 Mapeo de Controles (`/normas-controles/mapeo`)
 
-- [ ] Service: add mapping methods to `ControlService` / `FrameworkService`
-- [ ] Controller: `ControlsController` or dedicated `MappingController` to serve mapping data
-- [ ] Page: `standards-controls/mapping.tsx` — live matrix view (controls × frameworks)
+- [x] Migration: `alter_control_framework_add_mapping_status` (adds `mapping_status` enum to pivot)
+- [x] Models: `Control` and `Framework` updated with `manyToMany` relationships via pivot table
+- [x] Validator: `app/validators/mapping.ts` (`toggleMappingValidator`)
+- [x] Service: `app/services/mapping_service.ts` (allControls, allFrameworks, allMappings, setMapping, stats)
+- [x] Controller: `app/controllers/mapping_controller.ts` (index + toggle)
+- [x] Controller: `app/controllers/standards_controls_controller.ts` (overview with real aggregated stats)
+- [x] Seeder: `MappingSeeder` (12 controls × 7 frameworks seed data) + registered in `MainSeeder`
+- [x] Routes: `/normas-controles/mapeo` → `MappingController` (GET/POST), `/normas-controles` → `StandardsControlsController`
+- [x] Page: `standards-controls/mapping.tsx` — real DB data, click-to-toggle mapping status (full/partial/none)
+- [x] Page: `standards-controls.tsx` — real DB aggregated stats (frameworks, controls, coverage, overdue)
 
 > **Note on type generation:** There is no `node ace generate:types` command in AdonisJS v7.
 > The `.adonisjs/server/controllers.ts` and `.adonisjs/client/data.d.ts` files are auto-regenerated
@@ -73,7 +80,7 @@ Ordered by **dependency** — each phase depends on the previous one being compl
 
 ---
 
-### Phase 4 — Risk Evaluations & Mitigation Plans
+### ➡️ Phase 4 — Risk Evaluations & Mitigation Plans ← **NEXT STEP**
 
 > **Depends on Phase 2** (evaluations link to controls).
 > Base Risks module already exists; this adds structured evaluations + mitigation actions.

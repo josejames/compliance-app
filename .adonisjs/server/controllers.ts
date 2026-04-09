@@ -7,7 +7,9 @@ export const controllers = {
   Admin: () => import('#controllers/admin_controller'),
   Controls: () => import('#controllers/controls_controller'),
   Frameworks: () => import('#controllers/frameworks_controller'),
+  Mapping: () => import('#controllers/mapping_controller'),
   NewAccount: () => import('#controllers/new_account_controller'),
   Risks: () => import('#controllers/risks_controller'),
   Session: () => import('#controllers/session_controller'),
+  StandardsControls: () => import('#controllers/standards_controls_controller'),
 }

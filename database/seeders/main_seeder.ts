@@ -27,6 +27,9 @@ export default class MainSeeder extends BaseSeeder {
     const { default: ControlSeeder } = await import('./control_seeder.js')
     await new ControlSeeder(this.client).run()
 
+    const { default: MappingSeeder } = await import('./mapping_seeder.js')
+    await new MappingSeeder(this.client).run()
+
     /**
      * UserSeeder contains sample data and must only run in non-production
      * environments.

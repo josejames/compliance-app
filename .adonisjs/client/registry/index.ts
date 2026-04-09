@@ -42,17 +42,59 @@ const routes = {
     tokens: [{"old":"/normas-controles/biblioteca","type":0,"val":"normas-controles","end":""},{"old":"/normas-controles/biblioteca","type":0,"val":"biblioteca","end":""}],
     types: placeholder as Registry['normas-controles.biblioteca']['types'],
   },
+  'normas-controles.biblioteca.store': {
+    methods: ["POST"],
+    pattern: '/normas-controles/biblioteca',
+    tokens: [{"old":"/normas-controles/biblioteca","type":0,"val":"normas-controles","end":""},{"old":"/normas-controles/biblioteca","type":0,"val":"biblioteca","end":""}],
+    types: placeholder as Registry['normas-controles.biblioteca.store']['types'],
+  },
+  'normas-controles.biblioteca.update': {
+    methods: ["PUT"],
+    pattern: '/normas-controles/biblioteca/:id',
+    tokens: [{"old":"/normas-controles/biblioteca/:id","type":0,"val":"normas-controles","end":""},{"old":"/normas-controles/biblioteca/:id","type":0,"val":"biblioteca","end":""},{"old":"/normas-controles/biblioteca/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['normas-controles.biblioteca.update']['types'],
+  },
+  'normas-controles.biblioteca.destroy': {
+    methods: ["DELETE"],
+    pattern: '/normas-controles/biblioteca/:id',
+    tokens: [{"old":"/normas-controles/biblioteca/:id","type":0,"val":"normas-controles","end":""},{"old":"/normas-controles/biblioteca/:id","type":0,"val":"biblioteca","end":""},{"old":"/normas-controles/biblioteca/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['normas-controles.biblioteca.destroy']['types'],
+  },
   'normas-controles.mapeo': {
     methods: ["GET","HEAD"],
     pattern: '/normas-controles/mapeo',
     tokens: [{"old":"/normas-controles/mapeo","type":0,"val":"normas-controles","end":""},{"old":"/normas-controles/mapeo","type":0,"val":"mapeo","end":""}],
     types: placeholder as Registry['normas-controles.mapeo']['types'],
   },
+  'normas-controles.mapeo.toggle': {
+    methods: ["POST"],
+    pattern: '/normas-controles/mapeo',
+    tokens: [{"old":"/normas-controles/mapeo","type":0,"val":"normas-controles","end":""},{"old":"/normas-controles/mapeo","type":0,"val":"mapeo","end":""}],
+    types: placeholder as Registry['normas-controles.mapeo.toggle']['types'],
+  },
   'normas-controles.catalogo': {
     methods: ["GET","HEAD"],
     pattern: '/normas-controles/catalogo',
     tokens: [{"old":"/normas-controles/catalogo","type":0,"val":"normas-controles","end":""},{"old":"/normas-controles/catalogo","type":0,"val":"catalogo","end":""}],
     types: placeholder as Registry['normas-controles.catalogo']['types'],
+  },
+  'normas-controles.catalogo.store': {
+    methods: ["POST"],
+    pattern: '/normas-controles/catalogo',
+    tokens: [{"old":"/normas-controles/catalogo","type":0,"val":"normas-controles","end":""},{"old":"/normas-controles/catalogo","type":0,"val":"catalogo","end":""}],
+    types: placeholder as Registry['normas-controles.catalogo.store']['types'],
+  },
+  'normas-controles.catalogo.update': {
+    methods: ["PUT"],
+    pattern: '/normas-controles/catalogo/:id',
+    tokens: [{"old":"/normas-controles/catalogo/:id","type":0,"val":"normas-controles","end":""},{"old":"/normas-controles/catalogo/:id","type":0,"val":"catalogo","end":""},{"old":"/normas-controles/catalogo/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['normas-controles.catalogo.update']['types'],
+  },
+  'normas-controles.catalogo.destroy': {
+    methods: ["DELETE"],
+    pattern: '/normas-controles/catalogo/:id',
+    tokens: [{"old":"/normas-controles/catalogo/:id","type":0,"val":"normas-controles","end":""},{"old":"/normas-controles/catalogo/:id","type":0,"val":"catalogo","end":""},{"old":"/normas-controles/catalogo/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['normas-controles.catalogo.destroy']['types'],
   },
   'riesgos': {
     methods: ["GET","HEAD"],
@@ -65,6 +107,24 @@ const routes = {
     pattern: '/riesgos/registro',
     tokens: [{"old":"/riesgos/registro","type":0,"val":"riesgos","end":""},{"old":"/riesgos/registro","type":0,"val":"registro","end":""}],
     types: placeholder as Registry['riesgos.registro']['types'],
+  },
+  'riesgos.store': {
+    methods: ["POST"],
+    pattern: '/riesgos',
+    tokens: [{"old":"/riesgos","type":0,"val":"riesgos","end":""}],
+    types: placeholder as Registry['riesgos.store']['types'],
+  },
+  'riesgos.update': {
+    methods: ["PUT"],
+    pattern: '/riesgos/:id',
+    tokens: [{"old":"/riesgos/:id","type":0,"val":"riesgos","end":""},{"old":"/riesgos/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['riesgos.update']['types'],
+  },
+  'riesgos.destroy': {
+    methods: ["DELETE"],
+    pattern: '/riesgos/:id',
+    tokens: [{"old":"/riesgos/:id","type":0,"val":"riesgos","end":""},{"old":"/riesgos/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['riesgos.destroy']['types'],
   },
   'riesgos.evaluacion': {
     methods: ["GET","HEAD"],
@@ -185,6 +245,12 @@ const routes = {
     pattern: '/administracion/usuarios-roles',
     tokens: [{"old":"/administracion/usuarios-roles","type":0,"val":"administracion","end":""},{"old":"/administracion/usuarios-roles","type":0,"val":"usuarios-roles","end":""}],
     types: placeholder as Registry['administracion.usuarios-roles']['types'],
+  },
+  'administracion.usuarios-roles.update': {
+    methods: ["PUT"],
+    pattern: '/administracion/usuarios-roles/:id',
+    tokens: [{"old":"/administracion/usuarios-roles/:id","type":0,"val":"administracion","end":""},{"old":"/administracion/usuarios-roles/:id","type":0,"val":"usuarios-roles","end":""},{"old":"/administracion/usuarios-roles/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['administracion.usuarios-roles.update']['types'],
   },
   'administracion.organizacion': {
     methods: ["GET","HEAD"],

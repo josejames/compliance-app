@@ -63,8 +63,8 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/standards_controls_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/standards_controls_controller').default['index']>>>
     }
   }
   'normas-controles.biblioteca': {
@@ -75,8 +75,44 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/frameworks_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/frameworks_controller').default['index']>>>
+    }
+  }
+  'normas-controles.biblioteca.store': {
+    methods: ["POST"]
+    pattern: '/normas-controles/biblioteca'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/framework').createFrameworkValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/framework').createFrameworkValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/frameworks_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/frameworks_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'normas-controles.biblioteca.update': {
+    methods: ["PUT"]
+    pattern: '/normas-controles/biblioteca/:id'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/framework').updateFrameworkValidator)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/framework').updateFrameworkValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/frameworks_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/frameworks_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'normas-controles.biblioteca.destroy': {
+    methods: ["DELETE"]
+    pattern: '/normas-controles/biblioteca/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/frameworks_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/frameworks_controller').default['destroy']>>>
     }
   }
   'normas-controles.mapeo': {
@@ -87,8 +123,20 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/mapping_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/mapping_controller').default['index']>>>
+    }
+  }
+  'normas-controles.mapeo.toggle': {
+    methods: ["POST"]
+    pattern: '/normas-controles/mapeo'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/mapping').toggleMappingValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/mapping').toggleMappingValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/mapping_controller').default['toggle']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/mapping_controller').default['toggle']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'normas-controles.catalogo': {
@@ -99,8 +147,44 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/controls_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/controls_controller').default['index']>>>
+    }
+  }
+  'normas-controles.catalogo.store': {
+    methods: ["POST"]
+    pattern: '/normas-controles/catalogo'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/control').createControlValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/control').createControlValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/controls_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/controls_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'normas-controles.catalogo.update': {
+    methods: ["PUT"]
+    pattern: '/normas-controles/catalogo/:id'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/control').updateControlValidator)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/control').updateControlValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/controls_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/controls_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'normas-controles.catalogo.destroy': {
+    methods: ["DELETE"]
+    pattern: '/normas-controles/catalogo/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/controls_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/controls_controller').default['destroy']>>>
     }
   }
   'riesgos': {
@@ -111,8 +195,8 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/risks_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/risks_controller').default['index']>>>
     }
   }
   'riesgos.registro': {
@@ -123,8 +207,44 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/risks_controller').default['register']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/risks_controller').default['register']>>>
+    }
+  }
+  'riesgos.store': {
+    methods: ["POST"]
+    pattern: '/riesgos'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/risk').createRiskValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/risk').createRiskValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/risks_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/risks_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'riesgos.update': {
+    methods: ["PUT"]
+    pattern: '/riesgos/:id'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/risk').updateRiskValidator)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/risk').updateRiskValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/risks_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/risks_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'riesgos.destroy': {
+    methods: ["DELETE"]
+    pattern: '/riesgos/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/risks_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/risks_controller').default['destroy']>>>
     }
   }
   'riesgos.evaluacion': {
@@ -365,6 +485,18 @@ export interface Registry {
       query: {}
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/admin_controller').default['index']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/admin_controller').default['index']>>>
+    }
+  }
+  'administracion.usuarios-roles.update': {
+    methods: ["PUT"]
+    pattern: '/administracion/usuarios-roles/:id'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/user').createUpdateUserValidator)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/user').createUpdateUserValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/admin_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/admin_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'administracion.organizacion': {

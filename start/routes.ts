@@ -25,8 +25,7 @@ router
 
     // 2. Gestión de Normas y Controles
     router
-      .on('/normas-controles')
-      .renderInertia('dashboard/standards-controls', {})
+      .get('/normas-controles', [controllers.StandardsControls, 'index'])
       .as('normas-controles')
     router
       .get('/normas-controles/biblioteca', [controllers.Frameworks, 'index'])
@@ -35,9 +34,11 @@ router
     router.put('/normas-controles/biblioteca/:id', [controllers.Frameworks, 'update']).as('normas-controles.biblioteca.update')
     router.delete('/normas-controles/biblioteca/:id', [controllers.Frameworks, 'destroy']).as('normas-controles.biblioteca.destroy')
     router
-      .on('/normas-controles/mapeo')
-      .renderInertia('dashboard/standards-controls/mapping', {})
+      .get('/normas-controles/mapeo', [controllers.Mapping, 'index'])
       .as('normas-controles.mapeo')
+    router
+      .post('/normas-controles/mapeo', [controllers.Mapping, 'toggle'])
+      .as('normas-controles.mapeo.toggle')
     router.get('/normas-controles/catalogo', [controllers.Controls, 'index']).as('normas-controles.catalogo')
     router.post('/normas-controles/catalogo', [controllers.Controls, 'store']).as('normas-controles.catalogo.store')
     router.put('/normas-controles/catalogo/:id', [controllers.Controls, 'update']).as('normas-controles.catalogo.update')
