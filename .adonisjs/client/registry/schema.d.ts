@@ -255,8 +255,44 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/risk_evaluations_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/risk_evaluations_controller').default['index']>>>
+    }
+  }
+  'riesgos.evaluacion.store': {
+    methods: ["POST"]
+    pattern: '/riesgos/evaluacion'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/risk_evaluation').createEvaluationValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/risk_evaluation').createEvaluationValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/risk_evaluations_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/risk_evaluations_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'riesgos.evaluacion.update': {
+    methods: ["PUT"]
+    pattern: '/riesgos/evaluacion/:id'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/risk_evaluation').updateEvaluationValidator)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/risk_evaluation').updateEvaluationValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/risk_evaluations_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/risk_evaluations_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'riesgos.evaluacion.destroy': {
+    methods: ["DELETE"]
+    pattern: '/riesgos/evaluacion/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/risk_evaluations_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/risk_evaluations_controller').default['destroy']>>>
     }
   }
   'riesgos.mitigacion': {
@@ -267,8 +303,44 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/mitigation_actions_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/mitigation_actions_controller').default['index']>>>
+    }
+  }
+  'riesgos.mitigacion.store': {
+    methods: ["POST"]
+    pattern: '/riesgos/mitigacion'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/mitigation_action').createMitigationValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/mitigation_action').createMitigationValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/mitigation_actions_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/mitigation_actions_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'riesgos.mitigacion.update': {
+    methods: ["PUT"]
+    pattern: '/riesgos/mitigacion/:id'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/mitigation_action').updateMitigationValidator)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/mitigation_action').updateMitigationValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/mitigation_actions_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/mitigation_actions_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'riesgos.mitigacion.destroy': {
+    methods: ["DELETE"]
+    pattern: '/riesgos/mitigacion/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/mitigation_actions_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/mitigation_actions_controller').default['destroy']>>>
     }
   }
   'auditorias': {

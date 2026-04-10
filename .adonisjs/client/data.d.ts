@@ -8,6 +8,8 @@ import type { InferData, InferVariants } from '@adonisjs/core/types/transformers
 import type { InferSharedProps } from '@adonisjs/inertia/types'
 import type ControlTransformer from '#transformers/control_transformer'
 import type FrameworkTransformer from '#transformers/framework_transformer'
+import type MitigationActionTransformer from '#transformers/mitigation_action_transformer'
+import type RiskEvaluationTransformer from '#transformers/risk_evaluation_transformer'
 import type RiskTransformer from '#transformers/risk_transformer'
 import type RoleTransformer from '#transformers/role_transformer'
 import type UserTransformer from '#transformers/user_transformer'
@@ -21,6 +23,14 @@ export namespace Data {
   export type Framework = InferData<FrameworkTransformer>
   export namespace Framework {
     export type Variants = InferVariants<FrameworkTransformer>
+  }
+  export type MitigationAction = InferData<MitigationActionTransformer>
+  export namespace MitigationAction {
+    export type Variants = InferVariants<MitigationActionTransformer>
+  }
+  export type RiskEvaluation = InferData<RiskEvaluationTransformer>
+  export namespace RiskEvaluation {
+    export type Variants = InferVariants<RiskEvaluationTransformer>
   }
   export type Risk = InferData<RiskTransformer>
   export namespace Risk {

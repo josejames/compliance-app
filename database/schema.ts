@@ -80,6 +80,78 @@ export class FrameworkSchema extends BaseModel {
   declare version: string
 }
 
+export class MitigationActionSchema extends BaseModel {
+  static $columns = ['action', 'createdAt', 'description', 'dueDate', 'id', 'linkedTaskId', 'notes', 'owner', 'progress', 'residualLevel', 'residualScore', 'riskId', 'status', 'updatedAt'] as const
+  $columns = MitigationActionSchema.$columns
+  @column()
+  declare action: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare description: string | null
+  @column.date()
+  declare dueDate: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare linkedTaskId: string | null
+  @column()
+  declare notes: string | null
+  @column()
+  declare owner: string
+  @column()
+  declare progress: number
+  @column()
+  declare residualLevel: string
+  @column()
+  declare residualScore: number
+  @column()
+  declare riskId: number
+  @column()
+  declare status: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+}
+
+export class RiskEvaluationSchema extends BaseModel {
+  static $columns = ['createdAt', 'endDate', 'framework', 'id', 'notes', 'owner', 'progress', 'questionsAnswered', 'questionsTotal', 'riskLevel', 'risksFound', 'scope', 'scopeTarget', 'startDate', 'status', 'title', 'updatedAt'] as const
+  $columns = RiskEvaluationSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column.date()
+  declare endDate: DateTime
+  @column()
+  declare framework: string | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare notes: string | null
+  @column()
+  declare owner: string
+  @column()
+  declare progress: number
+  @column()
+  declare questionsAnswered: number
+  @column()
+  declare questionsTotal: number
+  @column()
+  declare riskLevel: string
+  @column()
+  declare risksFound: number
+  @column()
+  declare scope: string
+  @column()
+  declare scopeTarget: string
+  @column.date()
+  declare startDate: DateTime
+  @column()
+  declare status: string
+  @column()
+  declare title: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+}
+
 export class RiskSchema extends BaseModel {
   static $columns = ['category', 'createdAt', 'description', 'frameworks', 'id', 'impact', 'owner', 'probability', 'status', 'title', 'treatment', 'updatedAt'] as const
   $columns = RiskSchema.$columns

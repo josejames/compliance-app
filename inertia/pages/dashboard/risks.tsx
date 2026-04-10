@@ -18,8 +18,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/com
 import { badgeCls } from '~/lib/compliance_ui'
 import { InertiaProps } from '~/types'
 
+interface SubStats {
+  [key: string]: number
+  total: number
+}
+
 type Props = InertiaProps<{
   risks: Data.Risk[]
+  evalStats: SubStats & { inProgress: number }
+  mitStats: SubStats & { completed: number }
 }>
 
 const treatmentConfig: Record<string, { label: string; cls: string }> = {
@@ -62,7 +69,7 @@ function scoreColorCls(score: number) {
   return 'text-green-600 dark:text-green-400 font-semibold'
 }
 
-export default function Page({ risks }: Props) {
+export default function Page({ risks, evalStats, mitStats }: Props) {
   const activeRisks = risks.filter((r) => r.status !== 'closed')
   const criticalCount = activeRisks.filter((r) => r.level === 'critical').length
   const highCount = activeRisks.filter((r) => r.level === 'high').length
@@ -119,8 +126,8 @@ export default function Page({ risks }: Props) {
       href: '/riesgos/evaluacion',
       icon: ActivityIcon,
       stats: [
-        { label: 'Evaluaciones', value: '7' },
-        { label: 'En curso', value: '2' },
+        { label: 'Evaluaciones', value: String(evalStats.total) },
+        { label: 'En curso', value: String(evalStats.inProgress) },
       ],
       accent: 'text-amber-600 dark:text-amber-400',
       bg: 'bg-amber-50 dark:bg-amber-950/30',
@@ -134,8 +141,8 @@ export default function Page({ risks }: Props) {
       href: '/riesgos/mitigacion',
       icon: TrendingDownIcon,
       stats: [
-        { label: 'Acciones abiertas', value: '18' },
-        { label: 'Completadas', value: '11' },
+        { label: 'Acciones abiertas', value: String(mitStats.total - mitStats.completed) },
+        { label: 'Completadas', value: String(mitStats.completed) },
       ],
       accent: 'text-emerald-600 dark:text-emerald-400',
       bg: 'bg-emerald-50 dark:bg-emerald-950/30',

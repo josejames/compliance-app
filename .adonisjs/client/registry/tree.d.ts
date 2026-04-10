@@ -26,8 +26,16 @@ export interface ApiDefinition {
     store: typeof routes['riesgos.store']
     update: typeof routes['riesgos.update']
     destroy: typeof routes['riesgos.destroy']
-    evaluacion: typeof routes['riesgos.evaluacion']
-    mitigacion: typeof routes['riesgos.mitigacion']
+    evaluacion: typeof routes['riesgos.evaluacion'] & {
+      store: typeof routes['riesgos.evaluacion.store']
+      update: typeof routes['riesgos.evaluacion.update']
+      destroy: typeof routes['riesgos.evaluacion.destroy']
+    }
+    mitigacion: typeof routes['riesgos.mitigacion'] & {
+      store: typeof routes['riesgos.mitigacion.store']
+      update: typeof routes['riesgos.mitigacion.update']
+      destroy: typeof routes['riesgos.mitigacion.destroy']
+    }
   }
   auditorias: typeof routes['auditorias'] & {
     plan: typeof routes['auditorias.plan']

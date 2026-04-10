@@ -50,14 +50,16 @@ router
     router.post('/riesgos', [controllers.Risks, 'store']).as('riesgos.store')
     router.put('/riesgos/:id', [controllers.Risks, 'update']).as('riesgos.update')
     router.delete('/riesgos/:id', [controllers.Risks, 'destroy']).as('riesgos.destroy')
-    router
-      .on('/riesgos/evaluacion')
-      .renderInertia('dashboard/risks/evaluation', {})
-      .as('riesgos.evaluacion')
-    router
-      .on('/riesgos/mitigacion')
-      .renderInertia('dashboard/risks/mitigation', {})
-      .as('riesgos.mitigacion')
+    // 3.2 Evaluación de Riesgos
+    router.get('/riesgos/evaluacion', [controllers.RiskEvaluations, 'index']).as('riesgos.evaluacion')
+    router.post('/riesgos/evaluacion', [controllers.RiskEvaluations, 'store']).as('riesgos.evaluacion.store')
+    router.put('/riesgos/evaluacion/:id', [controllers.RiskEvaluations, 'update']).as('riesgos.evaluacion.update')
+    router.delete('/riesgos/evaluacion/:id', [controllers.RiskEvaluations, 'destroy']).as('riesgos.evaluacion.destroy')
+    // 3.3 Plan de Mitigación
+    router.get('/riesgos/mitigacion', [controllers.MitigationActions, 'index']).as('riesgos.mitigacion')
+    router.post('/riesgos/mitigacion', [controllers.MitigationActions, 'store']).as('riesgos.mitigacion.store')
+    router.put('/riesgos/mitigacion/:id', [controllers.MitigationActions, 'update']).as('riesgos.mitigacion.update')
+    router.delete('/riesgos/mitigacion/:id', [controllers.MitigationActions, 'destroy']).as('riesgos.mitigacion.destroy')
 
     // 4. Auditorías y Revisiones
     router.on('/auditorias').renderInertia('dashboard/audits', {}).as('auditorias')

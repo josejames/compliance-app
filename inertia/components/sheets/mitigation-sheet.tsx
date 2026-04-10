@@ -1,65 +1,108 @@
 /**
- * MitigationSheet – Side sheet for creating a mitigation action linked to a risk.
+ * MitigationSheet – Side sheet for creating / editing a mitigation action linked to a risk.
  */
-import React from "react"
-import { TrendingDownIcon } from "lucide-react"
-import { FormSheet, SheetField, SheetFieldRow, SheetSection } from "./form-sheet"
-import { Input } from "~/components/ui/input"
-import { Textarea } from "~/components/ui/textarea"
-import { SelectNative } from "~/components/ui/select-native"
+import React from 'react'
+import { router, usePage } from '@inertiajs/react'
+import { TrendingDownIcon } from 'lucide-react'
+import { FormSheet, SheetField, SheetFieldRow, SheetSection } from './form-sheet'
+import { Input } from '~/components/ui/input'
+import { Textarea } from '~/components/ui/textarea'
+import { SelectNative } from '~/components/ui/select-native'
+import { type Data } from '@generated/data'
 
 export interface MitigationSheetProps {
   trigger: React.ReactNode
+  mitigationId?: number
   defaultValues?: Partial<MitigationFormValues>
-  onSubmit?: (values: MitigationFormValues) => void
+  risks?: Data.Risk[]
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
 }
 
 export interface MitigationFormValues {
   action: string
   description: string
-  riskRef: string
+  riskId: string
   owner: string
   dueDate: string
+  status: string
   residualLevel: string
+  residualScore: string
   linkedTaskId: string
   notes: string
 }
 
 const RESIDUAL_LEVELS = [
-  { value: "critical", label: "Crítico" },
-  { value: "high", label: "Alto" },
-  { value: "medium", label: "Medio" },
-  { value: "low", label: "Bajo" },
+  { value: 'critical', label: 'Crítico' },
+  { value: 'high', label: 'Alto' },
+  { value: 'medium', label: 'Medio' },
+  { value: 'low', label: 'Bajo' },
+]
+
+const STATUSES = [
+  { value: 'pending', label: 'Pendiente' },
+  { value: 'in-progress', label: 'En curso' },
+  { value: 'completed', label: 'Completada' },
+  { value: 'overdue', label: 'Vencida' },
 ]
 
 export function MitigationSheet({
   trigger,
+  mitigationId,
   defaultValues,
-  onSubmit,
+  risks,
+  open,
+  onOpenChange,
 }: MitigationSheetProps) {
+  const isEditMode = mitigationId !== undefined
+
+  const [internalOpen, setInternalOpen] = React.useState(false)
+  const controlledOpen = open !== undefined ? open : internalOpen
+  const handleOpenChange = (o: boolean) => {
+    setInternalOpen(o)
+    onOpenChange?.(o)
+  }
+
+  const { errors } = usePage<{ errors: Record<string, string> }>().props
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const fd = new FormData(e.currentTarget)
-    onSubmit?.({
-      action: fd.get("action") as string,
-      description: fd.get("description") as string,
-      riskRef: fd.get("riskRef") as string,
-      owner: fd.get("owner") as string,
-      dueDate: fd.get("dueDate") as string,
-      residualLevel: fd.get("residualLevel") as string,
-      linkedTaskId: fd.get("linkedTaskId") as string,
-      notes: fd.get("notes") as string,
-    })
+    const data = {
+      riskId: Number(fd.get('riskId')),
+      action: fd.get('action') as string,
+      description: fd.get('description') as string,
+      owner: fd.get('owner') as string,
+      dueDate: fd.get('dueDate') as string,
+      status: fd.get('status') as string,
+      progress: Number(fd.get('progress') || 0),
+      residualLevel: fd.get('residualLevel') as string,
+      residualScore: Number(fd.get('residualScore') || 0),
+      linkedTaskId: fd.get('linkedTaskId') as string,
+      notes: fd.get('notes') as string,
+    }
+
+    if (isEditMode) {
+      router.put(`/riesgos/mitigacion/${mitigationId}`, data, {
+        onSuccess: () => handleOpenChange(false),
+      })
+    } else {
+      router.post('/riesgos/mitigacion', data, {
+        onSuccess: () => handleOpenChange(false),
+      })
+    }
   }
 
   return (
     <FormSheet
       trigger={trigger}
-      title="Nueva Acción de Mitigación"
+      title={isEditMode ? 'Editar Acción' : 'Nueva Acción de Mitigación'}
       description="Define una acción concreta para reducir la exposición de un riesgo identificado."
-      submitLabel="Crear Acción"
+      submitLabel={isEditMode ? 'Actualizar' : 'Crear Acción'}
       icon={<TrendingDownIcon className="size-4" />}
       accentClass="bg-emerald-500"
+      open={controlledOpen}
+      onOpenChange={handleOpenChange}
       onSubmit={handleSubmit}
     >
       <SheetSection title="Acción">
@@ -70,6 +113,7 @@ export function MitigationSheet({
             defaultValue={defaultValues?.action}
             required
           />
+          {errors?.action && <p className="text-xs text-destructive mt-1">{errors.action}</p>}
         </SheetField>
 
         <SheetField label="Descripción detallada">
@@ -83,23 +127,49 @@ export function MitigationSheet({
       </SheetSection>
 
       <SheetSection title="Riesgo y Resultado Esperado">
-        <SheetField label="ID del riesgo asociado" hint="Referencia al riesgo del registro (ej. RSK-001)">
-          <Input
-            name="riskRef"
-            placeholder="RSK-001"
-            defaultValue={defaultValues?.riskRef}
-          />
+        <SheetField label="Riesgo asociado" required>
+          {risks && risks.length > 0 ? (
+            <SelectNative name="riskId" defaultValue={defaultValues?.riskId}>
+              <option value="">Seleccionar riesgo…</option>
+              {risks.map((r) => (
+                <option key={r.id} value={r.id}>
+                  {r.code} — {r.title}
+                </option>
+              ))}
+            </SelectNative>
+          ) : (
+            <Input
+              name="riskId"
+              type="number"
+              placeholder="ID del riesgo"
+              defaultValue={defaultValues?.riskId}
+              required
+            />
+          )}
+          {errors?.riskId && <p className="text-xs text-destructive mt-1">{errors.riskId}</p>}
         </SheetField>
 
-        <SheetField label="Nivel de riesgo residual esperado" required>
-          <SelectNative name="residualLevel" defaultValue={defaultValues?.residualLevel ?? "medium"}>
-            {RESIDUAL_LEVELS.map((l) => (
-              <option key={l.value} value={l.value}>
-                {l.label}
-              </option>
-            ))}
-          </SelectNative>
-        </SheetField>
+        <SheetFieldRow>
+          <SheetField label="Nivel residual esperado" required>
+            <SelectNative name="residualLevel" defaultValue={defaultValues?.residualLevel ?? 'medium'}>
+              {RESIDUAL_LEVELS.map((l) => (
+                <option key={l.value} value={l.value}>
+                  {l.label}
+                </option>
+              ))}
+            </SelectNative>
+          </SheetField>
+
+          <SheetField label="Score residual (0-25)">
+            <Input
+              name="residualScore"
+              type="number"
+              min="0"
+              max="25"
+              defaultValue={defaultValues?.residualScore ?? '0'}
+            />
+          </SheetField>
+        </SheetFieldRow>
       </SheetSection>
 
       <SheetSection title="Responsable y Plazo">
@@ -119,6 +189,28 @@ export function MitigationSheet({
               type="date"
               defaultValue={defaultValues?.dueDate}
               required
+            />
+          </SheetField>
+        </SheetFieldRow>
+
+        <SheetFieldRow>
+          <SheetField label="Estado">
+            <SelectNative name="status" defaultValue={defaultValues?.status ?? 'pending'}>
+              {STATUSES.map((s) => (
+                <option key={s.value} value={s.value}>
+                  {s.label}
+                </option>
+              ))}
+            </SelectNative>
+          </SheetField>
+
+          <SheetField label="Progreso (%)">
+            <Input
+              name="progress"
+              type="number"
+              min="0"
+              max="100"
+              defaultValue={defaultValues?.dueDate ?? '0'}
             />
           </SheetField>
         </SheetFieldRow>

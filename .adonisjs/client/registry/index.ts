@@ -132,11 +132,47 @@ const routes = {
     tokens: [{"old":"/riesgos/evaluacion","type":0,"val":"riesgos","end":""},{"old":"/riesgos/evaluacion","type":0,"val":"evaluacion","end":""}],
     types: placeholder as Registry['riesgos.evaluacion']['types'],
   },
+  'riesgos.evaluacion.store': {
+    methods: ["POST"],
+    pattern: '/riesgos/evaluacion',
+    tokens: [{"old":"/riesgos/evaluacion","type":0,"val":"riesgos","end":""},{"old":"/riesgos/evaluacion","type":0,"val":"evaluacion","end":""}],
+    types: placeholder as Registry['riesgos.evaluacion.store']['types'],
+  },
+  'riesgos.evaluacion.update': {
+    methods: ["PUT"],
+    pattern: '/riesgos/evaluacion/:id',
+    tokens: [{"old":"/riesgos/evaluacion/:id","type":0,"val":"riesgos","end":""},{"old":"/riesgos/evaluacion/:id","type":0,"val":"evaluacion","end":""},{"old":"/riesgos/evaluacion/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['riesgos.evaluacion.update']['types'],
+  },
+  'riesgos.evaluacion.destroy': {
+    methods: ["DELETE"],
+    pattern: '/riesgos/evaluacion/:id',
+    tokens: [{"old":"/riesgos/evaluacion/:id","type":0,"val":"riesgos","end":""},{"old":"/riesgos/evaluacion/:id","type":0,"val":"evaluacion","end":""},{"old":"/riesgos/evaluacion/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['riesgos.evaluacion.destroy']['types'],
+  },
   'riesgos.mitigacion': {
     methods: ["GET","HEAD"],
     pattern: '/riesgos/mitigacion',
     tokens: [{"old":"/riesgos/mitigacion","type":0,"val":"riesgos","end":""},{"old":"/riesgos/mitigacion","type":0,"val":"mitigacion","end":""}],
     types: placeholder as Registry['riesgos.mitigacion']['types'],
+  },
+  'riesgos.mitigacion.store': {
+    methods: ["POST"],
+    pattern: '/riesgos/mitigacion',
+    tokens: [{"old":"/riesgos/mitigacion","type":0,"val":"riesgos","end":""},{"old":"/riesgos/mitigacion","type":0,"val":"mitigacion","end":""}],
+    types: placeholder as Registry['riesgos.mitigacion.store']['types'],
+  },
+  'riesgos.mitigacion.update': {
+    methods: ["PUT"],
+    pattern: '/riesgos/mitigacion/:id',
+    tokens: [{"old":"/riesgos/mitigacion/:id","type":0,"val":"riesgos","end":""},{"old":"/riesgos/mitigacion/:id","type":0,"val":"mitigacion","end":""},{"old":"/riesgos/mitigacion/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['riesgos.mitigacion.update']['types'],
+  },
+  'riesgos.mitigacion.destroy': {
+    methods: ["DELETE"],
+    pattern: '/riesgos/mitigacion/:id',
+    tokens: [{"old":"/riesgos/mitigacion/:id","type":0,"val":"riesgos","end":""},{"old":"/riesgos/mitigacion/:id","type":0,"val":"mitigacion","end":""},{"old":"/riesgos/mitigacion/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['riesgos.mitigacion.destroy']['types'],
   },
   'auditorias': {
     methods: ["GET","HEAD"],

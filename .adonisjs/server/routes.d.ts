@@ -25,7 +25,13 @@ export type ScannedRoutes = {
     'riesgos.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'riesgos.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'riesgos.evaluacion': { paramsTuple?: []; params?: {} }
+    'riesgos.evaluacion.store': { paramsTuple?: []; params?: {} }
+    'riesgos.evaluacion.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'riesgos.evaluacion.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'riesgos.mitigacion': { paramsTuple?: []; params?: {} }
+    'riesgos.mitigacion.store': { paramsTuple?: []; params?: {} }
+    'riesgos.mitigacion.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'riesgos.mitigacion.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'auditorias': { paramsTuple?: []; params?: {} }
     'auditorias.plan': { paramsTuple?: []; params?: {} }
     'auditorias.hallazgos': { paramsTuple?: []; params?: {} }
@@ -136,6 +142,8 @@ export type ScannedRoutes = {
     'normas-controles.mapeo.toggle': { paramsTuple?: []; params?: {} }
     'normas-controles.catalogo.store': { paramsTuple?: []; params?: {} }
     'riesgos.store': { paramsTuple?: []; params?: {} }
+    'riesgos.evaluacion.store': { paramsTuple?: []; params?: {} }
+    'riesgos.mitigacion.store': { paramsTuple?: []; params?: {} }
     'new_account.store': { paramsTuple?: []; params?: {} }
     'session.store': { paramsTuple?: []; params?: {} }
     'session.destroy': { paramsTuple?: []; params?: {} }
@@ -144,12 +152,16 @@ export type ScannedRoutes = {
     'normas-controles.biblioteca.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'normas-controles.catalogo.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'riesgos.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'riesgos.evaluacion.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'riesgos.mitigacion.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'administracion.usuarios-roles.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   DELETE: {
     'normas-controles.biblioteca.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'normas-controles.catalogo.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'riesgos.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'riesgos.evaluacion.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'riesgos.mitigacion.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
 }
 declare module '@adonisjs/core/types/http' {

@@ -30,6 +30,12 @@ export default class MainSeeder extends BaseSeeder {
     const { default: MappingSeeder } = await import('./mapping_seeder.js')
     await new MappingSeeder(this.client).run()
 
+    const { default: RiskEvaluationSeeder } = await import('./risk_evaluation_seeder.js')
+    await new RiskEvaluationSeeder(this.client).run()
+
+    const { default: MitigationActionSeeder } = await import('./mitigation_action_seeder.js')
+    await new MitigationActionSeeder(this.client).run()
+
     /**
      * UserSeeder contains sample data and must only run in non-production
      * environments.
